@@ -11,5 +11,4 @@ import Foundation
 struct Secrets {
 
     static let key = "a020b0adff5d6543885da517cfd4ebf4"
-
 }
