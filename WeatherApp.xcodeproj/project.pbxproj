@@ -14,7 +14,6 @@
 		DE559ED61DAB28F500E17299 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE559ED41DAB28F500E17299 /* LaunchScreen.storyboard */; };
 		DE559EE01DAB2BBE00E17299 /* DarkSkyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE559EDF1DAB2BBD00E17299 /* DarkSkyAPIClient.swift */; };
 		DE559EE21DAB2BDE00E17299 /* SkyDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE559EE11DAB2BDE00E17299 /* SkyDataStore.swift */; };
-		DE559EE41DAB309700E17299 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE559EE31DAB309700E17299 /* Secrets.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +26,6 @@
 		DE559ED71DAB28F500E17299 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE559EDF1DAB2BBD00E17299 /* DarkSkyAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkSkyAPIClient.swift; sourceTree = "<group>"; };
 		DE559EE11DAB2BDE00E17299 /* SkyDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyDataStore.swift; sourceTree = "<group>"; };
-		DE559EE31DAB309700E17299 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +58,6 @@
 		DE559ECA1DAB28F500E17299 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
-				DE559EE31DAB309700E17299 /* Secrets.swift */,
 				DE559EDF1DAB2BBD00E17299 /* DarkSkyAPIClient.swift */,
 				DE559EE11DAB2BDE00E17299 /* SkyDataStore.swift */,
 				DE559ECB1DAB28F500E17299 /* AppDelegate.swift */,
@@ -145,7 +142,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE559ECE1DAB28F500E17299 /* ViewController.swift in Sources */,
-				DE559EE41DAB309700E17299 /* Secrets.swift in Sources */,
 				DE559EE21DAB2BDE00E17299 /* SkyDataStore.swift in Sources */,
 				DE559ECC1DAB28F500E17299 /* AppDelegate.swift in Sources */,
 				DE559EE01DAB2BBE00E17299 /* DarkSkyAPIClient.swift in Sources */,
