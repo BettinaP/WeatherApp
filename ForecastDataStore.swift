@@ -17,13 +17,13 @@ class ForecastDataStore {
         
         DarkSkyAPIClient.getForecast(searchedLatitude, longitude: searchedLongitude) { (forecastDictionary) in
           
-            for dictionary in forecastDictionary {
-            
-                if let result = dictionary as? NSDictionary {
-                    
-                    let forecast = LocationWeather(weatherDictionary: result)
-                }
-            }
+//            for dictionary in forecastDictionary {
+//            
+//                if let result = dictionary as Dictionary<String, AnyObject> {
+//                    
+//                    let forecast = LocationWeather(weatherDictionary: result)
+//                }
+//            }
             
            completion(true)
         }
