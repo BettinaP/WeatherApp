@@ -65,9 +65,9 @@
 			children = (
 				DE559EE91DAC508D00E17299 /* ForecastDataStore.swift */,
 				DE559EDF1DAB2BBD00E17299 /* DarkSkyAPIClient.swift */,
+				DE559EE71DAC137F00E17299 /* LocationWeather.swift */,
 				DE559ECB1DAB28F500E17299 /* AppDelegate.swift */,
 				DE559ECD1DAB28F500E17299 /* ViewController.swift */,
-				DE559EE71DAC137F00E17299 /* LocationWeather.swift */,
 				DE559ECF1DAB28F500E17299 /* Main.storyboard */,
 				DE559ED21DAB28F500E17299 /* Assets.xcassets */,
 				DE559ED41DAB28F500E17299 /* LaunchScreen.storyboard */,
@@ -304,6 +304,7 @@
 				DE559EDC1DAB28F500E17299 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

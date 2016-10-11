@@ -11,7 +11,7 @@ import Foundation
 
 class LocationWeather {
     
-    //Location's overall basic dictionary based of provided latitude, longitude
+    //Location's overall weather dictionary based of provided latitude, longitude
     var latitude: Double
     var longitude: Double
     var timezone: String
@@ -25,43 +25,44 @@ class LocationWeather {
     // details in nested dictionary
     
     var icon = String()
+    var datapointIcon = String()
     var time = Int()
     var overallSummary = String ()
     var datapointSummary = String ()
     var data = [[String : AnyObject]]()
-    var nearestStormDistance : Int
-    var precipIntensity : Double
-    var precipProbability : Int
-    var precipType : String
-    var temperature: String
-    var temperatureMin: Double
-    var temperatureMax: Double
-    var apparentTemperature: Double
-    var apparentTemperatureMin: Double
-    var apparentTemperatureMax: Double
-    var dewPoint: Double
-    var humidity: Double
-    var windSpeed: Double
-    var visibility: Double
-    var cloudCover: Double
-    var pressure: Double
-    var ozone: Double
-    var sunriseTime: Int
-    var sunsetTime : Int
-    var moonPhase : Double
+    var nearestStormDistance = Int()
+    var precipIntensity = Double()
+    var precipProbability = Int()
+    var precipType = String()
+    var temperature = Double()
+    var temperatureMin = Double()
+    var temperatureMax = Double()
+    var apparentTemperature = Double()
+    var apparentTemperatureMin = Double()
+    var apparentTemperatureMax = Double()
+    var dewPoint = Double()
+    var humidity = Double()
+    var windSpeed = Double()
+    var visibility = Double()
+    var cloudCover = Double()
+    var pressure = Double ()
+    var ozone = Double()
+    var sunriseTime = Int()
+    var sunsetTime = Int()
+    var moonPhase = Double()
     
-    init?(basicDictionary: NSDictionary) {
+    init?(weatherDictionary: NSDictionary) {
         
         guard let
-            locLatitude = basicDictionary["latitude"] as? Double,
-            locLongitude = basicDictionary["longitude"] as? Double,
-            locTimeZone = basicDictionary["timezone"] as? String,
-            locCurrently = basicDictionary["currently"] as? [String : AnyObject],
-            locMinutely = basicDictionary["minutely"] as? [String : AnyObject],
-            locHourly = basicDictionary["hourly"] as? [String : AnyObject],
-            locDaily = basicDictionary["daily"] as? [String : AnyObject],
-            locAlerts = basicDictionary["alerts"] as? [[String : AnyObject]],
-            locFlags = basicDictionary["flags"] as? [String : AnyObject]
+            locLatitude = weatherDictionary["latitude"] as? Double,
+            locLongitude = weatherDictionary["longitude"] as? Double,
+            locTimeZone = weatherDictionary["timezone"] as? String,
+            locCurrently = weatherDictionary["currently"] as? [String : AnyObject],
+            locMinutely = weatherDictionary["minutely"] as? [String : AnyObject],
+            locHourly = weatherDictionary["hourly"] as? [String : AnyObject],
+            locDaily = weatherDictionary["daily"] as? [String : AnyObject],
+            locAlerts = weatherDictionary["alerts"] as? [[String : AnyObject]],
+            locFlags = weatherDictionary["flags"] as? [String : AnyObject]
             
             else {return nil}
         
@@ -80,86 +81,330 @@ class LocationWeather {
     
     //to access and update currently dictionary, hourly dictionary, daily dictionary
     
-    func updateForecastDetails(forecastDictionary: NSDictionary){
+    func updateForecastDetails(forecastDictionary: NSDictionary) {
         
         for forecastKey in (forecastDictionary.allKeys as! [String]) {
             
-            if let dictionary = forecastDictionary[forecastKey] {
+            guard let dictionary = forecastDictionary[forecastKey] else {return}
             
             if forecastKey == "currently" {
                 
-                self.icon = dictionary["icon"] as? String ?? nil
-                self.time = dictionary["time"] as? Int ?? nil
-                self.summary = dictionary["summary"] as? String ?? nil
-                self.precipIntensity = dictionary["precipIntensity"]as? Double ?? nil
-                self.precipProbability = dictionary["precipProbability"] as? Int ?? nil
-                self.temperature = dictionary["temperature"] as? String ?? nil
-                self.apparentTemperature = dictionary["apparentTemperature"] as? Double ?? nil
-                self.dewPoint = dictionary["dewPoint"] as? Double ?? nil
-                self.humidity = dictionary["humidity"] as? Double ?? nil
-                self.windSpeed = dictionary["windSpeed"] as? Double ?? nil
-                self.cloudCover = dictionary["cloudCover"] as? Double ?? nil
-                self.pressure = dictionary["pressure"] as? Double ?? nil
-                self.ozone = dictionary["ozone"] as? Double ?? nil
+                if let  unwrappedIcon =  dictionary["icon"] as? String {
+                    self.icon = unwrappedIcon
+                } //dictionary["icon"] as? String ?? nil
+                
+                if let unwrappedTime = dictionary["time"] as? Int {
+                    
+                    self.time = unwrappedTime
+                }
+                
+                if let unwrappedSummary = dictionary["summary"] as? String {
+                    
+                    self.datapointSummary = unwrappedSummary
+                }
+                
+                if let unwrappedPrecipInt = dictionary["precipIntensity"]as? Double {
+                    
+                    self.precipIntensity = unwrappedPrecipInt
+                    
+                }
+                
+                if let unwrappedPrecipProb = dictionary["precipProbability"] as? Int {
+                    
+                    self.precipProbability = unwrappedPrecipProb
+                }
+                
+                if let unwrappedTemperature = dictionary["temperature"] as? Double {
+                    self.temperature = unwrappedTemperature
+                    
+                }
+                
+                if let unwrappedApparentTemp = dictionary["apparentTemperature"] as? Double {
+                    
+                    self.apparentTemperature = unwrappedApparentTemp
+                }
+                
+                if let unwrappedDewPoint = dictionary["dewPoint"] as? Double {
+                    self.dewPoint = unwrappedDewPoint
+                }
+                
+                if let unwrappedHumidity = dictionary["humidity"] as? Double {
+                    
+                    self.humidity = unwrappedHumidity
+                }
+                
+                if let  unwrappedWindSpeed = dictionary["windSpeed"] as? Double {
+                    self.windSpeed = unwrappedWindSpeed
+                }
+                
+                if let unwrappedCloudCover = dictionary["cloudCover"] as? Double {
+                    self.cloudCover = unwrappedCloudCover
+                }
+                
+                if let unwrappedPressure = dictionary["pressure"] as? Double {
+                    
+                    self.pressure = unwrappedPressure
+                    
+                }
+                
+                if let unwrappedOzone = dictionary["ozone"] as? Double {
+                    
+                    self.ozone = unwrappedOzone
+                }
+                
                 
             } else if forecastKey == "hourly" {
                 
-                
-                self.overallSummary = dictionary["summary"]
-                self.icon = dictionary["icon"]
-                
-                self.data = dictionary["data"] as? [[String : AnyObject]] ?? nil
-                
-                for datapoint in data {
-                    self.time = datapoint["time"]
-                    self.datapointSummary = datapoint["summary"]
+                if let unwrappedOverallSummary = dictionary["summary"] as? String {
                     
+                    self.overallSummary = unwrappedOverallSummary
+                    
+                }
+                
+                if let unwrappedIcon = dictionary["icon"] as? String {
+                    self.icon = unwrappedIcon
                     
                 }
                 
                 
+                if let unwrappedData = dictionary["data"] as? [[String : AnyObject]] {
+                    
+                    self.data = unwrappedData
+                    
+                    for datapoint in self.data {
+                        
+                        
+                        if let unwrappedTime = datapoint["time"] as? Int {
+                            
+                            self.time = unwrappedTime
+                        }
+                        
+                        if let unwrappedSummary = datapoint["summary"] as? String {
+                            
+                            self.datapointSummary = unwrappedSummary
+                        }
+                        
+                        
+                        if let unwrappedDatapointIcon = datapoint["icon"] as? String {
+                        
+                            self.datapointIcon = unwrappedDatapointIcon
+                        }
+                        
+                        if let unwrappedPrecipInt = datapoint["precipIntensity"]as? Double {
+                            
+                            self.precipIntensity = unwrappedPrecipInt
+                            
+                        }
+                        
+                        if let unwrappedPrecipProb = datapoint["precipProbability"] as? Int {
+                            
+                            self.precipProbability = unwrappedPrecipProb
+                        }
+                        
+                        if let unwrappedTemperature = datapoint["temperature"] as? Double {
+                            self.temperature = unwrappedTemperature
+                            
+                        }
+                        
+                        if let unwrappedApparentTemp = datapoint["apparentTemperature"] as? Double {
+                            
+                            self.apparentTemperature = unwrappedApparentTemp
+                        }
+                        
+                        if let unwrappedDewPoint = datapoint["dewPoint"] as? Double {
+                            self.dewPoint = unwrappedDewPoint
+                        }
+                        
+                        if let unwrappedHumidity = datapoint["humidity"] as? Double {
+                            
+                            self.humidity = unwrappedHumidity
+                        }
+                        
+                        if let  unwrappedWindSpeed = datapoint["windSpeed"] as? Double {
+                            self.windSpeed = unwrappedWindSpeed
+                        }
+                        
+                        if let unwrappedCloudCover = datapoint["cloudCover"] as? Double {
+                            self.cloudCover = unwrappedCloudCover
+                        }
+                        
+                        if let unwrappedPressure = datapoint["pressure"] as? Double {
+                            
+                            self.pressure = unwrappedPressure
+                            
+                        }
+                        
+                        if let unwrappedOzone = datapoint["ozone"] as? Double {
+                            
+                            self.ozone = unwrappedOzone
+                        }
+                        
+
+                    }
+                    
+                }
+                
             } else if forecastKey == "daily" {
                 
+                if let unwrappedOverallSummary = dictionary["summary"] as? String {
+                    
+                    self.overallSummary = unwrappedOverallSummary
+                    
+                }
                 
-            } else{
+                if let unwrappedIcon = dictionary["icon"] as? String {
+                    self.icon = unwrappedIcon
+                    
+                }
                 
                 
-            }
-            
+                if let unwrappedData = dictionary["data"] as? [[String : AnyObject]] {
+                    
+                    self.data = unwrappedData
+                    
+                    for datapoint in self.data {
+                        
+                        
+                        if let unwrappedTime = datapoint["time"] as? Int {
+                            
+                            self.time = unwrappedTime
+                        }
+                        
+                        if let unwrappedSummary = datapoint["summary"] as? String {
+                            
+                            self.datapointSummary = unwrappedSummary
+                        }
+                        
+                        if let unwrappedDatapointIcon = datapoint["icon"] as? String {
+                            
+                            self.datapointIcon = unwrappedDatapointIcon
+                        }
+                        
+                        
+                        if let unwrappedSunriseTime = datapoint["sunriseTime"] as? Int {
+                        
+                            self.sunriseTime = unwrappedSunriseTime
+                        }
+                        
+                        
+                        if let unwrappedSunsetTime = datapoint["sunsetTime"] as? Int {
+                        
+                            self.sunsetTime = unwrappedSunsetTime
+                        }
+                        
+                        if let unwrappedMoonPhase = datapoint["moonPhase"] as? Double {
+                            
+                            self.moonPhase = unwrappedMoonPhase
+                        
+                        }
+                        
+                        if let unwrappedPrecipInt = datapoint["precipIntensity"]as? Double {
+                            
+                            self.precipIntensity = unwrappedPrecipInt
+                            
+                        }
+                        
+                        //precipIntensityMax maybe needed
+                        
+                        if let unwrappedPrecipProb = datapoint["precipProbability"] as? Int {
+                            
+                            self.precipProbability = unwrappedPrecipProb
+                        }
+                        
+                        if let unwrappedTempMin = datapoint["temperatureMin"] as? Double {
+                        
+                            self.temperatureMin = unwrappedTempMin
+                        }
+                        
+                        
+                        if let unwrappedTempMax = datapoint["temperatureMax"] as? Double {
+                            
+                            self.temperatureMax = unwrappedTempMax
+                        }
+                        
+                        
+                        if let unwrappedApparentTempMin = datapoint["apparentTemperatureMin"] as? Double {
+                            
+                            self.apparentTemperatureMin = unwrappedApparentTempMin
+                        }
+                        
+                        
+                        if let unwrappedApparentTempMax = datapoint["apparentTemperatureMax"] as? Double {
+                            
+                            self.apparentTemperatureMax = unwrappedApparentTempMax
+                        }
+                        
+                        if let unwrappedDewPoint = datapoint["dewPoint"] as? Double {
+                            self.dewPoint = unwrappedDewPoint
+                        }
+                        
+                        if let unwrappedHumidity = datapoint["humidity"] as? Double {
+                            
+                            self.humidity = unwrappedHumidity
+                        }
+                        
+                        if let  unwrappedWindSpeed = datapoint["windSpeed"] as? Double {
+                            self.windSpeed = unwrappedWindSpeed
+                        }
+                        // appMaxTempTime & appTempMinTime may be needed
+                        // maybe windBearing needed
+                        
+                        if let unwrappedCloudCover = datapoint["cloudCover"] as? Double {
+                            self.cloudCover = unwrappedCloudCover
+                        }
+                        
+                        if let unwrappedPressure = datapoint["pressure"] as? Double {
+                            
+                            self.pressure = unwrappedPressure
+                            
+                        }
+                        
+                        if let unwrappedOzone = datapoint["ozone"] as? Double {
+                            
+                            self.ozone = unwrappedOzone
+                        }
+                        
+                    }
+                    
+                }
+                
+                
             }
             
         }
         
-        var icon : String
-        var time : Int
-        var summary : String
-        var data : [[String : AnyObject]]
-        var nearestStormDistance : Int
-        var precipIntensity : Double
-        var precipProbability : Int
-        var precipType : String
-        var temperature: String
-        var temperatureMin: Double
-        var temperatureMax: Double
-        var apparentTemperature: Double
-        var apparentTemperatureMin: Double
-        var apparentTemperatureMax: Double
-        var dewPoint: Double
-        var humidity: Double
-        var windSpeed: Double
-        var visibility: Double
-        var cloudCover: Double
-        var pressure: Double
-        var ozone: Double
-        var sunriseTime: Int
-        var sunsetTime : Int
-        var moonPhase : Double
-        
-        
-        
-        
-        
     }
+    //
+    //        var icon : String
+    //        var time : Int
+    //        var summary : String
+    //        var data : [[String : AnyObject]]
+    //        var nearestStormDistance : Int
+    //        var precipIntensity : Double
+    //        var precipProbability : Int
+    //        var precipType : String
+    //        var temperature: String
+    //        var temperatureMin: Double
+    //        var temperatureMax: Double
+    //        var apparentTemperature: Double
+    //        var apparentTemperatureMin: Double
+    //        var apparentTemperatureMax: Double
+    //        var dewPoint: Double
+    //        var humidity: Double
+    //        var windSpeed: Double
+    //        var visibility: Double
+    //        var cloudCover: Double
+    //        var pressure: Double
+    //        var ozone: Double
+    //        var sunriseTime: Int
+    //        var sunsetTime : Int
+    //        var moonPhase : Double
+    //
+    
+    
+    
+    
+    
     
     //alerts dictionary--do i initialize keys here as well or later if need be "title", "time", "expires", "description", "uri"
     
