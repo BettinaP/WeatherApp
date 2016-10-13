@@ -10,21 +10,23 @@ import Foundation
 
 class ForecastDataStore {
 
+    var todayResults: [LocationWeather] = []
+    var hourlyResults: [LocationWeather] = []
+    var dailyResults: [[String : [String]]] = []
+    
     static let sharedInstance = ForecastDataStore()
     private init() {}
     
     func getForecastResultsWithCompletion(searchedLatitude: Double, searchedLongitude: Double, completion: (Bool) ->()) {
         
         DarkSkyAPIClient.getForecast(searchedLatitude, longitude: searchedLongitude) { (forecastDictionary) in
-          
-//            for dictionary in forecastDictionary {
-//            
-//                if let result = dictionary as Dictionary<String, AnyObject> {
-//                    
-//                    let forecast = LocationWeather(weatherDictionary: result)
-//                }
-//            }
+           
+            let day = [forecastDictionary.dailyTime : [forecastDictionary.dailyIcon, forecastDictionary.dailyTempMax, forecastDictionary.dailyTempMin]]
+            self.dailyResults.append(day)
             
+            // need hourly data :time, icon, temp as an array?
+            // need daily data: day, icon, maxtemp , min temp as array?
+          
            completion(true)
         }
     
