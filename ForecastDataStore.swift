@@ -38,7 +38,7 @@ class ForecastDataStore {
              self.currentApparentTemp = forecast.apparentTemp
              self.currentPrecipProbability = forecast.precipProbability
             
-//            
+            print("hourly results array in store: \(self.hourlyResults.count)")
 //            print("datastore, daily results array: \(self.dailyResults)")
 //            print("datastore, todays results:\()")
             completion(true)

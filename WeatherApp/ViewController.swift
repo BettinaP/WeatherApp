@@ -12,7 +12,7 @@ import SwiftyJSON
 import Alamofire
 
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , UICollectionViewDelegate, UICollectionViewDataSource, UII {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , UICollectionViewDelegate, UICollectionViewDataSource {
     //add searchBar for location
     
     @IBOutlet weak var cityName: UILabel!
@@ -20,18 +20,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var dailyTableView: UITableView!
     @IBOutlet weak var currentTempLabel: UILabel!
     
-    
-    //    var temperatures : [Double] = []
+    @IBOutlet weak var hourlyCollectionView: UICollectionView!
+    @IBOutlet weak var todayLabel: UILabel!
+    @IBOutlet weak var todayMaxLabel: UILabel!
+    @IBOutlet weak var todayMinLabel: UILabel!
     
     var dailyResultsWithoutToday: [DailyWeather] = []
     var store = ForecastDataStore.sharedInstance
     
+    
+    
+    //figure out how separate or not include today's info (1st in daily array)  from  daily table and display outside of table 
+    //add search bar for location, then calculate timezone to show appropriate weather by time
+    //have background be a cool image? look for an api
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         dailyTableView.delegate = self
         dailyTableView.dataSource = self
+        
+        hourlyCollectionView.delegate = self
+        hourlyCollectionView.dataSource = self
+        
     
         
         //     west & south are - , east & north +
@@ -71,7 +82,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
         
    
-                
+                self.hourlyCollectionView.reloadData()
                 self.dailyTableView.reloadData()
             })
         
@@ -97,10 +108,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let day = self.store.dailyResults[indexPath.row]
         
         cell.configureDailyCell(day)
-//        print("DAY in vc cell for row: \(day)")
+        
         return cell
     }
     
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return store.hourlyResults.count
+    }
+    
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        let hourlyCell = hourlyCollectionView.dequeueReusableCellWithReuseIdentifier("hourlyDetailsCell", forIndexPath: indexPath) as! HourlyCollectionViewCell
+        
+        let hour = self.store.hourlyResults[indexPath.item]
+        print("hourly in VC cell for item: \(self.store.hourlyResults.count)")
+        hourlyCell.configureHourlyCell(hour)
+        print("HOUR in vc collection cell for row: \(hour)")
+        
+        return hourlyCell
+        
+    }
     
     
     override func didReceiveMemoryWarning() {

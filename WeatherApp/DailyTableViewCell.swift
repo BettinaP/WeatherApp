@@ -39,9 +39,8 @@ class DailyTableViewCell: UITableViewCell {
         }
     
         let date = NSDate(timeIntervalSince1970: dailyForecast.dailyTime)
-        print(date)
         let dayOfWeek = getDayNameBy(date)
-        print(dayOfWeek)
+
         self.weekDayLabel.text = String(dayOfWeek)
         self.maxTempLabel.text = String(dailyForecast.dailyTempMax)
         self.minTempLabel.text = String(dailyForecast.dailyTempMin)
