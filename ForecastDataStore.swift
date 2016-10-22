@@ -12,6 +12,9 @@ class ForecastDataStore {
  
     var hourlyResults: [HourlyWeather] = []
     var dailyResults: [DailyWeather] = []
+//    var today: [DailyWeather] = []
+    var todaysDate = NSDate()
+//    var comparisonDate = NSDate ()
     var currentSummary = String()
     var currentIcon = String()
     var currentTime = Double()
@@ -37,21 +40,23 @@ class ForecastDataStore {
              self.currentTemperature = forecast.temperature
              self.currentApparentTemp = forecast.apparentTemp
              self.currentPrecipProbability = forecast.precipProbability
+//             self.today = forecast.todayDetails
             
-            print("hourly results array in store: \(self.hourlyResults.count)")
+             self.todaysDate = forecast.today
+            
+//             self.comparisonDate = forecast.convertedDailyDate
+           
+            print("TODAYS_DATE = forecast.today \(self.todaysDate)")
+//            print("COMPARISON_DATE = forecast.convertedDate : \(self.comparisonDate)")
+            print("forecast today details: \(forecast.todayDetails)")
+//            print("TODAY as todayDetails from forecast: \(self.today)")
+//            print("DAILYWEATHER.DAILYTIME: \(forecast.convertedDailyDate)")
+            print("DAILY TIME: \(self.dailyResults[0].dailyTime)")
+            
+
 //            print("datastore, daily results array: \(self.dailyResults)")
 //            print("datastore, todays results:\()")
             completion(true)
-            
-                        
-            
-//            for dailyData in forecast.dailyDataArray {
-//                let day = LocationWeather(currentWeather: dailyData)
-//                
-//                self.dailyResults.append(day)
-//                print("in store, printing dailyRESULTS: \(self.dailyResults.count)")
-//                print("in store, printing dailyRESULTS: \(self.dailyResults)")
-//            }
             
             
 //            let dailyJSONArray = forecastJSON["daily"]
@@ -69,11 +74,7 @@ class ForecastDataStore {
 //                
 //                print("daily results count in store: \(self.dailyResults.count)")
 //            }
-//
-            
-//            let day = [forecastDictionary.dailyTime : [forecastDictionary.dailyIcon, forecastDictionary.dailyTempMax, forecastDictionary.dailyTempMin]]
-//            self.dailyResults.append(day)
-//            
+           
             // need hourly data :time, icon, temp as an array?
             // need daily data: day, icon, maxtemp , min temp as array?
             

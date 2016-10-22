@@ -12,7 +12,7 @@ import SwiftyJSON
 import Alamofire
 
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , UICollectionViewDelegate, UICollectionViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , UICollectionViewDelegate, UICollectionViewDataSource  {
     //add searchBar for location
     
     @IBOutlet weak var cityName: UILabel!
@@ -21,75 +21,139 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var currentTempLabel: UILabel!
     
     @IBOutlet weak var hourlyCollectionView: UICollectionView!
-    @IBOutlet weak var todayLabel: UILabel!
     @IBOutlet weak var todayMaxLabel: UILabel!
     @IBOutlet weak var todayMinLabel: UILabel!
+    @IBOutlet weak var dayLabel: UILabel!
     
     var dailyResultsWithoutToday: [DailyWeather] = []
     var store = ForecastDataStore.sharedInstance
+    let searchBar = UISearchBar()
+//    var searchController: UISearchController!
+//    
+//    let locationManager = CLLocationManager()
+//    let geocoder = CLGeocoder()
+  //   var latitude = Double()
+    // var longitude = Double()
     
-    
-    
-    //figure out how separate or not include today's info (1st in daily array)  from  daily table and display outside of table 
+    //figure out how separate or not include today's info (1st in daily array)  from  daily table and display outside of table
     //add search bar for location, then calculate timezone to show appropriate weather by time
     //have background be a cool image? look for an api
+    //fix current temp and icon and city constraints
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
+        
         dailyTableView.delegate = self
         dailyTableView.dataSource = self
+        
         
         hourlyCollectionView.delegate = self
         hourlyCollectionView.dataSource = self
         
-    
         
+    
         //     west & south are - , east & north +
         //     New York  google:  40.7128° N, 74.0059° W // according to forecast.io 40.7142,-74.0064
         //     LA  google:34.0522° N, 118.2437° W  darkSky: 47.20296790272209, -123.41670367098749
         
         //Montreal 45.5017° N, 73.5673° W, -73.5673
         //paris 48.8566° N, 2.3522° E
+        //
+        //        let latitude = 40.7142
+        //        let longitude = -74.0064
+        //
         
-        let latitude = 40.7142
-        let longitude = -74.0064
         
-        
-        
-        store.getForecastResultsWithCompletion(latitude, searchedLongitude: longitude) { (success) in
-
+        store.getForecastResultsWithCompletion(SavedLocationsTableViewController.latitude, searchedLongitude: SavedLocationsTableViewController.longitude) { (success) in
+            
             NSOperationQueue.mainQueue().addOperationWithBlock({
                 
                 self.cityName.text = self.store.currentTimezone
                 
-//                if self.store.currentTimezone.containsString("America/"){
+                //                if self.store.currentTimezone.containsString("America/"){
                 self.currentTempLabel.text = "\(self.store.currentTemperature)°"
-//                    
-//                    print("in fahrenheit: \(self.currentTempLabel.text)")
-//                
-//                } else {                   
-//                    let celsiusTemp = (self.store.currentTemperature - 32) * (5/9)
-//                    self.currentTempLabel.text = "\(celsiusTemp)°"
-//                    print("in celsius: \(self.currentTempLabel.text)")
-//                }
-
+                //
+                //                    print("in fahrenheit: \(self.currentTempLabel.text)")
+                //
+                //                } else {
+                //                    let celsiusTemp = (self.store.currentTemperature - 32) * (5/9)
+                //                    self.currentTempLabel.text = "\(celsiusTemp)°"
+                //                    print("in celsius: \(self.currentTempLabel.text)")
+                //                }
+                let today = self.store.dailyResults[0].dailyTime
+                self.dayLabel.text = "\(self.store.todaysDate)"
                 
                 self.currentlyImageView.image = UIImage(named: self.store.currentIcon)
+                
                 if self.store.currentIcon == "clear-day"{
                     
                     self.currentlyImageView.tintColor = UIColor.yellowColor()
                 }
-        
-   
+                
+                
                 self.hourlyCollectionView.reloadData()
                 self.dailyTableView.reloadData()
             })
-        
+            
         }
         
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    
+    
+//    func showResults() {
+//        
+//        
+//    }
+    
+    //     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+    //     showSearchResults = true
+    //     searchResults.reloadData()
+    //     }
+    //
+    //     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    //     showSearchResults = false
+    //     searchResults.reloadData()
+    //     }
+    //
+    
+//    
+//    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+////        if !shouldShowSearchResults = true {
+////            shouldShowSearchResults = true
+////            searchResults.reloadData()
+////            
+//            geocoder.geocodeAddressString(searchBar.text!) { (placemarks, error) in
+//                
+//                guard let unwrappedPlacemarks = placemarks else {return}
+//                
+//                if error == nil {
+//                    
+//                    print(error)
+//                    
+//                } else {
+//                    
+//                    for placemark in unwrappedPlacemarks {
+//                        
+//                        self.latitude = (placemark.location?.coordinate.latitude)!
+//                        self.longitude = (placemark.location?.coordinate.longitude)!
+//                        
+//                        print("PLACEMARK LATITUDE IN CLOSURE from SearchBarSearchClicked:\(self.latitude)")
+//                    }
+//                }
+//            }
+//            
+////        }
+//        
+//        searchController.searchBar.resignFirstResponder()
+//        
+//    }
+//    
+    
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

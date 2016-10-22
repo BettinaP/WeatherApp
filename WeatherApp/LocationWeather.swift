@@ -10,14 +10,6 @@ import Foundation
 import SwiftyJSON
 import Alamofire
 
-
-
-//struct JohannObject{
-//    var hourlyTime: String
-//    var hourlyIcon: String
-//    var hourlyTemp: String
-//}
-
 struct DailyWeather {
     
     var dailyIcon: String
@@ -26,8 +18,8 @@ struct DailyWeather {
     var dailyTime: Double
     var dailyTempMin: Int
     var dailyTempMax: Int
-
-
+    
+    
 }
 
 struct HourlyWeather {
@@ -35,8 +27,8 @@ struct HourlyWeather {
     var hourlyIcon = String()
     var hourlyTime = Double()
     var hourlyTemp = Int()
-
-
+    
+    
 }
 
 
@@ -54,7 +46,11 @@ class LocationWeather {
     
     var dailyWeatherArray = [DailyWeather]()
     var hourlyWeatherArray = [HourlyWeather]()
-  
+    
+    var todayDetails = [DailyWeather]()
+    var today = NSDate()
+    var convertedDailyDate = NSDate()
+    
     
     init(currentWeather: JSON){
         
@@ -67,8 +63,8 @@ class LocationWeather {
         self.apparentTemp = currentWeather["currently"]["apparentTemperature"].intValue
         self.precipProbability = currentWeather["currently"]["precipProbability"].stringValue
         
-        hourlyDataArray = currentWeather["hourly"]["data"].arrayValue
         
+        hourlyDataArray = currentWeather["hourly"]["data"].arrayValue
         for hourlyData in hourlyDataArray {
             let hourlyTime = hourlyData["time"].doubleValue
             let hourlyIcon = hourlyData["icon"].stringValue
@@ -78,15 +74,10 @@ class LocationWeather {
             let hourlyWeather = HourlyWeather(hourlyIcon: hourlyIcon, hourlyTime: hourlyTime, hourlyTemp: hourlyTemp)
             
             self.hourlyWeatherArray.append(hourlyWeather)
-            
-//            self.hourlyTime = hourlyData["time"].stringValue 
-//            self.hourlyIcon = hourlyData["icon"].stringValue
-//            self.hourlyTemp = hourlyData["temperature"].stringValue
         }
         
         
         dailyDataArray = currentWeather["daily"]["data"].arrayValue
-        
         for dailyData in dailyDataArray {
             
             let sunriseTime = dailyData["sunriseTime"].doubleValue
@@ -100,49 +91,50 @@ class LocationWeather {
             
             
             //trying to figure out how to exclude today's date from the weekday array since updates of current day will be displayed hourly
-            let today = NSDate()
+          
+            self.dailyWeatherArray.append(dailyWeather)
             
-            if today == dailyWeather.dailyTime {
-                
-                let todaysDetails = dailyWeather
-                print(todaysDetails)
-                print("TODAY: \(today)")
-                print("DAILYWEATHER.DAILYTIME: \(dailyWeather.dailyTime)")
-                print("DAILY TIME: \(dailyTime)")
-                
-            } else {
+            if today == NSDate(timeIntervalSince1970:dailyWeatherArray[0].dailyTime) {
             
-                self.dailyWeatherArray.append(dailyWeather)
-            
+                self.dailyWeatherArray.removeAtIndex(0)
+//                self.dailyWeatherArray.removeFirst()
             }
+            
+//            convertedDailyDate = NSDate(timeIntervalSince1970: dailyWeather.dailyTime)
+            //
+            //            if today == convertedDailyDate {
+            //
+            //                let todaysDetails = dailyWeather
+            //                print(todaysDetails)
+            //                print("TODAY: \(today)")
+            //                print("DAILYWEATHER.DAILYTIME: \(convertedDailyDate)")
+            //                print("DAILY TIME: \(dailyTime)")
+            //
+            //            } else {
+            //
+            //                self.dailyWeatherArray.append(dailyWeather)
+            //
+            //            }
+            
+//            if today != convertedDailyDate {
+//                
+//                self.dailyWeatherArray.append(dailyWeather)
+//                
+//            } else {
+//                
+//                let todayAsCurrentDay = dailyWeather
+//                
+//                self.todayDetails.append(todayAsCurrentDay)
+//                print(todayDetails)
+//                print("TODAY: \(today)")
+//                print("DAILYWEATHER.DAILYTIME: \(convertedDailyDate)")
+//                print("DAILY TIME: \(dailyTime)")
+//                
+//                
+//            }
         }
     }
 }
-
-
-
-
-
-//
-//dailyDataArray = currentWeather["daily"]["data"].arrayValue
-//
-//for dailyData in dailyDataArray {
-//    self.sunriseTime = dailyData["sunriseTime"].stringValue //currently time is an int, casting it as string, but how will convert to time? NSDate?
-//    self.sunsetTime = dailyData["sunsetTime"].stringValue
-//    self.dailyTime = dailyData["time"].stringValue
-//    self.dailyIcon = dailyData["icon"].stringValue
-//    //UNIX time stamp, how to convert to a date or actual Day of week?
-//    self.dailyTempMin = dailyData["temperatureMin"].stringValue
-//    self.dailyTempMax = dailyData["temperatureMax"].stringValue
-//}
-
-
-
-
-
-
-
-
 
 
 
