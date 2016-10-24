@@ -28,6 +28,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var dailyResultsWithoutToday: [DailyWeather] = []
     var store = ForecastDataStore.sharedInstance
     let searchBar = UISearchBar()
+    let searchedLocation = SavedLocationsTableViewController()
 //    var searchController: UISearchController!
 //    
 //    let locationManager = CLLocationManager()
@@ -43,16 +44,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
-        
         dailyTableView.delegate = self
         dailyTableView.dataSource = self
         
         
         hourlyCollectionView.delegate = self
         hourlyCollectionView.dataSource = self
-        
         
     
         //     west & south are - , east & north +
@@ -67,7 +64,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //
         
         
-        store.getForecastResultsWithCompletion(SavedLocationsTableViewController.latitude, searchedLongitude: SavedLocationsTableViewController.longitude) { (success) in
+        store.getForecastResultsWithCompletion(searchedLocation.latitude, searchedLongitude: searchedLocation.longitude) { (success) in
             
             NSOperationQueue.mainQueue().addOperationWithBlock({
                 
@@ -186,10 +183,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let hourlyCell = hourlyCollectionView.dequeueReusableCellWithReuseIdentifier("hourlyDetailsCell", forIndexPath: indexPath) as! HourlyCollectionViewCell
         
-        let hour = self.store.hourlyResults[indexPath.item]
-        print("hourly in VC cell for item: \(self.store.hourlyResults.count)")
+        let hour = self.store.hourlyResults[indexPath.item] 
         hourlyCell.configureHourlyCell(hour)
-        print("HOUR in vc collection cell for row: \(hour)")
         
         return hourlyCell
         

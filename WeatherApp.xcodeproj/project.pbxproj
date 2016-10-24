@@ -20,6 +20,8 @@
 		DEA4B42A1DAF0D5C00B4DE2E /* DailyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA4B4291DAF0D5B00B4DE2E /* DailyTableViewCell.swift */; };
 		DEC1C9801DB9471100B6F5E2 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC1C97F1DB9471100B6F5E2 /* PageViewController.swift */; };
 		DEC1C9861DBACD9300B6F5E2 /* SavedLocationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC1C9851DBACD9300B6F5E2 /* SavedLocationsTableViewController.swift */; };
+		DEC1C9891DBC03E900B6F5E2 /* SavedLocationsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DEC1C9871DBC03E800B6F5E2 /* SavedLocationsModel.xcdatamodeld */; };
+		DEC1C98B1DBEA7F500B6F5E2 /* SavedLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC1C98A1DBEA7F500B6F5E2 /* SavedLocationTableViewCell.swift */; };
 		FADFD00E66A55C75E18EB175 /* Pods_WeatherApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC5E0D31EC050C01D43BFAE /* Pods_WeatherApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +44,8 @@
 		DEA4B4291DAF0D5B00B4DE2E /* DailyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyTableViewCell.swift; sourceTree = "<group>"; };
 		DEC1C97F1DB9471100B6F5E2 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		DEC1C9851DBACD9300B6F5E2 /* SavedLocationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedLocationsTableViewController.swift; sourceTree = "<group>"; };
+		DEC1C9881DBC03E900B6F5E2 /* SavedLocationsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SavedLocationsModel.xcdatamodel; sourceTree = "<group>"; };
+		DEC1C98A1DBEA7F500B6F5E2 /* SavedLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedLocationTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,21 +90,39 @@
 		DE559ECA1DAB28F500E17299 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
-				DEC1C9851DBACD9300B6F5E2 /* SavedLocationsTableViewController.swift */,
 				DE559EE91DAC508D00E17299 /* ForecastDataStore.swift */,
 				DE559EDF1DAB2BBD00E17299 /* DarkSkyAPIClient.swift */,
 				DE559EE71DAC137F00E17299 /* LocationWeather.swift */,
-				DEC1C97F1DB9471100B6F5E2 /* PageViewController.swift */,
-				DE559ECD1DAB28F500E17299 /* ViewController.swift */,
-				DEA4B4291DAF0D5B00B4DE2E /* DailyTableViewCell.swift */,
-				DE6499491DB445ED00AC9903 /* HourlyCollectionViewCell.swift */,
 				DE559ECB1DAB28F500E17299 /* AppDelegate.swift */,
 				DE559ECF1DAB28F500E17299 /* Main.storyboard */,
 				DE559ED21DAB28F500E17299 /* Assets.xcassets */,
 				DE559ED41DAB28F500E17299 /* LaunchScreen.storyboard */,
 				DE559ED71DAB28F500E17299 /* Info.plist */,
+				DEC1C98D1DBEA81000B6F5E2 /* CurrentLocation */,
+				DEC1C98C1DBEA7FE00B6F5E2 /* SavedLocation */,
 			);
 			path = WeatherApp;
+			sourceTree = "<group>";
+		};
+		DEC1C98C1DBEA7FE00B6F5E2 /* SavedLocation */ = {
+			isa = PBXGroup;
+			children = (
+				DEC1C9851DBACD9300B6F5E2 /* SavedLocationsTableViewController.swift */,
+				DEC1C98A1DBEA7F500B6F5E2 /* SavedLocationTableViewCell.swift */,
+				DEC1C9871DBC03E800B6F5E2 /* SavedLocationsModel.xcdatamodeld */,
+			);
+			name = SavedLocation;
+			sourceTree = "<group>";
+		};
+		DEC1C98D1DBEA81000B6F5E2 /* CurrentLocation */ = {
+			isa = PBXGroup;
+			children = (
+				DEC1C97F1DB9471100B6F5E2 /* PageViewController.swift */,
+				DE559ECD1DAB28F500E17299 /* ViewController.swift */,
+				DEA4B4291DAF0D5B00B4DE2E /* DailyTableViewCell.swift */,
+				DE6499491DB445ED00AC9903 /* HourlyCollectionViewCell.swift */,
+			);
+			name = CurrentLocation;
 			sourceTree = "<group>";
 		};
 		F47C93B6F55BA5D6BBD43A6D /* Pods */ = {
@@ -238,6 +260,8 @@
 				DE559ECE1DAB28F500E17299 /* ViewController.swift in Sources */,
 				DEA4B42A1DAF0D5C00B4DE2E /* DailyTableViewCell.swift in Sources */,
 				DE559EE61DAB33E900E17299 /* Secrets.swift in Sources */,
+				DEC1C98B1DBEA7F500B6F5E2 /* SavedLocationTableViewCell.swift in Sources */,
+				DEC1C9891DBC03E900B6F5E2 /* SavedLocationsModel.xcdatamodeld in Sources */,
 				DE64994A1DB445ED00AC9903 /* HourlyCollectionViewCell.swift in Sources */,
 				DE559EEA1DAC508D00E17299 /* ForecastDataStore.swift in Sources */,
 				DE559ECC1DAB28F500E17299 /* AppDelegate.swift in Sources */,
@@ -400,6 +424,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DEC1C9871DBC03E800B6F5E2 /* SavedLocationsModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DEC1C9881DBC03E900B6F5E2 /* SavedLocationsModel.xcdatamodel */,
+			);
+			currentVersion = DEC1C9881DBC03E900B6F5E2 /* SavedLocationsModel.xcdatamodel */;
+			path = SavedLocationsModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DE559EC01DAB28F500E17299 /* Project object */;
 }

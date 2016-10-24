@@ -140,15 +140,17 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     }
 
     
-    /*
+   
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("savedLocationCell", forIndexPath: indexPath) as! SavedLocationTableViewCell
+        
+        let savedCity = self.savedLocations[indexPath.row]
 
-        // Configure the cell...
+        cell.configureSavedCityCell(savedCity)
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
