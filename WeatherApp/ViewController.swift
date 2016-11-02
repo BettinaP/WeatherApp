@@ -12,7 +12,7 @@ import SwiftyJSON
 import Alamofire
 
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , UICollectionViewDelegate, UICollectionViewDataSource  {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , UICollectionViewDelegate, UICollectionViewDataSource {
     //add searchBar for location
     
     @IBOutlet weak var cityName: UILabel!
@@ -25,10 +25,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var todayMinLabel: UILabel!
     @IBOutlet weak var dayLabel: UILabel!
     
+    var pageIndex = Int()
     var dailyResultsWithoutToday: [DailyWeather] = []
     var store = ForecastDataStore.sharedInstance
     let searchBar = UISearchBar()
     let searchedLocation = SavedLocationsTableViewController()
+//    let pageController = PageViewController()  and add UIPVCdelegate & UIPVCdatasource to ViewController
+    
 //    var searchController: UISearchController!
 //    
 //    let locationManager = CLLocationManager()
@@ -51,6 +54,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         hourlyCollectionView.delegate = self
         hourlyCollectionView.dataSource = self
         
+//        pageController.delegate = self
+//        pageController.dataSource = self
+        
+        
+        
+        
     
         //     west & south are - , east & north +
         //     New York  google:  40.7128° N, 74.0059° W // according to forecast.io 40.7142,-74.0064
@@ -69,6 +78,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             NSOperationQueue.mainQueue().addOperationWithBlock({
                 
                 self.cityName.text = self.store.currentTimezone
+                
+//                self.cityName.text = self.searchedLocation.locationName
+                print("api timezone: \(self.store.currentTimezone)")
+                print("api searchedLocation's locationName: \(self.searchedLocation.locationName)")
                 
                 //                if self.store.currentTimezone.containsString("America/"){
                 self.currentTempLabel.text = "\(self.store.currentTemperature)°"
@@ -89,6 +102,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     
                     self.currentlyImageView.tintColor = UIColor.yellowColor()
                 }
+                
+                self.todayMaxLabel.text = ""
+                self.todayMinLabel.text = ""
                 
                 
                 self.hourlyCollectionView.reloadData()

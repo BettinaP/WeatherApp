@@ -1,45 +1,61 @@
 //
-//  PageViewController.swift
+//  RootViewController.swift
 //  WeatherApp
 //
-//  Created by Bettina on 10/20/16.
+//  Created by Bettina on 10/25/16.
 //  Copyright © 2016 Bettina Prophete. All rights reserved.
 //
 
 import UIKit
 
-class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+    
+    @IBOutlet weak var rootToolbar: UIToolbar!
+    @IBOutlet weak var rootAddBarButton: UIBarButtonItem!
+    var pageController =  UIPageViewController()
     
     var locationPages = [UIViewController]()
-//    let addButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.dataSource = self
-        self.delegate = self
+        
+        // Do any additional setup after loading the view.
+        
+        
+        pageController.dataSource = self
+        pageController.delegate = self
         
         let locationPage: UIViewController = (storyboard?.instantiateViewControllerWithIdentifier("WeatherContentViewController"))!
         
         locationPages.append(locationPage)
         
+        pageController.setViewControllers([locationPage], direction: .Forward, animated: false, completion: nil)
         
-        setViewControllers([locationPage], direction: .Forward, animated: false, completion: nil)
-        
-//        addButton.frame = CGRectMake(0, 0, 25, 25)
-//        
-//        self.view.addSubview(addButton)
-//        
-//       
+        //        addButton.frame = CGRectMake(0, 0, 25, 25)
+        //
+        //        self.view.addSubview(addButton)
+        //
+        //
         //createContentPages()
         
         // Do any additional setup after loading the view.
     }
     
-
+    
+    
+    func viewControllerAtIndex(index: Int) -> ViewController {
+        let weatherContentVC = ViewController()
+        weatherContentVC.pageIndex = index
+        
+        return weatherContentVC
+    
+    }
+    
+    
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         guard let currentIndex = locationPages.indexOf(viewController) else {return nil}
         
-        if currentIndex == 0 {
+        if currentIndex == 0 || currentIndex == NSNotFound {
             return nil
         }
         
@@ -48,7 +64,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         return locationPages[previousIndex]
     }
     
-    //viewControllerAtIndex
+
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         guard let currentIndex = locationPages.indexOf(viewController) else {return nil}
@@ -66,30 +82,19 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
     func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
         return locationPages.count
     }
+   
     
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
         return 0
     }
     
-    /*
-     func createContentPages(){
-     var = []()
-     for i in ... {
-     
-     let  "" = ""
-     "".append(let)
-     
-     
-     }
-     }
-     */
     
-    // func viewControllerAtInde
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     
     /*

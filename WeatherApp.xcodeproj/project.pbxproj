@@ -17,6 +17,9 @@
 		DE559EE81DAC137F00E17299 /* LocationWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE559EE71DAC137F00E17299 /* LocationWeather.swift */; };
 		DE559EEA1DAC508D00E17299 /* ForecastDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE559EE91DAC508D00E17299 /* ForecastDataStore.swift */; };
 		DE64994A1DB445ED00AC9903 /* HourlyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6499491DB445ED00AC9903 /* HourlyCollectionViewCell.swift */; };
+		DE6ED6D51DBFF07D00AD1180 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6ED6D41DBFF07D00AD1180 /* RootViewController.swift */; };
+		DE98B7241DC153AB000F3D04 /* SavedLocation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE98B7221DC153AB000F3D04 /* SavedLocation+CoreDataProperties.swift */; };
+		DE98B7251DC153AB000F3D04 /* SavedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE98B7231DC153AB000F3D04 /* SavedLocation.swift */; };
 		DEA4B42A1DAF0D5C00B4DE2E /* DailyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA4B4291DAF0D5B00B4DE2E /* DailyTableViewCell.swift */; };
 		DEC1C9801DB9471100B6F5E2 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC1C97F1DB9471100B6F5E2 /* PageViewController.swift */; };
 		DEC1C9861DBACD9300B6F5E2 /* SavedLocationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC1C9851DBACD9300B6F5E2 /* SavedLocationsTableViewController.swift */; };
@@ -41,6 +44,9 @@
 		DE559EE71DAC137F00E17299 /* LocationWeather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationWeather.swift; sourceTree = "<group>"; };
 		DE559EE91DAC508D00E17299 /* ForecastDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForecastDataStore.swift; path = ../ForecastDataStore.swift; sourceTree = "<group>"; };
 		DE6499491DB445ED00AC9903 /* HourlyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HourlyCollectionViewCell.swift; sourceTree = "<group>"; };
+		DE6ED6D41DBFF07D00AD1180 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		DE98B7221DC153AB000F3D04 /* SavedLocation+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SavedLocation+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DE98B7231DC153AB000F3D04 /* SavedLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedLocation.swift; sourceTree = "<group>"; };
 		DEA4B4291DAF0D5B00B4DE2E /* DailyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyTableViewCell.swift; sourceTree = "<group>"; };
 		DEC1C97F1DB9471100B6F5E2 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		DEC1C9851DBACD9300B6F5E2 /* SavedLocationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedLocationsTableViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +113,8 @@
 		DEC1C98C1DBEA7FE00B6F5E2 /* SavedLocation */ = {
 			isa = PBXGroup;
 			children = (
+				DE98B7221DC153AB000F3D04 /* SavedLocation+CoreDataProperties.swift */,
+				DE98B7231DC153AB000F3D04 /* SavedLocation.swift */,
 				DEC1C9851DBACD9300B6F5E2 /* SavedLocationsTableViewController.swift */,
 				DEC1C98A1DBEA7F500B6F5E2 /* SavedLocationTableViewCell.swift */,
 				DEC1C9871DBC03E800B6F5E2 /* SavedLocationsModel.xcdatamodeld */,
@@ -117,6 +125,7 @@
 		DEC1C98D1DBEA81000B6F5E2 /* CurrentLocation */ = {
 			isa = PBXGroup;
 			children = (
+				DE6ED6D41DBFF07D00AD1180 /* RootViewController.swift */,
 				DEC1C97F1DB9471100B6F5E2 /* PageViewController.swift */,
 				DE559ECD1DAB28F500E17299 /* ViewController.swift */,
 				DEA4B4291DAF0D5B00B4DE2E /* DailyTableViewCell.swift */,
@@ -257,10 +266,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEC1C9861DBACD9300B6F5E2 /* SavedLocationsTableViewController.swift in Sources */,
+				DE98B7251DC153AB000F3D04 /* SavedLocation.swift in Sources */,
 				DE559ECE1DAB28F500E17299 /* ViewController.swift in Sources */,
 				DEA4B42A1DAF0D5C00B4DE2E /* DailyTableViewCell.swift in Sources */,
 				DE559EE61DAB33E900E17299 /* Secrets.swift in Sources */,
+				DE6ED6D51DBFF07D00AD1180 /* RootViewController.swift in Sources */,
 				DEC1C98B1DBEA7F500B6F5E2 /* SavedLocationTableViewCell.swift in Sources */,
+				DE98B7241DC153AB000F3D04 /* SavedLocation+CoreDataProperties.swift in Sources */,
 				DEC1C9891DBC03E900B6F5E2 /* SavedLocationsModel.xcdatamodeld in Sources */,
 				DE64994A1DB445ED00AC9903 /* HourlyCollectionViewCell.swift in Sources */,
 				DE559EEA1DAC508D00E17299 /* ForecastDataStore.swift in Sources */,
