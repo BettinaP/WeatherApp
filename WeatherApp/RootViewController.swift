@@ -19,7 +19,6 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         
         
         pageController.dataSource = self
@@ -37,8 +36,7 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         //
         //
         //createContentPages()
-        
-        // Do any additional setup after loading the view.
+         
     }
     
     

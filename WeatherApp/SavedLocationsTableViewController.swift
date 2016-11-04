@@ -60,14 +60,17 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     
     func pullToSearch() {
         
-        searchController = UISearchController(searchResultsController: nil
+        self.searchController = UISearchController(searchResultsController: searchController
         )
-        searchController.searchBar.delegate = self
-        searchController.searchBar.sizeToFit()
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = true
-        searchController.searchBar.placeholder = "Search Location ..."
-        searchBar.searchBarStyle = UISearchBarStyle.Minimal
+        self.searchController.searchBar.delegate = self
+        self.searchController.searchBar.sizeToFit()
+        self.searchController.searchResultsUpdater = self
+        self.searchController.dimsBackgroundDuringPresentation = true
+        self.searchController.searchBar.placeholder = "Search Location ..."
+        self.searchBar.searchBarStyle = UISearchBarStyle.Minimal
+        
+        //self.tableView.tableHeaderView = self.searchController.searchBar
+       // self.definesPresentationContext = true
     }
     
     
@@ -96,7 +99,7 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     }
     
     
-    //shouldShowSearchResults
+    //func shouldShowSearchResults() { } 
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         //        if !shouldShowSearchResults = true {

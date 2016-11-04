@@ -28,16 +28,9 @@ class HourlyCollectionViewCell: UICollectionViewCell {
         
        
         let date = NSDate(timeIntervalSince1970: hourlyForecast.hourlyTime)
-        print(date)
         
         let hour = getHour(date)
         
-        print("hour config in custom cell: \(hour)")
-//        let date = NSDate(timeIntervalSince1970: dailyForecast.dailyTime)
-//        print(date)
-//        let dayOfWeek = getDayNameBy(date)
-//        print(dayOfWeek)
-//        
         self.hourlyTimeLabel.text = String(hour)
         self.hourlyTempLabel.text = String(hourlyForecast.hourlyTemp)
        

@@ -30,18 +30,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var store = ForecastDataStore.sharedInstance
     let searchBar = UISearchBar()
     let searchedLocation = SavedLocationsTableViewController()
-//    let pageController = PageViewController()  and add UIPVCdelegate & UIPVCdatasource to ViewController
+    //    let pageController = PageViewController()  and add UIPVCdelegate & UIPVCdatasource to ViewController
     
-//    var searchController: UISearchController!
-//    
-//    let locationManager = CLLocationManager()
-//    let geocoder = CLGeocoder()
-  //   var latitude = Double()
-    // var longitude = Double()
+    //   var searchController: UISearchController!
+    //
+    //   let locationManager = CLLocationManager()
+    //   let geocoder = CLGeocoder()
+    //   var latitude = Double()
+    //   var longitude = Double()
     
     //figure out how separate or not include today's info (1st in daily array)  from  daily table and display outside of table
     //add search bar for location, then calculate timezone to show appropriate weather by time
-    //have background be a cool image? look for an api
+    //have background be a cool image? look for an image api
     //fix current temp and icon and city constraints
     
     override func viewDidLoad() {
@@ -54,24 +54,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         hourlyCollectionView.delegate = self
         hourlyCollectionView.dataSource = self
         
-//        pageController.delegate = self
-//        pageController.dataSource = self
-        
-        
-        
-        
-    
-        //     west & south are - , east & north +
-        //     New York  google:  40.7128° N, 74.0059° W // according to forecast.io 40.7142,-74.0064
-        //     LA  google:34.0522° N, 118.2437° W  darkSky: 47.20296790272209, -123.41670367098749
-        
-        //Montreal 45.5017° N, 73.5673° W, -73.5673
-        //paris 48.8566° N, 2.3522° E
-        //
-        //        let latitude = 40.7142
-        //        let longitude = -74.0064
-        //
-        
+        //        pageController.delegate = self
+        //        pageController.dataSource = self
+                
         
         store.getForecastResultsWithCompletion(searchedLocation.latitude, searchedLongitude: searchedLocation.longitude) { (success) in
             
@@ -79,14 +64,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 self.cityName.text = self.store.currentTimezone
                 
-//                self.cityName.text = self.searchedLocation.locationName
+                //                self.cityName.text = self.searchedLocation.locationName
                 print("api timezone: \(self.store.currentTimezone)")
                 print("api searchedLocation's locationName: \(self.searchedLocation.locationName)")
                 
                 //                if self.store.currentTimezone.containsString("America/"){
                 self.currentTempLabel.text = "\(self.store.currentTemperature)°"
-                //
-                //                    print("in fahrenheit: \(self.currentTempLabel.text)")
+                //                print("in fahrenheit: \(self.currentTempLabel.text)")
                 //
                 //                } else {
                 //                    let celsiusTemp = (self.store.currentTemperature - 32) * (5/9)
@@ -115,57 +99,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         // Do any additional setup after loading the view, typically from a nib.
     }
-    
-    
-    
-//    func showResults() {
-//        
-//        
-//    }
-    
-    //     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-    //     showSearchResults = true
-    //     searchResults.reloadData()
-    //     }
-    //
-    //     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-    //     showSearchResults = false
-    //     searchResults.reloadData()
-    //     }
-    //
-    
-//    
-//    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-////        if !shouldShowSearchResults = true {
-////            shouldShowSearchResults = true
-////            searchResults.reloadData()
-////            
-//            geocoder.geocodeAddressString(searchBar.text!) { (placemarks, error) in
-//                
-//                guard let unwrappedPlacemarks = placemarks else {return}
-//                
-//                if error == nil {
-//                    
-//                    print(error)
-//                    
-//                } else {
-//                    
-//                    for placemark in unwrappedPlacemarks {
-//                        
-//                        self.latitude = (placemark.location?.coordinate.latitude)!
-//                        self.longitude = (placemark.location?.coordinate.longitude)!
-//                        
-//                        print("PLACEMARK LATITUDE IN CLOSURE from SearchBarSearchClicked:\(self.latitude)")
-//                    }
-//                }
-//            }
-//            
-////        }
-//        
-//        searchController.searchBar.resignFirstResponder()
-//        
-//    }
-//    
     
     
     
@@ -199,7 +132,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let hourlyCell = hourlyCollectionView.dequeueReusableCellWithReuseIdentifier("hourlyDetailsCell", forIndexPath: indexPath) as! HourlyCollectionViewCell
         
-        let hour = self.store.hourlyResults[indexPath.item] 
+        let hour = self.store.hourlyResults[indexPath.item]
         hourlyCell.configureHourlyCell(hour)
         
         return hourlyCell
@@ -212,6 +145,55 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+    //    func showResults() { }
+    
+    //     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+    //          showSearchResults = true
+    //          searchResults.reloadData()
+    //     }
+    //
+    //     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    //          showSearchResults = false
+    //          searchResults.reloadData()
+    //     }
+    //
+    
+    //
+    //    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    ////        if !shouldShowSearchResults = true {
+    ////            shouldShowSearchResults = true
+    ////            searchResults.reloadData()
+    ////
+    //            geocoder.geocodeAddressString(searchBar.text!) { (placemarks, error) in
+    //
+    //                guard let unwrappedPlacemarks = placemarks else {return}
+    //
+    //                if error == nil {
+    //
+    //                    print(error)
+    //
+    //                } else {
+    //
+    //                    for placemark in unwrappedPlacemarks {
+    //
+    //                        self.latitude = (placemark.location?.coordinate.latitude)!
+    //                        self.longitude = (placemark.location?.coordinate.longitude)!
+    //
+    //                        print("PLACEMARK LATITUDE IN CLOSURE from SearchBarSearchClicked:\(self.latitude)")
+    //                    }
+    //                }
+    //            }
+    //
+    ////        }
+    //
+    //        searchController.searchBar.resignFirstResponder()
+    //
+    //    }
+    //
+    
+
     
 }
 

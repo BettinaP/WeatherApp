@@ -28,37 +28,35 @@ class SavedLocationTableViewCell: UITableViewCell {
     }
     
     
-//    func configureSavedCityCell(cityCurrentForecast:SavedLocation) {
-    
-//        self.savedWeatherIcon.image = UIImage(named: cityCurrentForecast.icon)
-//        
-//        self.savedCityLabel.text = cityCurrentForecast.timezone
-//        
-//        self.savedCurrentTemp.text = String(cityCurrentForecast.temperature)
-//        
-//        let date = NSDate(timeIntervalSince1970: cityCurrentForecast.time)
-//        
-//        let hour = getHour(date)
-//        
-//        print("saved time config in custom saved City cell: \(hour)")
-//        //        let date = NSDate(timeIntervalSince1970: dailyForecast.dailyTime)
-//        //        print(date)
-//        //        let dayOfWeek = getDayNameBy(date)
-//        //        print(dayOfWeek)
-//        //
-//        self.savedTimeLabel.text = String(hour)
+    func getHour(date: NSDate) -> String {
         
-//    }
-
-
-
-func getHour(date: NSDate) -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.timeZone = NSTimeZone()
+        
+        return dateFormatter.stringFromDate(date)
+    }
     
-    let dateFormatter = NSDateFormatter()
-    dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-    dateFormatter.dateFormat = "h:mm a"
-    dateFormatter.timeZone = NSTimeZone()
+    //    func configureSavedCityCell(cityCurrentForecast:SavedLocation) {
     
-    return dateFormatter.stringFromDate(date)
-}
+    //        self.savedWeatherIcon.image = UIImage(named: cityCurrentForecast.icon)
+    //
+    //        self.savedCityLabel.text = cityCurrentForecast.timezone
+    //
+    //        self.savedCurrentTemp.text = String(cityCurrentForecast.temperature)
+    //
+    //        let date = NSDate(timeIntervalSince1970: cityCurrentForecast.time)
+    //
+    //        let hour = getHour(date)
+    //
+    //        print("saved time config in custom saved City cell: \(hour)")
+    //        //        let date = NSDate(timeIntervalSince1970: dailyForecast.dailyTime)
+    //        //        print(date)
+    //        //        let dayOfWeek = getDayNameBy(date)
+    //        //        print(dayOfWeek)
+    //        //
+    //        self.savedTimeLabel.text = String(hour)
+    
+    //    }
 }

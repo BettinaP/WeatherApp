@@ -32,7 +32,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
 //       
         //createContentPages()
         
-        // Do any additional setup after loading the view.
     }
     
 
@@ -84,7 +83,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
      }
      */
     
-    // func viewControllerAtInde
+    // func viewControllerAtIndex
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

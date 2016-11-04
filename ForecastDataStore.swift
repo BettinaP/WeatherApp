@@ -48,38 +48,10 @@ class ForecastDataStore {
              self.todaysDate = forecast.today
             
 //             self.comparisonDate = forecast.convertedDailyDate
-           
-            print("TODAYS_DATE = forecast.today \(self.todaysDate)")
-//            print("COMPARISON_DATE = forecast.convertedDate : \(self.comparisonDate)")
-            print("forecast today details: \(forecast.todayDetails)")
-//            print("TODAY as todayDetails from forecast: \(self.today)")
-//            print("DAILYWEATHER.DAILYTIME: \(forecast.convertedDailyDate)")
-            print("DAILY TIME: \(self.dailyResults[0].dailyTime)")
-            
-
-//            print("datastore, daily results array: \(self.dailyResults)")
-//            print("datastore, todays results:\()")
+        
             completion(true)
+  
             
-            
-//            let dailyJSONArray = forecastJSON["daily"]
-//             print("in datastore printing dailyJSON: \(dailyJSONArray)")
-//          
-//            let dailyDataArray = dailyJSONArray["data"]
-//            
-//            for dailyData in  dailyDataArray {
-//                
-//                let day = LocationWeather(currentWeather: dailyData)
-//                
-//                self.dailyResults.append(day)
-//                
-//                print("in datastore printing day from dailyJSON:\(day)")
-//                
-//                print("daily results count in store: \(self.dailyResults.count)")
-//            }
-           
-            // need hourly data :time, icon, temp as an array?
-            // need daily data: day, icon, maxtemp , min temp as array?
             
         }
         
@@ -109,13 +81,9 @@ class ForecastDataStore {
     
     
     
-    func fetchData () //perform a fetch request to fill an array property on your datastore
+    func fetchData ()
     {
         let savedLocationsFetch = NSFetchRequest(entityName: SavedLocation.entityName)
-        
-//        let locationSorter  = NSSortDescriptor(key: "locationName", ascending: true)
-//        
-//        savedLocationsFetch.sortDescriptors = [locationSorter]
         
         do {
             self.savedLocations = try self.managedObjectContext.executeFetchRequest(savedLocationsFetch) as! [SavedLocation]
@@ -133,8 +101,7 @@ class ForecastDataStore {
     }
     
     
-    func generateTestData(){ //what's mutating func? what's it's benefit? didn't think anything was changing here.
-        
+    func generateTestData(){
         
         let savedLocation1 = NSEntityDescription.insertNewObjectForEntityForName(SavedLocation.entityName, inManagedObjectContext: self.managedObjectContext) as! SavedLocation
         savedLocation1.locationName = "Beijing"
