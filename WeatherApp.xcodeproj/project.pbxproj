@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DE559ECC1DAB28F500E17299 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE559ECB1DAB28F500E17299 /* AppDelegate.swift */; };
-		DE559ECE1DAB28F500E17299 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE559ECD1DAB28F500E17299 /* ViewController.swift */; };
+		DE559ECE1DAB28F500E17299 /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE559ECD1DAB28F500E17299 /* ForecastViewController.swift */; };
 		DE559ED11DAB28F500E17299 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE559ECF1DAB28F500E17299 /* Main.storyboard */; };
 		DE559ED31DAB28F500E17299 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE559ED21DAB28F500E17299 /* Assets.xcassets */; };
 		DE559ED61DAB28F500E17299 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE559ED41DAB28F500E17299 /* LaunchScreen.storyboard */; };
@@ -34,7 +34,7 @@
 		ACE594503FC7A85BC42A65C3 /* Pods-WeatherApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeatherApp/Pods-WeatherApp.debug.xcconfig"; sourceTree = "<group>"; };
 		DE559EC81DAB28F500E17299 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE559ECB1DAB28F500E17299 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DE559ECD1DAB28F500E17299 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DE559ECD1DAB28F500E17299 /* ForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
 		DE559ED01DAB28F500E17299 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DE559ED21DAB28F500E17299 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE559ED51DAB28F500E17299 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 			children = (
 				DE6ED6D41DBFF07D00AD1180 /* RootViewController.swift */,
 				DEC1C97F1DB9471100B6F5E2 /* PageViewController.swift */,
-				DE559ECD1DAB28F500E17299 /* ViewController.swift */,
+				DE559ECD1DAB28F500E17299 /* ForecastViewController.swift */,
 				DEA4B4291DAF0D5B00B4DE2E /* DailyTableViewCell.swift */,
 				DE6499491DB445ED00AC9903 /* HourlyCollectionViewCell.swift */,
 			);
@@ -267,7 +267,7 @@
 			files = (
 				DEC1C9861DBACD9300B6F5E2 /* SavedLocationsTableViewController.swift in Sources */,
 				DE98B7251DC153AB000F3D04 /* SavedLocation.swift in Sources */,
-				DE559ECE1DAB28F500E17299 /* ViewController.swift in Sources */,
+				DE559ECE1DAB28F500E17299 /* ForecastViewController.swift in Sources */,
 				DEA4B42A1DAF0D5C00B4DE2E /* DailyTableViewCell.swift in Sources */,
 				DE559EE61DAB33E900E17299 /* Secrets.swift in Sources */,
 				DE6ED6D51DBFF07D00AD1180 /* RootViewController.swift in Sources */,

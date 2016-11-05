@@ -41,8 +41,8 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     
     
     
-    func viewControllerAtIndex(index: Int) -> ViewController {
-        let weatherContentVC = ViewController()
+    func viewControllerAtIndex(index: Int) -> ForecastViewController {
+        let weatherContentVC = ForecastViewController()
         weatherContentVC.pageIndex = index
         
         return weatherContentVC

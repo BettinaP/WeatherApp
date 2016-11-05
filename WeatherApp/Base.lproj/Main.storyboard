@@ -73,10 +73,10 @@
             </objects>
             <point key="canvasLocation" x="-204.5" y="418.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Forecast View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="WeatherContentViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WeatherContentViewController" id="BYZ-38-t0r" customClass="ForecastViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -392,6 +392,7 @@
                                     <outlet property="savedCurrentTemp" destination="Z1H-Uh-gZO" id="Qe7-2c-ztF"/>
                                     <outlet property="savedTimeLabel" destination="veR-BH-Jh2" id="e9u-sI-rb6"/>
                                     <outlet property="savedWeatherIcon" destination="Sax-zJ-w7n" id="Sxg-B3-QZ7"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="savedLocationToWeather" id="FCq-VX-Fxl"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

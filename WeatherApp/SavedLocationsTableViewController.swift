@@ -29,6 +29,8 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         super.viewDidLoad()
         pullToSearch()
         store.fetchData()
+        
+        
         self.savedLocations = store.savedLocations
         locationManager.delegate = self
         //triggers system prompting the user to authorize access to location services if they hadn't yet explicitly approved or denied the app, make sure to add NSLocationWhenInUseUsageDescription key to Info.plist:
@@ -70,7 +72,7 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         self.searchBar.searchBarStyle = UISearchBarStyle.Minimal
         
         //self.tableView.tableHeaderView = self.searchController.searchBar
-       // self.definesPresentationContext = true
+        // self.definesPresentationContext = true
     }
     
     
@@ -99,7 +101,7 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     }
     
     
-    //func shouldShowSearchResults() { } 
+    //func shouldShowSearchResults() { }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         //        if !shouldShowSearchResults = true {
@@ -123,7 +125,6 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
                 
                 print("Geocode failed with error:\(error)")
                 
-                
             }
             
         }
@@ -142,7 +143,6 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
             if error == nil {
                 
                 guard let placemark = placemarks?.first else {return}
-                
                 
                 self.locationName = "\(placemark.subAdministrativeArea)"
                 
@@ -183,11 +183,43 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         
         cell.savedCityLabel.text = savedCity.locationName
         //        print(cell.savedCityLabel.text)
-       
+        
         return cell
     }
     
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        let destinationVC = segue.destinationViewController as! ForecastViewController
+        
+        if segue.identifier == "savedLocationToWeather" {
+            
+            let selectedCell = sender as! UITableViewCell
+            
+            let selectedSavedLocation = self.tableView.indexPathForCell(selectedCell)
+            
+            let savedLocation = self.savedLocations[selectedSavedLocation!.row]
+            
+            let locationToPass = LocationWeather()
+            
+            if let unwrappedSavedName = savedLocation.locationName {
+                locationToPass.locationName = unwrappedSavedName
+            }
+            
+            guard let unwrappedSavedLatitude = savedLocation.latitude as? Double else {return}
+                locationToPass.latitude = unwrappedSavedLatitude
+            
+            
+            guard let unwrappedSavedLongitude = savedLocation.longitude as? Double else {return}
+                locationToPass.longitude = unwrappedSavedLongitude
+            
+            print("longitude passed in segue: \(locationToPass.longitude)")
+            
+            destinationVC.savedLocationPassed = locationToPass
+        }
+        
+    
+    }
     /*
      // Override to support conditional editing of the table view.
      override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

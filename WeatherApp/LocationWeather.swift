@@ -33,6 +33,10 @@ struct HourlyWeather {
 
 
 class LocationWeather {
+    var latitude = Double()
+    var longitude = Double()
+    var locationName = String()
+    
     var summary = String()
     var icon = String()
     var precipProbability = String()
@@ -41,11 +45,12 @@ class LocationWeather {
     var temperature = Int()
     var apparentTemp = Int()
     
-    var dailyDataArray = [JSON]()
-    var hourlyDataArray = [JSON]()
     
-    var dailyWeatherArray = [DailyWeather]()
+    var hourlyDataArray = [JSON]()
+    var dailyDataArray = [JSON]()
+    
     var hourlyWeatherArray = [HourlyWeather]()
+    var dailyWeatherArray = [DailyWeather]()
     
     var todayDetails = [DailyWeather]()
     var today = NSDate()
@@ -54,9 +59,10 @@ class LocationWeather {
     
     init(currentWeather: JSON){
         
+        self.latitude = currentWeather["latitude"].doubleValue
+        self.longitude = currentWeather["longitude"].doubleValue
         self.timezone = currentWeather["timezone"].stringValue
-        
-        self.time = currentWeather["currently"]["time"].doubleValue //must convert UNIX  stamp
+        self.time = currentWeather["currently"]["time"].doubleValue //must convert UNIX stamp
         self.summary = currentWeather["currently"]["summary"].stringValue
         self.icon = currentWeather["currently"]["icon"].stringValue
         self.temperature = currentWeather["currently"]["temperature"].intValue
@@ -66,10 +72,10 @@ class LocationWeather {
         
         hourlyDataArray = currentWeather["hourly"]["data"].arrayValue
         for hourlyData in hourlyDataArray {
+            
             let hourlyTime = hourlyData["time"].doubleValue
             let hourlyIcon = hourlyData["icon"].stringValue
             let hourlyTemp = hourlyData["temperature"].intValue
-            
             
             let hourlyWeather = HourlyWeather(hourlyIcon: hourlyIcon, hourlyTime: hourlyTime, hourlyTemp: hourlyTemp)
             
@@ -133,6 +139,23 @@ class LocationWeather {
 //                
 //            }
         }
+    }
+    
+    
+    init() {
+        
+        self.latitude = 0.0
+        self.longitude = 0.0
+        self.timezone = "N/A"
+        self.locationName = "N/A"
+        
+//        self.summary = "N/A"
+//        self.icon = "N/A"
+//        self.precipProbability = "N/A"
+//        self.time = 0.0
+//        self.temperature = 0
+//        self.apparentTemp = 0
+    
     }
 }
 

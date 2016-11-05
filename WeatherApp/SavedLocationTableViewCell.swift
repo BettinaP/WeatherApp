@@ -37,26 +37,26 @@ class SavedLocationTableViewCell: UITableViewCell {
         
         return dateFormatter.stringFromDate(date)
     }
-    
-    //    func configureSavedCityCell(cityCurrentForecast:SavedLocation) {
-    
-    //        self.savedWeatherIcon.image = UIImage(named: cityCurrentForecast.icon)
-    //
-    //        self.savedCityLabel.text = cityCurrentForecast.timezone
-    //
-    //        self.savedCurrentTemp.text = String(cityCurrentForecast.temperature)
-    //
-    //        let date = NSDate(timeIntervalSince1970: cityCurrentForecast.time)
-    //
-    //        let hour = getHour(date)
-    //
-    //        print("saved time config in custom saved City cell: \(hour)")
-    //        //        let date = NSDate(timeIntervalSince1970: dailyForecast.dailyTime)
-    //        //        print(date)
-    //        //        let dayOfWeek = getDayNameBy(date)
-    //        //        print(dayOfWeek)
-    //        //
-    //        self.savedTimeLabel.text = String(hour)
-    
-    //    }
+//    
+//        func configureSavedCityCell(cityCurrentForecast:SavedLocation) {
+//    
+//            self.savedWeatherIcon.image = UIImage(named: cityCurrentForecast.icon)
+//    
+//            self.savedCityLabel.text = cityCurrentForecast.timezone
+//    
+//            self.savedCurrentTemp.text = String(cityCurrentForecast.temperature)
+//    
+//            let date = NSDate(timeIntervalSince1970: cityCurrentForecast.time)
+//    
+//            let hour = getHour(date)
+//    
+//            print("saved time config in custom saved City cell: \(hour)")
+//            //        let date = NSDate(timeIntervalSince1970: dailyForecast.dailyTime)
+//            //        print(date)
+//            //        let dayOfWeek = getDayNameBy(date)
+//            //        print(dayOfWeek)
+//            //
+//            self.savedTimeLabel.text = String(hour)
+//    
+//        }
 }

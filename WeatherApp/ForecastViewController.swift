@@ -12,8 +12,9 @@ import SwiftyJSON
 import Alamofire
 
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , UICollectionViewDelegate, UICollectionViewDataSource {
+class ForecastViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , UICollectionViewDelegate, UICollectionViewDataSource {
     //add searchBar for location
+    
     
     @IBOutlet weak var cityName: UILabel!
     @IBOutlet weak var currentlyImageView: UIImageView!
@@ -29,7 +30,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var dailyResultsWithoutToday: [DailyWeather] = []
     var store = ForecastDataStore.sharedInstance
     let searchBar = UISearchBar()
-    let searchedLocation = SavedLocationsTableViewController()
+    var savedLocationPassed = LocationWeather()
+//     let searchedLocation = SavedLocationsTableViewController()
+    
     //    let pageController = PageViewController()  and add UIPVCdelegate & UIPVCdatasource to ViewController
     
     //   var searchController: UISearchController!
@@ -58,7 +61,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //        pageController.dataSource = self
                 
         
-        store.getForecastResultsWithCompletion(searchedLocation.latitude, searchedLongitude: searchedLocation.longitude) { (success) in
+        store.getForecastResultsWithCompletion(savedLocationPassed.latitude, searchedLongitude: savedLocationPassed.longitude) { (success) in
             
             NSOperationQueue.mainQueue().addOperationWithBlock({
                 
@@ -66,7 +69,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 //                self.cityName.text = self.searchedLocation.locationName
                 print("api timezone: \(self.store.currentTimezone)")
-                print("api searchedLocation's locationName: \(self.searchedLocation.locationName)")
+                print("api searchedLocation's locationName: \(self.savedLocationPassed.locationName)")
                 
                 //                if self.store.currentTimezone.containsString("America/"){
                 self.currentTempLabel.text = "\(self.store.currentTemperature)°"
