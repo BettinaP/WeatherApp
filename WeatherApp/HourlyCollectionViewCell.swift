@@ -32,7 +32,7 @@ class HourlyCollectionViewCell: UICollectionViewCell {
         let hour = getHour(date)
         
         self.hourlyTimeLabel.text = String(hour)
-        self.hourlyTempLabel.text = String(hourlyForecast.hourlyTemp)
+        self.hourlyTempLabel.text = "\(hourlyForecast.hourlyTemp)°"
        
     }
 }

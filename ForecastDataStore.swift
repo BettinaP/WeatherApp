@@ -17,8 +17,12 @@ class ForecastDataStore {
     var savedLocations = [SavedLocation]()
     var hourlyResults: [HourlyWeather] = []
     var dailyResults: [DailyWeather] = []
-//    var today: [DailyWeather] = []
+   // var today = LocationWeather()
+  
+    
     var todaysDate = NSDate()
+    var todaysMinTemp = Int()
+    var todaysMaxTemp = Int()
 //    var comparisonDate = NSDate ()
     var currentSummary = String()
     var currentIcon = String()
@@ -27,6 +31,10 @@ class ForecastDataStore {
     var currentTemperature = Int()
     var currentApparentTemp = Int()
     var currentPrecipProbability = String()
+    
+    
+    // why did you initialize them???
+    
    
     
     
@@ -46,6 +54,8 @@ class ForecastDataStore {
 //             self.today = forecast.todayDetails
             
              self.todaysDate = forecast.today
+             self.todaysMinTemp = forecast.todaysMinTemp
+             self.todaysMaxTemp = forecast.todaysMaxTemp
             
 //             self.comparisonDate = forecast.convertedDailyDate
         

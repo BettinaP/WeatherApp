@@ -49,10 +49,11 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = UIColor.blueColor()
         dailyTableView.delegate = self
         dailyTableView.dataSource = self
-        
+        dailyTableView.allowsSelection = false
+        dailyTableView.showsVerticalScrollIndicator = false
         
         hourlyCollectionView.delegate = self
         hourlyCollectionView.dataSource = self
@@ -65,7 +66,7 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
             
             NSOperationQueue.mainQueue().addOperationWithBlock({
                 
-                self.cityName.text = self.store.currentTimezone
+                self.cityName.text = self.savedLocationPassed.locationName
                 
                 //                self.cityName.text = self.searchedLocation.locationName
                 print("api timezone: \(self.store.currentTimezone)")
@@ -80,8 +81,9 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
                 //                    self.currentTempLabel.text = "\(celsiusTemp)°"
                 //                    print("in celsius: \(self.currentTempLabel.text)")
                 //                }
-                let today = self.store.dailyResults[0].dailyTime
-                self.dayLabel.text = "\(self.store.todaysDate)"
+                let today = self.store.todaysDate.getWeekOfDayString()
+                self.dayLabel.text = today
+                print(today)
                 
                 self.currentlyImageView.image = UIImage(named: self.store.currentIcon)
                 
@@ -90,8 +92,8 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
                     self.currentlyImageView.tintColor = UIColor.yellowColor()
                 }
                 
-                self.todayMaxLabel.text = ""
-                self.todayMinLabel.text = ""
+                self.todayMaxLabel.text = "\(self.store.todaysMaxTemp)°"
+                self.todayMinLabel.text = "\(self.store.todaysMinTemp)°"
                 
                 
                 self.hourlyCollectionView.reloadData()

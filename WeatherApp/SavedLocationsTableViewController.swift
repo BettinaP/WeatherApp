@@ -31,7 +31,7 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         store.fetchData()
         
         
-        self.savedLocations = store.savedLocations
+        savedLocations = store.savedLocations
         locationManager.delegate = self
         //triggers system prompting the user to authorize access to location services if they hadn't yet explicitly approved or denied the app, make sure to add NSLocationWhenInUseUsageDescription key to Info.plist:
         if CLLocationManager.locationServicesEnabled() {
@@ -43,12 +43,6 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
             locationManager.requestWhenInUseAuthorization()
         }
         
-        //The geocoder object parses the information you give it and if it finds a match, returns some number of placemark objects.  The completion handler block you pass to the geocoder should be prepared to handle multiple placemarks, as shown below.
-        
-        
-        
-        
-        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -58,6 +52,14 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         self.tableView.reloadData()
         
         
+    }
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        store.fetchData()
+        savedLocations = store.savedLocations
+        self.tableView.reloadData()
     }
     
     func pullToSearch() {
@@ -103,6 +105,8 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     
     //func shouldShowSearchResults() { }
     
+    
+    //The geocoder object parses the information you give it and if it finds a match, returns some number of placemark objects.  The completion handler block you pass to the geocoder should be prepared to handle multiple placemarks, as shown below.
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         //        if !shouldShowSearchResults = true {
         //            shouldShowSearchResults = true
@@ -119,12 +123,9 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
                 self.latitude = (placemark.location?.coordinate.latitude)!
                 self.longitude = (placemark.location?.coordinate.longitude)!
                 
-                print("PLACEMARK LATITUDE IN CLOSURE from SearchBarSearchClicked:\(self.latitude)")
-                
             } else {
                 
                 print("Geocode failed with error:\(error)")
-                
             }
             
         }
@@ -141,18 +142,13 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
             
             if error == nil {
-                
                 guard let placemark = placemarks?.first else {return}
-                
                 self.locationName = "\(placemark.subAdministrativeArea)"
-                
             } else {
-                
                 print("reverseGeocode failed with error:\(error)")
                 
             }
         }
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -162,10 +158,6 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -188,6 +180,30 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     }
     
     
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            
+            let savedLocation = savedLocations[indexPath.row]
+            store.managedObjectContext.deleteObject(savedLocation)
+            savedLocations.removeAtIndex(indexPath.row)
+            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            
+            store.saveContext()
+            store.fetchData()
+            self.tableView.reloadData()
+        }
+    }
+    
+   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier("savedLocationToWeather", sender: tableView.cellForRowAtIndexPath(indexPath))
+        self.tableView.cellForRowAtIndexPath(indexPath)?.highlighted = true
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         let destinationVC = segue.destinationViewController as! ForecastViewController
@@ -195,11 +211,8 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         if segue.identifier == "savedLocationToWeather" {
             
             let selectedCell = sender as! UITableViewCell
-            
             let selectedSavedLocation = self.tableView.indexPathForCell(selectedCell)
-            
             let savedLocation = self.savedLocations[selectedSavedLocation!.row]
-            
             let locationToPass = LocationWeather()
             
             if let unwrappedSavedName = savedLocation.locationName {
@@ -212,8 +225,6 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
             
             guard let unwrappedSavedLongitude = savedLocation.longitude as? Double else {return}
                 locationToPass.longitude = unwrappedSavedLongitude
-            
-            print("longitude passed in segue: \(locationToPass.longitude)")
             
             destinationVC.savedLocationPassed = locationToPass
         }

@@ -54,6 +54,8 @@ class LocationWeather {
     
     var todayDetails = [DailyWeather]()
     var today = NSDate()
+    var todaysMaxTemp = Int()
+    var todaysMinTemp = Int()
     var convertedDailyDate = NSDate()
     
     
@@ -97,47 +99,17 @@ class LocationWeather {
             
             
             //trying to figure out how to exclude today's date from the weekday array since updates of current day will be displayed hourly
-          
-            self.dailyWeatherArray.append(dailyWeather)
             
-            if today == NSDate(timeIntervalSince1970:dailyWeatherArray[0].dailyTime) {
+            let todaysDateString = today.getDayStamp()
+            let dayOfWeekDateString = NSDate(timeIntervalSince1970:dailyTime).getDayStamp()
             
-                self.dailyWeatherArray.removeAtIndex(0)
-//                self.dailyWeatherArray.removeFirst()
+            if todaysDateString == dayOfWeekDateString{
+                todaysMaxTemp = dailyTempMax
+                todaysMinTemp = dailyTempMin
+                continue
+            } else {
+                self.dailyWeatherArray.append(dailyWeather)
             }
-            
-//            convertedDailyDate = NSDate(timeIntervalSince1970: dailyWeather.dailyTime)
-            //
-            //            if today == convertedDailyDate {
-            //
-            //                let todaysDetails = dailyWeather
-            //                print(todaysDetails)
-            //                print("TODAY: \(today)")
-            //                print("DAILYWEATHER.DAILYTIME: \(convertedDailyDate)")
-            //                print("DAILY TIME: \(dailyTime)")
-            //
-            //            } else {
-            //
-            //                self.dailyWeatherArray.append(dailyWeather)
-            //
-            //            }
-            
-//            if today != convertedDailyDate {
-//                
-//                self.dailyWeatherArray.append(dailyWeather)
-//                
-//            } else {
-//                
-//                let todayAsCurrentDay = dailyWeather
-//                
-//                self.todayDetails.append(todayAsCurrentDay)
-//                print(todayDetails)
-//                print("TODAY: \(today)")
-//                print("DAILYWEATHER.DAILYTIME: \(convertedDailyDate)")
-//                print("DAILY TIME: \(dailyTime)")
-//                
-//                
-//            }
         }
     }
     
