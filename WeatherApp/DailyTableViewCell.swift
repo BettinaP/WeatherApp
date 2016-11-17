@@ -42,8 +42,10 @@ class DailyTableViewCell: UITableViewCell {
         let dayOfWeek = getDayNameBy(date)
 
         self.weekDayLabel.text = String(dayOfWeek)
-        self.maxTempLabel.text = String(dailyForecast.dailyTempMax)
-        self.minTempLabel.text = String(dailyForecast.dailyTempMin)
+        self.maxTempLabel.text = "\(dailyForecast.dailyTempMax)°"
+//        self.maxTempLabel.text = String(dailyForecast.dailyTempMax)
+//        self.minTempLabel.text = String(dailyForecast.dailyTempMin)
+        self.minTempLabel.text = "\(dailyForecast.dailyTempMin)°"
  
     }
     

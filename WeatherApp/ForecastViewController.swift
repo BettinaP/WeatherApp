@@ -12,7 +12,7 @@ import SwiftyJSON
 import Alamofire
 
 
-class ForecastViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , UICollectionViewDelegate, UICollectionViewDataSource {
+class ForecastViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate {
     //add searchBar for location
     
     
@@ -58,6 +58,8 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
         hourlyCollectionView.delegate = self
         hourlyCollectionView.dataSource = self
         
+       
+        
         //        pageController.delegate = self
         //        pageController.dataSource = self
                 
@@ -67,10 +69,6 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
             NSOperationQueue.mainQueue().addOperationWithBlock({
                 
                 self.cityName.text = self.savedLocationPassed.locationName
-                
-                //                self.cityName.text = self.searchedLocation.locationName
-                print("api timezone: \(self.store.currentTimezone)")
-                print("api searchedLocation's locationName: \(self.savedLocationPassed.locationName)")
                 
                 //                if self.store.currentTimezone.containsString("America/"){
                 self.currentTempLabel.text = "\(self.store.currentTemperature)°"
@@ -83,8 +81,6 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
                 //                }
                 let today = self.store.todaysDate.getWeekOfDayString()
                 self.dayLabel.text = today
-                print(today)
-                
                 self.currentlyImageView.image = UIImage(named: self.store.currentIcon)
                 
                 if self.store.currentIcon == "clear-day"{
@@ -94,7 +90,6 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
                 
                 self.todayMaxLabel.text = "\(self.store.todaysMaxTemp)°"
                 self.todayMinLabel.text = "\(self.store.todaysMinTemp)°"
-                
                 
                 self.hourlyCollectionView.reloadData()
                 self.dailyTableView.reloadData()

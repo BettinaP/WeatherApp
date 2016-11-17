@@ -17,13 +17,10 @@ class ForecastDataStore {
     var savedLocations = [SavedLocation]()
     var hourlyResults: [HourlyWeather] = []
     var dailyResults: [DailyWeather] = []
-   // var today = LocationWeather()
-  
     
     var todaysDate = NSDate()
     var todaysMinTemp = Int()
     var todaysMaxTemp = Int()
-//    var comparisonDate = NSDate ()
     var currentSummary = String()
     var currentIcon = String()
     var currentTime = Double()
@@ -35,39 +32,27 @@ class ForecastDataStore {
     
     // why did you initialize them???
     
-   
-    
-    
     func getForecastResultsWithCompletion(searchedLatitude: Double, searchedLongitude: Double, completion: (Bool) ->()) {
         
         DarkSkyAPIClient.getForecast(searchedLatitude, longitude: searchedLongitude) { (forecast) in
-           
-             self.dailyResults = forecast.dailyWeatherArray
-             self.hourlyResults = forecast.hourlyWeatherArray
-             self.currentSummary = forecast.summary
-             self.currentIcon = forecast.icon
-             self.currentTime = forecast.time
-             self.currentTimezone = forecast.timezone
-             self.currentTemperature = forecast.temperature
-             self.currentApparentTemp = forecast.apparentTemp
-             self.currentPrecipProbability = forecast.precipProbability
-//             self.today = forecast.todayDetails
             
-             self.todaysDate = forecast.today
-             self.todaysMinTemp = forecast.todaysMinTemp
-             self.todaysMaxTemp = forecast.todaysMaxTemp
+            self.dailyResults = forecast.dailyWeatherArray
+            self.hourlyResults = forecast.hourlyWeatherArray
+            self.currentSummary = forecast.summary
+            self.currentIcon = forecast.icon
+            self.currentTime = forecast.time
+            self.currentTimezone = forecast.timezone
+            self.currentTemperature = forecast.temperature
+            self.currentApparentTemp = forecast.apparentTemp
+            self.currentPrecipProbability = forecast.precipProbability
             
-//             self.comparisonDate = forecast.convertedDailyDate
-        
+            self.todaysDate = forecast.today
+            self.todaysMinTemp = forecast.todaysMinTemp
+            self.todaysMaxTemp = forecast.todaysMaxTemp
+            print("in store API call closure, location as timezone: \(self.currentTimezone), lat: \(searchedLatitude), long: \(searchedLongitude)")
             completion(true)
-  
-            
             
         }
-        
-        
-        
-    
     }
     
     
@@ -97,17 +82,15 @@ class ForecastDataStore {
         
         do {
             self.savedLocations = try self.managedObjectContext.executeFetchRequest(savedLocationsFetch) as! [SavedLocation]
-            
         } catch {
-            
             fatalError("Failed to fetch messages: \(error)")
             savedLocations = []
         }
         
-                if savedLocations.count == 0 {
-                    generateTestData()
-                    
-                }
+        if savedLocations.count == 0 {
+            generateTestData()
+        }
+        
     }
     
     
@@ -117,7 +100,7 @@ class ForecastDataStore {
         savedLocation1.locationName = "Beijing"
         savedLocation1.latitude = 39.9042
         savedLocation1.longitude = 116.4074
-    
+        
         
         let savedLocation2 = NSEntityDescription.insertNewObjectForEntityForName(SavedLocation.entityName, inManagedObjectContext: self.managedObjectContext) as! SavedLocation
         
@@ -188,4 +171,4 @@ class ForecastDataStore {
     
     
 }
-    
+

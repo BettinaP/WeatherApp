@@ -23,13 +23,13 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     var latitude = Double()
     var longitude = Double()
     var locationName = String()
+    var seenError: Bool = false
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pullToSearch()
         store.fetchData()
-        
+        pullToSearch()
         
         savedLocations = store.savedLocations
         locationManager.delegate = self
@@ -64,11 +64,11 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     
     func pullToSearch() {
         
-        self.searchController = UISearchController(searchResultsController: searchController
-        )
+        self.searchController = UISearchController(searchResultsController: searchController)
         self.searchController.searchBar.delegate = self
         self.searchController.searchBar.sizeToFit()
         self.searchController.searchResultsUpdater = self
+        self.searchController.searchResultsController?.modalInPopover = true
         self.searchController.dimsBackgroundDuringPresentation = true
         self.searchController.searchBar.placeholder = "Search Location ..."
         self.searchBar.searchBarStyle = UISearchBarStyle.Minimal
@@ -78,6 +78,66 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     }
     
     
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        //let searchString = searchController.searchBar.text
+        searchController.searchResultsUpdater?.updateSearchResultsForSearchController(searchController)
+        tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        //        if !shouldShowSearchResults = true {
+        //            shouldShowSearchResults = true
+        //            searchResults.reloadData()
+        //
+        
+        if searchBar.text != nil {
+            
+            geocoder.geocodeAddressString(searchBar.text!) { (placemarks, error) in
+                
+                guard let unwrappedPlacemarks = placemarks else {return}
+                
+                if error == nil {
+                    guard let placemark = unwrappedPlacemarks.first else {return}
+                    
+                    self.latitude = (placemark.location?.coordinate.latitude)!
+                    self.longitude = (placemark.location?.coordinate.longitude)!
+                    
+                    self.store.getForecastResultsWithCompletion(self.latitude, searchedLongitude: self.longitude) { (success) in
+                        if success {
+                            NSOperationQueue.mainQueue().addOperationWithBlock({
+                                self.searchController.searchResultsController?.loadView()
+                            //    self.tableView.reloadData()
+                                print(self.latitude, self.longitude, placemark)
+                            })
+                        }
+                    }
+                } else {
+                    
+                    print("Geocode failed with error:\(error)")
+                }
+                
+            }
+        } else {
+            
+            locationManager.startUpdatingLocation()
+        }
+        //}
+        
+        searchController.searchBar.resignFirstResponder()
+        
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        
+        locationManager.stopUpdatingLocation()
+        print("Failed to find user's location: \(error)")
+        //        if error  {
+        //            if seenError == false {
+        //                seenError == true
+        //                print(error)
+        //            }
+        //        }
+    }
     
     /* This happens asynchronously, the app can’t start using location services immediately. Instead, one must implement the locationManager:didChangeAuthorizationStatus delegate method, which fires any time the authorization status changes based on user input.
      
@@ -86,54 +146,43 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus){
         
         if status == .AuthorizedAlways || status == .AuthorizedWhenInUse {
-            manager.startUpdatingLocation()
+            locationManager.requestLocation() //not sure if needed here or should be called elsewhere. When put in viewDidLoad(), assertionFailure error of delegate not responding to didUpdateLocation triggered even though I've configured the function. Is it mainly if using MapKit and trying to set default location as user's current location? error message: *** Assertion failure in -[CLLocationManager requestLocation], /BuildRoot/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework_Sim/CoreLocation-1861.3.25.49/Framework/CoreLocation/CLLocationManager.m:820
+            //            2016-11-14 18:08:23.263 WeatherApp[61739:4389660] *** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'Delegate must respond to locationManager:didUpdateLocations:'
+            locationManager.startUpdatingLocation()
         }
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocation locations:[AnyObject]){
-        var searchedLocation: CLLocation = locations[0] as! CLLocation
-        let long = searchedLocation.coordinate.longitude
-        let lat = searchedLocation.coordinate.latitude
+        
+        let userLocation: CLLocation = locations[0] as! CLLocation
+        
+        locationManager.stopUpdatingLocation()
+        //
+        //        let long = userLocation.coordinate.longitude
+        //        let lat = userLocation.coordinate.latitude
+        
+        geocoder.reverseGeocodeLocation(userLocation) { (placemarks, error) in
+            
+            if error == nil {
+                guard let placemark = placemarks?.first else {return}
+                self.locationName = "\(placemark.subAdministrativeArea)"
+                print("locationName:\(self.locationName)")
+                print("userLocation in updateLocation function:\(userLocation)")
+            } else {
+                print("reverseGeocode failed with error:\(error)")
+                
+            }
+        }
         
     }
     
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        let searchString = searchController.searchBar.text
-        
-    }
     
     
     //func shouldShowSearchResults() { }
     
     
     //The geocoder object parses the information you give it and if it finds a match, returns some number of placemark objects.  The completion handler block you pass to the geocoder should be prepared to handle multiple placemarks, as shown below.
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        //        if !shouldShowSearchResults = true {
-        //            shouldShowSearchResults = true
-        //            searchResults.reloadData()
-        //
-        
-        geocoder.geocodeAddressString(searchBar.text!) { (placemarks, error) in
-            
-            guard let unwrappedPlacemarks = placemarks else {return}
-            
-            if error == nil {
-                guard let placemark = placemarks?.first else {return}
-                
-                self.latitude = (placemark.location?.coordinate.latitude)!
-                self.longitude = (placemark.location?.coordinate.longitude)!
-                
-            } else {
-                
-                print("Geocode failed with error:\(error)")
-            }
-            
-        }
-        //}
-        
-        searchController.searchBar.resignFirstResponder()
-        
-    }
+
     
     //find a way to insert selected data result into savedLocations array to be displayed
     
@@ -199,7 +248,7 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         }
     }
     
-   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("savedLocationToWeather", sender: tableView.cellForRowAtIndexPath(indexPath))
         self.tableView.cellForRowAtIndexPath(indexPath)?.highlighted = true
     }
@@ -220,16 +269,16 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
             }
             
             guard let unwrappedSavedLatitude = savedLocation.latitude as? Double else {return}
-                locationToPass.latitude = unwrappedSavedLatitude
+            locationToPass.latitude = unwrappedSavedLatitude
             
             
             guard let unwrappedSavedLongitude = savedLocation.longitude as? Double else {return}
-                locationToPass.longitude = unwrappedSavedLongitude
+            locationToPass.longitude = unwrappedSavedLongitude
             
             destinationVC.savedLocationPassed = locationToPass
         }
         
-    
+        
     }
     /*
      // Override to support conditional editing of the table view.
