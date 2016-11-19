@@ -48,7 +48,7 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
             
             print("longitude passed in segue: \(locationToPass.longitude)")
             
-            locationPage.savedLocationPassed = locationToPass
+            locationPage.locationPassed = locationToPass
             self.locationPages.append(locationPage)
             
         }

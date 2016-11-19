@@ -17,6 +17,7 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     @IBOutlet weak var searchBar: UISearchBar!
     var savedLocations = [SavedLocation]()
     var searchController: UISearchController!
+    var resultsController = UITableViewController()
     
     let locationManager = CLLocationManager()
     let geocoder = CLGeocoder()
@@ -25,11 +26,14 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     var locationName = String()
     var seenError: Bool = false
     
+    var searchResults = [String]()
+    var shouldShowSearchResults: Bool = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         store.fetchData()
-        pullToSearch()
+        configureSearchController()
         
         savedLocations = store.savedLocations
         locationManager.delegate = self
@@ -49,6 +53,8 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        self.resultsController.tableView.delegate = self
+        self.resultsController.tableView.dataSource = self
         self.tableView.reloadData()
         
         
@@ -62,9 +68,9 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         self.tableView.reloadData()
     }
     
-    func pullToSearch() {
+    func configureSearchController() {
         
-        self.searchController = UISearchController(searchResultsController: searchController)
+        self.searchController = UISearchController(searchResultsController: resultsController)
         self.searchController.searchBar.delegate = self
         self.searchController.searchBar.sizeToFit()
         self.searchController.searchResultsUpdater = self
@@ -72,6 +78,7 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         self.searchController.dimsBackgroundDuringPresentation = true
         self.searchController.searchBar.placeholder = "Search Location ..."
         self.searchBar.searchBarStyle = UISearchBarStyle.Minimal
+        definesPresentationContext = true
         
         //self.tableView.tableHeaderView = self.searchController.searchBar
         // self.definesPresentationContext = true
@@ -79,53 +86,65 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        //let searchString = searchController.searchBar.text
-        searchController.searchResultsUpdater?.updateSearchResultsForSearchController(searchController)
+         let searchString = searchController.searchBar.text
+        
+        //        searchController.searchResultsUpdater?.updateSearchResultsForSearchController(searchController)
         tableView.reloadData()
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        //        if !shouldShowSearchResults = true {
-        //            shouldShowSearchResults = true
-        //            searchResults.reloadData()
-        //
-        
-        if searchBar.text != nil {
+        if !shouldShowSearchResults {
+            shouldShowSearchResults = true
             
-            geocoder.geocodeAddressString(searchBar.text!) { (placemarks, error) in
-                
-                guard let unwrappedPlacemarks = placemarks else {return}
-                
-                if error == nil {
-                    guard let placemark = unwrappedPlacemarks.first else {return}
+            self.store.locationResults.removeAll()
+            
+            if searchBar.text != nil {
+                geocoder.geocodeAddressString(searchBar.text!) { (placemarks, error) in
                     
-                    self.latitude = (placemark.location?.coordinate.latitude)!
-                    self.longitude = (placemark.location?.coordinate.longitude)!
+                    guard let unwrappedPlacemarks = placemarks else {return}
                     
-                    self.store.getForecastResultsWithCompletion(self.latitude, searchedLongitude: self.longitude) { (success) in
-                        if success {
-                            NSOperationQueue.mainQueue().addOperationWithBlock({
-                                self.searchController.searchResultsController?.loadView()
-                            //    self.tableView.reloadData()
-                                print(self.latitude, self.longitude, placemark)
-                            })
+                    if error == nil {
+                        guard let placemark = unwrappedPlacemarks.first else {return}
+                        
+                        self.latitude = (placemark.location?.coordinate.latitude)!
+                        self.longitude = (placemark.location?.coordinate.longitude)!
+                        
+                        self.store.getForecastResultsWithCompletion(self.latitude, searchedLongitude: self.longitude) { (success) in
+                            if success {
+                                NSOperationQueue.mainQueue().addOperationWithBlock({
+                                    self.searchController.searchResultsController?.loadView()
+                                     self.tableView.reloadData()
+                                    print(self.latitude, self.longitude, placemark)
+                                })
+                            }
                         }
+                        self.tableView.reloadData()
+                    } else {
+                        
+                        print("Geocode failed with error:\(error)")
                     }
-                } else {
-                    
-                    print("Geocode failed with error:\(error)")
                 }
-                
+            } else {
+                locationManager.startUpdatingLocation()
             }
-        } else {
-            
-            locationManager.startUpdatingLocation()
         }
-        //}
         
         searchController.searchBar.resignFirstResponder()
         
     }
+    
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        shouldShowSearchResults = true
+        tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        shouldShowSearchResults = false
+        tableView.reloadData()
+    }
+    
+    
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         
@@ -157,7 +176,7 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         let userLocation: CLLocation = locations[0] as! CLLocation
         
         locationManager.stopUpdatingLocation()
-        //
+        
         //        let long = userLocation.coordinate.longitude
         //        let lat = userLocation.coordinate.latitude
         
@@ -176,13 +195,10 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         
     }
     
-    
-    
     //func shouldShowSearchResults() { }
     
     
     //The geocoder object parses the information you give it and if it finds a match, returns some number of placemark objects.  The completion handler block you pass to the geocoder should be prepared to handle multiple placemarks, as shown below.
-
     
     //find a way to insert selected data result into savedLocations array to be displayed
     
@@ -213,8 +229,6 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         return savedLocations.count
     }
     
-    
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCellWithIdentifier("savedLocationCell") as! SavedLocationTableViewCell
         
@@ -227,7 +241,6 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         
         return cell
     }
-    
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
@@ -253,6 +266,7 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         self.tableView.cellForRowAtIndexPath(indexPath)?.highlighted = true
     }
     
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         let destinationVC = segue.destinationViewController as! ForecastViewController
@@ -275,11 +289,18 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
             guard let unwrappedSavedLongitude = savedLocation.longitude as? Double else {return}
             locationToPass.longitude = unwrappedSavedLongitude
             
-            destinationVC.savedLocationPassed = locationToPass
+            destinationVC.locationPassed = locationToPass
         }
-        
-        
     }
+    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        let newSavedLocation = SavedLocation()
+        savedLocations.append(newSavedLocation)
+        
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
+    
     /*
      // Override to support conditional editing of the table view.
      override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

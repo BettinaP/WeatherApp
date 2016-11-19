@@ -17,6 +17,7 @@ class ForecastDataStore {
     var savedLocations = [SavedLocation]()
     var hourlyResults: [HourlyWeather] = []
     var dailyResults: [DailyWeather] = []
+    var locationResults: [LocationWeather] = []
     
     var todaysDate = NSDate()
     var todaysMinTemp = Int()
@@ -49,6 +50,8 @@ class ForecastDataStore {
             self.todaysDate = forecast.today
             self.todaysMinTemp = forecast.todaysMinTemp
             self.todaysMaxTemp = forecast.todaysMaxTemp
+            
+            self.locationResults.append(forecast)
             print("in store API call closure, location as timezone: \(self.currentTimezone), lat: \(searchedLatitude), long: \(searchedLongitude)")
             completion(true)
             
