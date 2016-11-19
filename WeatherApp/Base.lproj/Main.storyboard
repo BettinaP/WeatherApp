@@ -364,17 +364,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="Enter location here..." showsSearchResultsButton="YES" showsCancelButton="YES" id="8UL-sL-s7o">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
-                            <connections>
-                                <outlet property="delegate" destination="TLP-PR-Po1" id="2pQ-pC-cLa"/>
-                            </connections>
-                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="savedLocationCell" rowHeight="83" id="ymO-JJ-cFm" customClass="SavedLocationTableViewCell" customModule="WeatherApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="375" height="83"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="83"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ymO-JJ-cFm" id="RhW-AN-9kj">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
@@ -422,16 +414,11 @@
                         </connections>
                     </tableView>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <connections>
-                        <outlet property="searchBar" destination="8UL-sL-s7o" id="M95-kS-wIk"/>
-                        <outlet property="searchDisplayController" destination="rUg-T9-EbK" id="b9V-7D-tyd"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sB5-HE-Hi2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <searchDisplayController id="rUg-T9-EbK">
                     <connections>
                         <outlet property="delegate" destination="TLP-PR-Po1" id="Boa-pK-ghn"/>
-                        <outlet property="searchBar" destination="8UL-sL-s7o" id="KEi-Ol-rDz"/>
                         <outlet property="searchContentsController" destination="TLP-PR-Po1" id="jQZ-b7-vXk"/>
                         <outlet property="searchResultsDataSource" destination="TLP-PR-Po1" id="P63-NW-o9f"/>
                         <outlet property="searchResultsDelegate" destination="TLP-PR-Po1" id="UI0-4N-fs3"/>

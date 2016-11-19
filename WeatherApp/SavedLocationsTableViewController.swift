@@ -14,7 +14,6 @@ import CoreData
 class SavedLocationsTableViewController: UITableViewController,UISearchBarDelegate, UISearchResultsUpdating, CLLocationManagerDelegate {
     let store = ForecastDataStore.sharedInstance
     
-    @IBOutlet weak var searchBar: UISearchBar!
     var savedLocations = [SavedLocation]()
     var searchController: UISearchController!
     var resultsController = UITableViewController()
@@ -74,13 +73,13 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         self.searchController.searchBar.delegate = self
         self.searchController.searchBar.sizeToFit()
         self.searchController.searchResultsUpdater = self
-        self.searchController.searchResultsController?.modalInPopover = true
+//        self.searchController.searchResultsController?.modalInPopover = true
         self.searchController.dimsBackgroundDuringPresentation = true
         self.searchController.searchBar.placeholder = "Search Location ..."
-        self.searchBar.searchBarStyle = UISearchBarStyle.Minimal
+        self.searchController.searchBar.searchBarStyle = UISearchBarStyle.Minimal
         definesPresentationContext = true
         
-        //self.tableView.tableHeaderView = self.searchController.searchBar
+        self.tableView.tableHeaderView = self.searchController.searchBar
         // self.definesPresentationContext = true
     }
     

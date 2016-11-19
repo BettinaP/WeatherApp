@@ -123,113 +123,109 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
         // Dispose of any resources that can be recreated.
     }
     
-    
-    
-    
-    
 }
-
-extension UIView {
-    
-    func layerGradient(){
-        
-    lazy var gradient: CAGradientLayer = [
-        
-        UIColor(hex:"#FD4340"),
-        UIColor(hex:"#CE2BAE")
-        ].gradient { gradient in
-            gradient.speed = 0
-            gradient.timeOffset = 0
-            
-            return gradient
-    }
-    
-    lazy var animation: CABasicAnimation = { [unowned self] in
-        
-        let animation = CABasicAnimation(keyPath: "colors")
-        animation.duration = 1.0
-        animation.isRemovedCompletion = false
-        
-        return animation
-        }()
-        
-        gradient.frame.size = self.frame.size
-        
-        gradient.insertSublayer(gradient, atIndex: 0)
-    }
-    
-    
-    
-    convenience init(title: String){
-        self.init()
-        self.title = title
-        
-        animation.fromValue = gradient.colors
-        animation.toValue = [
-            UIColor(hex:"#8D24FF").cgColor,
-            UIColor(hex:"#23A8F9").cgColor
-        ]
-    }
-    
-     func viewDidLoad(){
-        
-        super.viewDidLoad()
-        
-        dispatch(queue: .interactive) { [weak self] in
-            self?.updateViewColor()
-            //self?.update { $0.component.items = UIViewController.generateItems(0, to: 50) }
-        }
-    }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
+//
+//extension UIView {
+//    
+//    func layerGradient(){
 //        
-//        guard let navigationController = navigationController else { return }
+//    lazy var gradient: CAGradientLayer = [
 //        
-//        navigationController.view.layer.insertSublayer(gradient, at: 0)
-//        gradient.timeOffset = 0
-//        gradient.bounds = navigationController.view.bounds
-//        gradient.frame = navigationController.view.bounds
-//        gradient.add(animation, forKey: "Change Colors")
+//        UIColor(hex:"#FD4340"),
+//        UIColor(hex:"#CE2BAE")
+//        ].gradient { gradient in
+//            gradient.speed = 0
+//            gradient.timeOffset = 0
+//            
+//            return gradient
 //    }
-    
-//    override func scrollViewDidScroll(scrollView: UIScrollView) {
-//        updateGradient()
-//    }
-    
-//     private func updateGradient() {
-////        let offset = self.view.contentOffset.y / self.view.contentSize.height
+//    
+//    lazy var animation: CABasicAnimation = { [unowned self] in
 //        
-//        if offset >= 0 && offset <= CGFloat(animation.duration) {
-//            gradient.timeOffset = CFTimeInterval(offset)
-//        } else if offset >= CGFloat(animation.duration) {
-//            gradient.timeOffset = CFTimeInterval(animation.duration)
+//        let animation = CABasicAnimation(keyPath: "colors")
+//        animation.duration = 1.0
+//        animation.isRemovedCompletion = false
+//        
+//        return animation
+//        }()
+//        
+//        gradient.frame.size = self.frame.size
+//        
+//        gradient.insertSublayer(gradient, atIndex: 0)
+//    }
+//    
+//    
+//    
+//    convenience init(title: String){
+//        self.init()
+//        self.title = title
+//        
+//        animation.fromValue = gradient.colors
+//        animation.toValue = [
+//            UIColor(hex:"#8D24FF").cgColor,
+//            UIColor(hex:"#23A8F9").cgColor
+//        ]
+//    }
+//    
+//     func viewDidLoad(){
+//        
+//        super.viewDidLoad()
+//        
+//        dispatch(queue: .interactive) { [weak self] in
+//            self?.updateViewColor()
+//            //self?.update { $0.component.items = UIViewController.generateItems(0, to: 50) }
 //        }
-//        
-////        updateNavigationBarColor()
 //    }
-
-     private func updateViewColor() {
-//        guard let navigationBar = navigationController?.navigationBar else { return }
-        
-        //if let gradientLayer = gradient.presentationLayer(),
-        if let gradientLayer = self.gradient as! CAGradientLayer,
-             let colors = gradientLayer.
-//            let colors = gradientLayer.value(forKey: "colors") as? [CGColor],
-            let firstColor = colors.first {
-            view.backgroundColor = UIColor.clearColor()
-                
-                //view.backgroundColor = UIColor(CGColor: firstColor)
-//            navigationBar.barTintColor = UIColor(cgColor: firstColor)
-        } else if let color = gradient.colors as? [CGColor],
-            let firstColor = color.first {
-            
-            view.backgroundColor = UIColor.clearColor()
-            
-//            view.backgroundColor = UIColor(cgColor: firstColor)
-        }
-    }
-    
-    
-}
-
+//    
+////    override func viewDidAppear(_ animated: Bool) {
+////        super.viewDidAppear(animated)
+////        
+////        guard let navigationController = navigationController else { return }
+////        
+////        navigationController.view.layer.insertSublayer(gradient, at: 0)
+////        gradient.timeOffset = 0
+////        gradient.bounds = navigationController.view.bounds
+////        gradient.frame = navigationController.view.bounds
+////        gradient.add(animation, forKey: "Change Colors")
+////    }
+//    
+////    override func scrollViewDidScroll(scrollView: UIScrollView) {
+////        updateGradient()
+////    }
+//    
+////     private func updateGradient() {
+//////        let offset = self.view.contentOffset.y / self.view.contentSize.height
+////        
+////        if offset >= 0 && offset <= CGFloat(animation.duration) {
+////            gradient.timeOffset = CFTimeInterval(offset)
+////        } else if offset >= CGFloat(animation.duration) {
+////            gradient.timeOffset = CFTimeInterval(animation.duration)
+////        }
+////        
+//////        updateNavigationBarColor()
+////    }
+//
+//     private func updateViewColor() {
+////        guard let navigationBar = navigationController?.navigationBar else { return }
+//        
+//        //if let gradientLayer = gradient.presentationLayer(),
+//        if let gradientLayer = self.gradient as! CAGradientLayer,
+//             let colors = gradientLayer.
+////            let colors = gradientLayer.value(forKey: "colors") as? [CGColor],
+//            let firstColor = colors.first {
+//            view.backgroundColor = UIColor.clearColor()
+//                
+//                //view.backgroundColor = UIColor(CGColor: firstColor)
+////            navigationBar.barTintColor = UIColor(cgColor: firstColor)
+//        } else if let color = gradient.colors as? [CGColor],
+//            let firstColor = color.first {
+//            
+//            view.backgroundColor = UIColor.clearColor()
+//            
+////            view.backgroundColor = UIColor(cgColor: firstColor)
+//        }
+//    }
+//    
+//    
+//}
+//
