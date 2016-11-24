@@ -18,19 +18,41 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     var store = ForecastDataStore.sharedInstance
     var locationPages = [UIViewController]()
     
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        setupViews()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        store.fetchData()
+      
+        
+        //createContentPages()
+        
+    }
+    
+    
+    
+    func setupViews(){
+        
+        print(store.savedLocations.count)
+        if store.savedLocations.count == 0 {
+            store.fetchData()
+        }
+        //store.fetchData()
         
         rootToolbar.backgroundColor = UIColor.clearColor()
         pageController =   self.storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as! UIPageViewController
- 
+        
         
         pageController.dataSource = self
         pageController.delegate = self
+        //find a way to get whatever city is selected to front of savelocations array
         
         for savedLocation in store.savedLocations {
-            
+            print(savedLocation.locationName)
             let locationPage = (storyboard?.instantiateViewControllerWithIdentifier("WeatherContentViewController"))! as! ForecastViewController
             
             let locationToPass = LocationWeather()
@@ -42,19 +64,25 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
             guard let unwrappedSavedLatitude = savedLocation.latitude as? Double else {return}
             locationToPass.latitude = unwrappedSavedLatitude
             
-            
             guard let unwrappedSavedLongitude = savedLocation.longitude as? Double else {return}
             locationToPass.longitude = unwrappedSavedLongitude
             
             print("longitude passed in segue: \(locationToPass.longitude)")
             
             locationPage.locationPassed = locationToPass
+            
+            //            if self.locationPages.contains(locationPage){
+            //                continue
+            //                print("locationPages count inside RootVC view did load, if page already instantiated: \(locationPages.count)")
+            //            } else {
             self.locationPages.append(locationPage)
+            print("locationPages count inside RootVC view did load, if page not already instantiated: \(locationPages.count)")
+            //            }
             
         }
         
         guard let weatherPage = self.locationPages.first else { return }
-         
+        
         pageController.setViewControllers([weatherPage], direction: .Forward, animated: false, completion: nil)
         
         pageController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
@@ -63,38 +91,22 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         self.view.addSubview(pageController.view)
         self.pageController.didMoveToParentViewController(self)
         self.view.bringSubviewToFront(rootToolbar)
-        
-//        pageController.toolbarItems?.append(rootAddBarButton)
-//        pageController.toolbarItems?.append(pageControlItem)
-        
-        
-        
-
-        
-        //        addButton.frame = CGRectMake(0, 0, 25, 25)
-        //
-        //        self.view.addSubview(addButton)
-        //
-        //
-        //createContentPages()
-         
     }
     
     
     
     func viewControllerAtIndex(index: Int) -> ForecastViewController {
-//        
-//        if store.savedLocations.count == 0 || index >= store.savedLocations.count {
-//            return nil
-//        }
+        //
+        //        if store.savedLocations.count == 0 || index >= store.savedLocations.count {
+        //            return nil
+        //        }
         
         let weatherContentVC = (self.storyboard?.instantiateViewControllerWithIdentifier("WeatherContentViewController"))! as! ForecastViewController
         
-        //let weatherContentVC = ForecastViewController()
         weatherContentVC.pageIndex = index
         
         return weatherContentVC
-    
+        
     }
     
     
@@ -110,7 +122,7 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         return locationPages[previousIndex]
     }
     
-
+    
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         guard let currentIndex = locationPages.indexOf(viewController) else {return nil}
@@ -128,7 +140,7 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
         return store.savedLocations.count
     }
-   
+    
     
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
         return 0
@@ -138,6 +150,7 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     @IBAction func addButtonTapped(sender: AnyObject) {
         
         performSegueWithIdentifier("forecastToSavedLocations", sender: rootAddBarButton)
+        
     }
     
     override func didReceiveMemoryWarning() {

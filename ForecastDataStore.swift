@@ -34,6 +34,7 @@ class ForecastDataStore {
     // why did you initialize them???
     
     func getForecastResultsWithCompletion(searchedLatitude: Double, searchedLongitude: Double, completion: (Bool) ->()) {
+        print("savedLocations count before call:\(self.savedLocations.count)")
         
         DarkSkyAPIClient.getForecast(searchedLatitude, longitude: searchedLongitude) { (forecast) in
             
@@ -51,8 +52,11 @@ class ForecastDataStore {
             self.todaysMinTemp = forecast.todaysMinTemp
             self.todaysMaxTemp = forecast.todaysMaxTemp
             
-            self.locationResults.append(forecast)
-            print("in store API call closure, location as timezone: \(self.currentTimezone), lat: \(searchedLatitude), long: \(searchedLongitude)")
+//            self.savedLocations.append(forecast)
+           self.locationResults.append(forecast)
+            print("savedLocations count after call:\(self.savedLocations.count)")
+//            print("locationsResults count after call:\(self.locationResults.count)")
+            
             completion(true)
             
         }
@@ -90,9 +94,9 @@ class ForecastDataStore {
             savedLocations = []
         }
         
-        if savedLocations.count == 0 {
-            generateTestData()
-        }
+//        if savedLocations.count == 0 {
+//            generateTestData()
+//        }
         
     }
     

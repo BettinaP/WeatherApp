@@ -30,7 +30,6 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
     var pageIndex = Int()
     var dailyResultsWithoutToday: [DailyWeather] = []
     var store = ForecastDataStore.sharedInstance
-    let searchBar = UISearchBar()
     var locationPassed = LocationWeather()
     
     
@@ -41,7 +40,7 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        self.view.backgroundColor = UIColor.blueColor()
+        self.view.backgroundColor = UIColor.blueColor()
         dailyTableView.delegate = self
         dailyTableView.dataSource = self
         dailyTableView.allowsSelection = false
@@ -117,6 +116,9 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
+    override func performSegueWithIdentifier(identifier: String, sender: AnyObject?) {
+        performSegueWithIdentifier("forecastBackToPageVC", sender: self)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

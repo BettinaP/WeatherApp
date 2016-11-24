@@ -323,9 +323,9 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="e5C-vk-CuU"/>
                                 <exclude reference="4qp-7e-DCz"/>
                                 <exclude reference="wcP-QB-HqX"/>
-                                <exclude reference="e5C-vk-CuU"/>
                                 <exclude reference="5RR-EB-Hxh"/>
                                 <exclude reference="Jou-HW-9kL"/>
                                 <exclude reference="fZe-xv-C5X"/>
@@ -354,7 +354,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2025.5" y="240.5"/>
+            <point key="canvasLocation" x="1965.5" y="1170.5"/>
         </scene>
         <!--Saved Locations Table View Controller-->
         <scene sceneID="giH-AZ-acU">
@@ -404,7 +404,7 @@
                                     <outlet property="savedCurrentTemp" destination="Z1H-Uh-gZO" id="Qe7-2c-ztF"/>
                                     <outlet property="savedTimeLabel" destination="veR-BH-Jh2" id="e9u-sI-rb6"/>
                                     <outlet property="savedWeatherIcon" destination="Sax-zJ-w7n" id="Sxg-B3-QZ7"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="savedLocationToWeather" id="FCq-VX-Fxl"/>
+                                    <segue destination="QaW-Pl-pU3" kind="show" identifier="savedLocationToRootVC" id="Weh-nS-AId"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
