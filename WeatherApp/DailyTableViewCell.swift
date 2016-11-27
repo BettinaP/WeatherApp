@@ -22,23 +22,23 @@ class DailyTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
 
     
-    func configureDailyCell(dailyForecast:DailyWeather) {
+    func configureDailyCell(_ dailyForecast:DailyWeather) {
        
        
         self.dailyIconImageView.image = UIImage(named: dailyForecast.dailyIcon)
         if dailyForecast.dailyIcon == "clear-day"{
         
-            self.dailyIconImageView.tintColor = UIColor.yellowColor()
+            self.dailyIconImageView.tintColor = UIColor.yellow
         }
     
-        let date = NSDate(timeIntervalSince1970: dailyForecast.dailyTime)
+        let date = Date(timeIntervalSince1970: dailyForecast.dailyTime)
         let dayOfWeek = getDayNameBy(date)
 
         self.weekDayLabel.text = String(dayOfWeek)
@@ -50,10 +50,10 @@ class DailyTableViewCell: UITableViewCell {
     }
     
     
-    func getDayNameBy(date: NSDate) -> String {
-        let df  = NSDateFormatter()
+    func getDayNameBy(_ date: Date) -> String {
+        let df  = DateFormatter()
         df.dateFormat = "EEEE" // use dateFormat each time to specify what format you want to receive the date as ...can  be used multiple times within function
-        return df.stringFromDate(date);
+        return df.string(from: date);
     }
  
 }

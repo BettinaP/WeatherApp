@@ -40,7 +40,7 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.blueColor()
+        self.view.backgroundColor = UIColor.blue
         dailyTableView.delegate = self
         dailyTableView.dataSource = self
         dailyTableView.allowsSelection = false
@@ -51,7 +51,7 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
         
         store.getForecastResultsWithCompletion(locationPassed.latitude, searchedLongitude: locationPassed.longitude) { (success) in
             
-            NSOperationQueue.mainQueue().addOperationWithBlock({
+            OperationQueue.main.addOperation({
                 
                 self.cityName.text = self.locationPassed.locationName
                 
@@ -70,7 +70,7 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
                 
                 if self.store.currentIcon == "clear-day"{
                     
-                    self.currentlyImageView.tintColor = UIColor.yellowColor()
+                    self.currentlyImageView.tintColor = UIColor.yellow
                 }
                 
                 self.todayMaxLabel.text = "\(self.store.todaysMaxTemp)°"
@@ -82,15 +82,15 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return store.dailyResults.count
         
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("weekday", forIndexPath: indexPath) as! DailyTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "weekday", for: indexPath) as! DailyTableViewCell
         
         let day = self.store.dailyResults[indexPath.row]
         
@@ -100,14 +100,14 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return store.hourlyResults.count
     }
     
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let hourlyCell = hourlyCollectionView.dequeueReusableCellWithReuseIdentifier("hourlyDetailsCell", forIndexPath: indexPath) as! HourlyCollectionViewCell
+        let hourlyCell = hourlyCollectionView.dequeueReusableCell(withReuseIdentifier: "hourlyDetailsCell", for: indexPath) as! HourlyCollectionViewCell
         
         let hour = self.store.hourlyResults[indexPath.item]
         hourlyCell.configureHourlyCell(hour)
@@ -116,8 +116,8 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    override func performSegueWithIdentifier(identifier: String, sender: AnyObject?) {
-        performSegueWithIdentifier("forecastBackToPageVC", sender: self)
+    override func performSegue(withIdentifier identifier: String, sender: Any?) {
+        performSegue(withIdentifier: "forecastBackToPageVC", sender: self)
     }
     
     override func didReceiveMemoryWarning() {

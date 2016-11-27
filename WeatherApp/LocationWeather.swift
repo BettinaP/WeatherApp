@@ -53,10 +53,10 @@ class LocationWeather {
     var dailyWeatherArray = [DailyWeather]()
     
     var todayDetails = [DailyWeather]()
-    var today = NSDate()
+    var today = Date()
     var todaysMaxTemp = Int()
     var todaysMinTemp = Int()
-    var convertedDailyDate = NSDate()
+    var convertedDailyDate = Date()
     
     
     init(currentWeather: JSON){
@@ -101,7 +101,7 @@ class LocationWeather {
             //trying to figure out how to exclude today's date from the weekday array since updates of current day will be displayed hourly
             
             let todaysDateString = today.getDayStamp()
-            let dayOfWeekDateString = NSDate(timeIntervalSince1970:dailyTime).getDayStamp()
+            let dayOfWeekDateString = Date(timeIntervalSince1970:dailyTime).getDayStamp()
             
             if todaysDateString == dayOfWeekDateString{
                 todaysMaxTemp = dailyTempMax

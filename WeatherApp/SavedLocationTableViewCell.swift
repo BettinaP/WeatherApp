@@ -21,24 +21,24 @@ class SavedLocationTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
     }
     
     
-    func getHour(date: NSDate) -> String {
+    func getHour(_ date: Date) -> String {
         
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = DateFormatter.Style.short
         dateFormatter.dateFormat = "h:mm a"
-        dateFormatter.timeZone = NSTimeZone()
+        dateFormatter.timeZone = TimeZone()
         
-        return dateFormatter.stringFromDate(date)
+        return dateFormatter.string(from: date)
     }
     
-    func configureSavedCityCell(cityCurrentForecast:SavedLocation) {
+    func configureSavedCityCell(_ cityCurrentForecast:SavedLocation) {
         let store = ForecastDataStore.sharedInstance
         
         let locationToPass = LocationWeather()
@@ -55,13 +55,13 @@ class SavedLocationTableViewCell: UITableViewCell {
         
         DarkSkyAPIClient.getForecast(locationToPass.latitude, longitude: locationToPass.longitude) { (forecast) in
             
-            NSOperationQueue.mainQueue().addOperationWithBlock({
+            OperationQueue.main.addOperation({
                 
                 self.savedWeatherIcon.image = UIImage(named:forecast.icon)
                 
                 self.savedCurrentTemp.text = "\(forecast.temperature)°"
                 
-                let date = NSDate(timeIntervalSince1970: forecast.time)
+                let date = Date(timeIntervalSince1970: forecast.time)
                 let hour = self.getHour(date)
                 self.savedTimeLabel.text = String(hour)
             })

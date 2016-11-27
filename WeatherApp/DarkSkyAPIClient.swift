@@ -13,7 +13,7 @@ import Alamofire
 
 class DarkSkyAPIClient {
     
-    class func getForecast(latitude: Double, longitude: Double, completion: LocationWeather -> ()) {
+    class func getForecast(_ latitude: Double, longitude: Double, completion: @escaping (LocationWeather) -> ()) {
 
 
     
@@ -21,7 +21,7 @@ class DarkSkyAPIClient {
         
             switch response.result {
             
-            case .Success: // case .Success(let value): let json = JSON(value)
+            case .success: // case .Success(let value): let json = JSON(value)
                 
                 if let value = response.result.value {
                     let json = JSON(value) //like unwrappedData in NSURLSession...turning value (anyObject) into a JSONObject (basically a giant dictionary)
@@ -32,7 +32,7 @@ class DarkSkyAPIClient {
 //                    completion(json)
                 }
                 
-            case .Failure(let error):
+            case .failure(let error):
                 print(error)
             }
         }

@@ -8,31 +8,31 @@
 
 import UIKit
 
-extension NSDate {
+extension Date {
 
     func getWeekOfDayString() -> String {
-        let dateFormatter  = NSDateFormatter()
+        let dateFormatter  = DateFormatter()
         
         dateFormatter.dateFormat = "EEEE" // use dateFormat each time to specify what format you want to receive the date as ...can  be used multiple times within function
-        return dateFormatter.stringFromDate(self);
+        return dateFormatter.string(from: self);
     }
     
     func getHour() -> String {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         
-        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        dateFormatter.timeStyle = DateFormatter.Style.short
         dateFormatter.dateFormat = "h a"
-        dateFormatter.timeZone = NSTimeZone()
+        dateFormatter.timeZone = TimeZone()
         
-        return dateFormatter.stringFromDate(self)
+        return dateFormatter.string(from: self)
     }
     
     func getDayStamp() -> String {
-        let dateFormatter  = NSDateFormatter()
+        let dateFormatter  = DateFormatter()
         
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        return dateFormatter.stringFromDate(self);
+        return dateFormatter.string(from: self);
     }
     
 }

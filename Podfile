@@ -6,7 +6,7 @@ target 'WeatherApp' do
   use_frameworks!
 
   # Pods for WeatherApp 
-  pod ‘Alamofire’
-  pod ’SwiftyJSON’
-  pod ‘Hue’	
+  #pod ‘Alamofire’
+  #pod ’SwiftyJSON’
+  #pod ‘Hue’	
 end
