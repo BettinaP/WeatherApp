@@ -15,7 +15,7 @@
 //    }
 //    if hex.characters.count == 3 {
 //      for (index, char) in hex.characters.enumerate() {
-//     hex.insert(char, atIndex: hex.endIndex.advancedBy(index * 2))
+//     hex.insert(char, atIndex: hex.startIndex.advancedBy(3))
 //        // hex.insert(char, atIndex:(hex.startIndex, offsetBy: (index * 2)))
 //      }
 //    }
