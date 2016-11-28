@@ -16,18 +16,18 @@ class HourlyCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var hourlyTempLabel: UILabel!
     
     
-    func configureHourlyCell(_ hourlyForecast:HourlyWeather) {
+    func configureHourlyCell(hourlyForecast:HourlyWeather) {
         
         
         self.hourlyIconImageView.image = UIImage(named: hourlyForecast.hourlyIcon)
         
         if hourlyForecast.hourlyIcon == "clear-day"{
             
-            self.hourlyIconImageView.tintColor = UIColor.yellow
+            self.hourlyIconImageView.tintColor = UIColor.yellowColor()
         }
         
        
-        let date = Date(timeIntervalSince1970: hourlyForecast.hourlyTime)
+        let date = NSDate(timeIntervalSince1970: hourlyForecast.hourlyTime)
         
         let hour = getHour(date)
         
@@ -38,12 +38,12 @@ class HourlyCollectionViewCell: UICollectionViewCell {
 }
 
 
-func getHour(_ date: Date) -> String {
+func getHour(date: NSDate) -> String {
     
-    let dateFormatter = DateFormatter()
-    dateFormatter.timeStyle = DateFormatter.Style.short
+    let dateFormatter = NSDateFormatter()
+    dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
     dateFormatter.dateFormat = "h a"
-    dateFormatter.timeZone = TimeZone()
+    dateFormatter.timeZone = NSTimeZone()
     
-    return dateFormatter.string(from: date)
+    return dateFormatter.stringFromDate(date)
 }

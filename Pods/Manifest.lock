@@ -1,18 +1,18 @@
 PODS:
-  - Alamofire (3.4.1)
-  - Hue (1.1.1)
-  - SwiftyJSON (2.3.2)
+  - Alamofire (3.5.1)
+  - Hue (2.0.1)
+  - SwiftyJSON (2.3.0)
 
 DEPENDENCIES:
-  - Alamofire
+  - Alamofire (~> 3.5)
   - Hue
-  - SwiftyJSON
+  - SwiftyJSON (= 2.3.0)
 
 SPEC CHECKSUMS:
-  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
-  Hue: 931aeeadcb29ce5de5b97589aa936be4638a1501
-  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  Alamofire: 0dfba1184a543e2aa160f4e39cac4e8aba48d223
+  Hue: 354caec055fdc9d38b5ef33ca2e7224721843baf
+  SwiftyJSON: 8d6b61a70277ef2a5d710d372e06e7e2d87fb9e4
 
-PODFILE CHECKSUM: 9744b64d4bffd49bbb04b173ba33c1b115c9ab82
+PODFILE CHECKSUM: 4630f20c03cad8fb04159af74080536e413f1068
 
 COCOAPODS: 1.0.1

@@ -1,4 +1,4 @@
-//
+ //
 //  ViewController.swift
 //  WeatherApp
 //
@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import SwiftyJSON
 import Alamofire
-import Hue
+//import Hue
 
 
 class ForecastViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate {
@@ -40,7 +40,7 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.blue
+        self.view.backgroundColor = UIColor.blueColor()
         dailyTableView.delegate = self
         dailyTableView.dataSource = self
         dailyTableView.allowsSelection = false
@@ -51,7 +51,7 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
         
         store.getForecastResultsWithCompletion(locationPassed.latitude, searchedLongitude: locationPassed.longitude) { (success) in
             
-            OperationQueue.main.addOperation({
+            NSOperationQueue.mainQueue().addOperationWithBlock({
                 
                 self.cityName.text = self.locationPassed.locationName
                 
@@ -70,7 +70,7 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
                 
                 if self.store.currentIcon == "clear-day"{
                     
-                    self.currentlyImageView.tintColor = UIColor.yellow
+                    self.currentlyImageView.tintColor = UIColor.yellowColor()
                 }
                 
                 self.todayMaxLabel.text = "\(self.store.todaysMaxTemp)°"
@@ -82,15 +82,16 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return store.dailyResults.count
         
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "weekday", for: indexPath) as! DailyTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("weekday", forIndexPath: indexPath) as! DailyTableViewCell
         
         let day = self.store.dailyResults[indexPath.row]
         
@@ -100,14 +101,14 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return store.hourlyResults.count
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let hourlyCell = hourlyCollectionView.dequeueReusableCell(withReuseIdentifier: "hourlyDetailsCell", for: indexPath) as! HourlyCollectionViewCell
+        let hourlyCell = hourlyCollectionView.dequeueReusableCellWithReuseIdentifier("hourlyDetailsCell", forIndexPath: indexPath) as! HourlyCollectionViewCell
         
         let hour = self.store.hourlyResults[indexPath.item]
         hourlyCell.configureHourlyCell(hour)
@@ -116,8 +117,9 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    override func performSegue(withIdentifier identifier: String, sender: Any?) {
-        performSegue(withIdentifier: "forecastBackToPageVC", sender: self)
+    
+    override func performSegueWithIdentifier(identifier: String, sender: AnyObject?) {
+           performSegueWithIdentifier("forecastBackToPageVC", sender: self)
     }
     
     override func didReceiveMemoryWarning() {
