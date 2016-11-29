@@ -7,7 +7,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Weatherly would like to use your current location for the most accurate forecasts.</string>
 	<key>NSLocationUsageDescription</key>
-	<string></string>
+	<string>Weatherly would like to use your current location for the most accurate forecasts.</string>
 	<key>CFBundleDisplayName</key>
 	<string></string>
 	<key>LSApplicationCategoryType</key>

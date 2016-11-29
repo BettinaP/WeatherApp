@@ -118,9 +118,9 @@ class ForecastViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-    override func performSegueWithIdentifier(identifier: String, sender: AnyObject?) {
-           performSegueWithIdentifier("forecastBackToPageVC", sender: self)
-    }
+//    override func performSegueWithIdentifier(identifier: String, sender: AnyObject?) {
+//           performSegueWithIdentifier("forecastBackToPageVC", sender: self)
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

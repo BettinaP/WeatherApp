@@ -13,7 +13,8 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     @IBOutlet weak var rootToolbar: UIToolbar!
     @IBOutlet weak var rootAddBarButton: UIBarButtonItem!
     
-    var umbrellaReminderButton: UIButton!
+    @IBOutlet weak var umbrellaReminderButton: UIBarButtonItem!
+    
     var pageController =  UIPageViewController()
     var store = ForecastDataStore.sharedInstance
     var locationPages = [UIViewController]()
@@ -33,15 +34,10 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         if store.savedLocations.count == 0 {
             store.fetchData()
         }
-        
-        umbrellaReminderButton.setImage(UIImage(named: "protection"), forState: .Normal)
-        umbrellaReminderButton.frame = CGRectMake(0, 0, 25, 25)
-        umbrellaReminderButton.addTarget(self, action: #selector(umbrellaReminderButtonTapped), forControlEvents: .TouchUpInside)
-        
+            
         rootToolbar.backgroundColor = UIColor.clearColor()
+        
         pageController = self.storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as! UIPageViewController
-        
-        
         pageController.dataSource = self
         pageController.delegate = self
         
@@ -90,11 +86,11 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     }
     
     
-    func umbrellaReminderButtonTapped(){
-    
-    performSegueWithIdentifier(<#T##identifier: String##String#>, sender: <#T##AnyObject?#>)
-        print("umbrella reminder button clicked")
-    
+    @IBAction func setUmbrellaReminderButtonTapped(sender: AnyObject) {
+        
+//        performSegueWithIdentifier(<#T##identifier: String##String#>, sender: <#T##AnyObject?#>)
+                print("umbrella reminder button clicked")
+        
     }
     
     

@@ -39,9 +39,17 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
                                     <barButtonItem systemItem="add" id="7a7-DH-tYy">
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <action selector="addButtonTapped:" destination="QaW-Pl-pU3" id="Bw9-4F-yRP"/>
                                             <segue destination="TLP-PR-Po1" kind="show" identifier="forecastToSavedLocations" id="Zny-qr-gSX"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="289" style="plain" systemItem="fixedSpace" id="HZo-xq-6kE"/>
+                                    <barButtonItem image="protection2" id="St6-Sh-7FK" userLabel="Umbrella Bar Button Item">
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="setUmbrellaReminderButtonTapped:" destination="QaW-Pl-pU3" id="Fcz-ve-qmM"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -58,6 +66,7 @@
                     <connections>
                         <outlet property="rootAddBarButton" destination="7a7-DH-tYy" id="uih-uZ-df3"/>
                         <outlet property="rootToolbar" destination="a5S-oO-4cJ" id="6IB-Jp-vuw"/>
+                        <outlet property="umbrellaReminderButton" destination="St6-Sh-7FK" id="glb-Tg-4DF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YA5-a9-Y1y" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -349,6 +358,113 @@
             </objects>
             <point key="canvasLocation" x="1961" y="240"/>
         </scene>
+        <!--Set Umbrella Reminder-->
+        <scene sceneID="eoL-LB-wzv">
+            <objects>
+                <tableViewController id="prV-CL-3mV" customClass="UmbrellaReminderTableViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="SRa-C4-DNd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="umbrellaSwitchCell" rowHeight="65" id="Mah-oJ-ual">
+                                <rect key="frame" x="0.0" y="28" width="375" height="65"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mah-oJ-ual" id="oAx-XS-Azf">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Grab umbrella" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eb8-xt-fgi">
+                                            <rect key="frame" x="23" y="17" width="141" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <accessibility key="accessibilityConfiguration" identifier="grabUmbrellaLabel" label="grabUmbrellaLabel"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vAj-yE-XMi">
+                                            <rect key="frame" x="294" y="17" width="51" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <accessibility key="accessibilityConfiguration" identifier="grabUmbrellaSwitch" label="grabUmbrellaSwitch"/>
+                                        </switch>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="editTimePickerCell" rowHeight="256" id="pZ5-rj-3la" userLabel="editTimePickerCell">
+                                <rect key="frame" x="0.0" y="93" width="375" height="256"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pZ5-rj-3la" id="sxg-FB-Mze">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="255"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="xgg-dE-7Id">
+                                            <rect key="frame" x="21" y="1" width="330" height="196"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <date key="date" timeIntervalSinceReferenceDate="502145462.47164601">
+                                                <!--2016-11-29 20:51:02 +0000-->
+                                            </date>
+                                        </datePicker>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2I4-M9-rUA">
+                                            <rect key="frame" x="163" y="217" width="46" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <accessibility key="accessibilityConfiguration" identifier="editTimeButton" label="editTimeButton"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <state key="normal" title="Edit"/>
+                                            <connections>
+                                                <action selector="editTimeButtonTapped:" destination="prV-CL-3mV" eventType="touchUpInside" id="QMJ-4s-5Jx"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="repeatCell" id="zRI-VU-q1j">
+                                <rect key="frame" x="0.0" y="349" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zRI-VU-q1j" id="6rt-Cc-yn6">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Repeat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SbS-up-7w8">
+                                            <rect key="frame" x="22" y="6" width="61" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="alertCell" id="jg7-ZY-Jsc">
+                                <rect key="frame" x="0.0" y="393" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jg7-ZY-Jsc" id="4sV-Gb-4Ct">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="prV-CL-3mV" id="dLa-gL-hth"/>
+                            <outlet property="delegate" destination="prV-CL-3mV" id="U1V-tT-JZV"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Set Umbrella Reminder" id="9w3-KT-Cc5">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="h5a-ts-Mdw">
+                            <connections>
+                                <action selector="cancelReminderButtonTapped:" destination="prV-CL-3mV" id="hAJ-z4-iKu"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="C5W-h3-ahP">
+                            <connections>
+                                <action selector="reminderSaveButtonTapped:" destination="prV-CL-3mV" id="b4h-Xr-GgX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8yn-VO-h54" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4215.1999999999998" y="-1303.8980509745129"/>
+        </scene>
         <!--Saved Locations Table View Controller-->
         <scene sceneID="giH-AZ-acU">
             <objects>
@@ -415,22 +531,26 @@
             </objects>
             <point key="canvasLocation" x="2337" y="-615"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="q6x-v8-kI1">
+        <!--Navigation Controller-->
+        <scene sceneID="bg1-st-gs0">
             <objects>
-                <viewController id="6cM-Jt-68O" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="lmz-UM-hxc"/>
-                        <viewControllerLayoutGuide type="bottom" id="hOY-wR-fVk"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ztY-1V-oDR">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qex-oA-48D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ruq-a9-RmM" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fkn-7h-o7z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="prV-CL-3mV" kind="relationship" relationship="rootViewController" id="pCG-jw-IO7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0YF-KH-soe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="3276" y="-1303.8980509745129"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="protection2" width="31" height="31"/>
+    </resources>
 </document>
