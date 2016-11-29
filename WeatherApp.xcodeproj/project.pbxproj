@@ -106,7 +106,6 @@
 				DE16644D1DD687D400B48A94 /* DateExtension.swift */,
 				DE559ECB1DAB28F500E17299 /* AppDelegate.swift */,
 				DE559ECF1DAB28F500E17299 /* Main.storyboard */,
-				DEE1B4E91DEE2013001DD22F /* UmbrellaReminderTableViewController.swift */,
 				DE559ED21DAB28F500E17299 /* Assets.xcassets */,
 				DE559ED41DAB28F500E17299 /* LaunchScreen.storyboard */,
 				DE559ED71DAB28F500E17299 /* Info.plist */,
@@ -132,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				DE6ED6D41DBFF07D00AD1180 /* RootViewController.swift */,
+				DEE1B4E91DEE2013001DD22F /* UmbrellaReminderTableViewController.swift */,
 				DEC1C97F1DB9471100B6F5E2 /* PageViewController.swift */,
 				DE559ECD1DAB28F500E17299 /* ForecastViewController.swift */,
 				DEA4B4291DAF0D5B00B4DE2E /* DailyTableViewCell.swift */,

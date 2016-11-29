@@ -28,13 +28,13 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         super.viewDidLoad()
         
     }
-  
+    
     func setupViews(){
         
         if store.savedLocations.count == 0 {
             store.fetchData()
         }
-            
+        
         rootToolbar.backgroundColor = UIColor.clearColor()
         
         pageController = self.storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as! UIPageViewController
@@ -87,9 +87,8 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     
     
     @IBAction func setUmbrellaReminderButtonTapped(sender: AnyObject) {
-        
-//        performSegueWithIdentifier(<#T##identifier: String##String#>, sender: <#T##AnyObject?#>)
-                print("umbrella reminder button clicked")
+        performSegueWithIdentifier("rootToSetUmbrellaReminder", sender: self)
+         
         
     }
     
@@ -98,7 +97,7 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         //
         //        if store.savedLocations.count == 0 || index >= store.savedLocations.count {
         //            return nil
-        //        } 
+        //        }
         
         let weatherContentVC = (self.storyboard?.instantiateViewControllerWithIdentifier("WeatherContentViewController"))! as! ForecastViewController
         
