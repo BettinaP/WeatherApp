@@ -13,12 +13,10 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     @IBOutlet weak var rootToolbar: UIToolbar!
     @IBOutlet weak var rootAddBarButton: UIBarButtonItem!
     
-    
+    var umbrellaReminderButton: UIButton!
     var pageController =  UIPageViewController()
     var store = ForecastDataStore.sharedInstance
     var locationPages = [UIViewController]()
-    
-    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -27,21 +25,18 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-        
-        //createContentPages()
         
     }
-    
-    
-    
+  
     func setupViews(){
         
-        print(store.savedLocations.count)
         if store.savedLocations.count == 0 {
             store.fetchData()
         }
-        //store.fetchData()
+        
+        umbrellaReminderButton.setImage(UIImage(named: "protection"), forState: .Normal)
+        umbrellaReminderButton.frame = CGRectMake(0, 0, 25, 25)
+        umbrellaReminderButton.addTarget(self, action: #selector(umbrellaReminderButtonTapped), forControlEvents: .TouchUpInside)
         
         rootToolbar.backgroundColor = UIColor.clearColor()
         pageController = self.storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as! UIPageViewController
@@ -49,6 +44,7 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         
         pageController.dataSource = self
         pageController.delegate = self
+        
         //find a way to get whatever city is selected to front of savelocations array
         
         for savedLocation in store.savedLocations {
@@ -94,6 +90,13 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     }
     
     
+    func umbrellaReminderButtonTapped(){
+    
+    performSegueWithIdentifier(<#T##identifier: String##String#>, sender: <#T##AnyObject?#>)
+        print("umbrella reminder button clicked")
+    
+    }
+    
     
     func viewControllerAtIndex(index: Int) -> ForecastViewController {
         //
@@ -109,8 +112,8 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         
     }
     
-    
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+        
         guard let currentIndex = locationPages.indexOf(viewController) else {return nil}
         
         if currentIndex == 0 || currentIndex == NSNotFound {
@@ -125,6 +128,7 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+        
         guard let currentIndex = locationPages.indexOf(viewController) else {return nil}
         
         if currentIndex == locationPages.count - 1 {
@@ -137,13 +141,8 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     
     
     // dots to display and which dot is selected at the beginning
-    func presentationCount(for pageViewController: UIPageViewController) -> Int {
+    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
         return store.savedLocations.count
-    }
-    
-    
-    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        return 0
     }
     
     

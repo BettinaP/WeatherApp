@@ -11,12 +11,10 @@ import CoreLocation
 import CoreData
 
 
-class SavedLocationsTableViewController: UITableViewController,UISearchBarDelegate, UISearchResultsUpdating, CLLocationManagerDelegate {
+class SavedLocationsTableViewController: UITableViewController,UISearchBarDelegate,CLLocationManagerDelegate {
     let store = ForecastDataStore.sharedInstance
     
     var savedLocations = [SavedLocation]()
-    var searchController: UISearchController!
-    var resultsController = UITableViewController()
     
     let locationManager = CLLocationManager()
     let geocoder = CLGeocoder()
@@ -25,15 +23,14 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     var locationName = String()
     var seenError: Bool = false
     
+    var searchBar = UISearchBar()
     var searchResults = [String]()
-    var shouldShowSearchResults: Bool = false
-    
+    var newBounds = CGRect()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureSearchBar()
         store.fetchData()
-        configureSearchController()
-        
         savedLocations = store.savedLocations
         locationManager.delegate = self
         //triggers system prompting the user to authorize access to location services if they hadn't yet explicitly approved or denied the app, make sure to add NSLocationWhenInUseUsageDescription key to Info.plist:
@@ -49,12 +46,9 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
-        self.resultsController.tableView.delegate = self
-        self.resultsController.tableView.dataSource = self
-        self.resultsController.tableView.reloadData()
+        let refreshControl = UIRefreshControl()
+        self.tableView.addSubview(refreshControl)
+        refreshControl.addTarget(self, action: #selector(handleRefresh), forControlEvents:.ValueChanged)
         self.tableView.reloadData()
         
         
@@ -62,43 +56,36 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     
     
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-        store.fetchData()
+        super.viewWillAppear(animated)
         savedLocations = store.savedLocations
+        store.fetchData()
+        
+        newBounds = self.tableView.bounds
+        newBounds.origin.y = newBounds.origin.y + self.searchBar.bounds.size.height
+        self.tableView.bounds = newBounds
+        
+        let refreshControl = UIRefreshControl()
+        self.tableView.addSubview(refreshControl)
+        refreshControl.addTarget(self, action: #selector(handleRefresh), forControlEvents:.ValueChanged)
+        
         self.tableView.reloadData()
     }
     
-    func configureSearchController() {
-        self.searchController = UISearchController(searchResultsController: resultsController)
-        self.searchController.searchBar.delegate = self
-        self.searchController.searchBar.sizeToFit()
-        self.searchController.searchResultsUpdater = self
-        //        self.searchController.searchResultsController?.modalInPopover = true
-        self.searchController.dimsBackgroundDuringPresentation = true
-        self.searchController.searchBar.placeholder = "Search Location ..."
-        self.searchController.searchBar.searchBarStyle = UISearchBarStyle.Minimal
-        definesPresentationContext = true
+    func configureSearchBar() {
+        searchBar.delegate = self
+        searchBar.frame = CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height * 0.11)
+        searchBar.placeholder = "Search Location ..."
+        searchBar.searchBarStyle = UISearchBarStyle.Minimal
+        searchBar.setShowsCancelButton(true, animated: false)
+        self.tableView.tableHeaderView = searchBar
         
-        self.tableView.tableHeaderView = self.searchController.searchBar
-        // self.definesPresentationContext = true
     }
     
     
     //self.nav.initvc.pushController, ifselected, initialize pageVC
     
     
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        let searchString = searchController.searchBar.text
-        
-        //        searchController.searchResultsUpdater?.updateSearchResultsForSearchController(searchController)
-        self.resultsController.tableView.reloadData()
-    }
-    
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        //        if !shouldShowSearchResults {
-        //            shouldShowSearchResults = true
-        
-        self.store.savedLocations.removeAll()
         
         if searchBar.text != nil {
             geocoder.geocodeAddressString(searchBar.text!) { (placemarks, error) in
@@ -114,8 +101,8 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
                     
                     self.store.getForecastResultsWithCompletion(self.latitude, searchedLongitude: self.longitude) { (success) in
                         if success {
-                            NSOperationQueue.mainQueue().addOperationWithBlock({ 
-                               
+                            NSOperationQueue.mainQueue().addOperationWithBlock({
+                                
                                 let savedSearchedLocation = NSEntityDescription.insertNewObjectForEntityForName(SavedLocation.entityName, inManagedObjectContext: self.store.managedObjectContext) as! SavedLocation
                                 
                                 savedSearchedLocation.locationName = placemark.locality
@@ -127,39 +114,41 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
                                 self.store.saveContext()
                                 
                                 self.tableView.reloadData()
-                                //                                   self.searchController.searchResultsController?.loadView()
-                                //                                     self.resultsController.tableView.reloadData()
-                                //\(self.latitude), \(self.longitude), \(placemark)")
+                                self.viewWillAppear(true) 
                             })
                         }
                     }
-                    //self.resultsController.tableView.reloadData()
+                    self.tableView.reloadData()
                 } else {
-                    
                     print("Geocode failed with error:\(error)")
                 }
             }
         } else {
+            //            self.tableView.reloadData()
             locationManager.startUpdatingLocation()
         }
-        //        }
-        
-        searchController.searchBar.resignFirstResponder()
+        self.tableView.reloadData()
+        self.viewWillAppear(true)
+        //        searchController.searchBar.resignFirstResponder()
         
     }
     
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        shouldShowSearchResults = true
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        shouldShowSearchResults = false
-        tableView.reloadData()
+        self.viewWillAppear(true)
+        self.tableView.reloadData()
     }
     
-    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
+        viewWillAppear(true)
+        
+    }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         
@@ -239,9 +228,28 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     
     // MARK: - Table view data source
     
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if savedLocations.count != 0 {
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+            return 1
+            
+        } else {
+            
+            let pullToSearchMessageLabel: UILabel = UILabel.init(frame: CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height))
+            pullToSearchMessageLabel.textColor = UIColor.blackColor()
+            pullToSearchMessageLabel.numberOfLines = 0
+            pullToSearchMessageLabel.textAlignment = .Center
+            pullToSearchMessageLabel.font = UIFont.init(name: "Helvetica-Neue", size: 24.0)
+            pullToSearchMessageLabel.sizeToFit()
+            
+            self.tableView.backgroundView = pullToSearchMessageLabel
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        }
+        
+        return 0
+    }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return savedLocations.count
     }
     
@@ -253,7 +261,6 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         
         cell.savedCityLabel.text = savedCity.locationName
         cell.configureSavedCityCell(savedCity)
-         
         
         return cell
     }
@@ -262,7 +269,7 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         return true
     }
     
-   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if editingStyle == UITableViewCellEditingStyle.Delete {
             
@@ -278,17 +285,17 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-      
+        
         let selectedLocation = store.savedLocations[indexPath.row]
         store.savedLocations.removeAtIndex(indexPath.row)
         store.savedLocations.insert(selectedLocation, atIndex: 0)
-        performSegueWithIdentifier("savedLocationToRootVC", sender: (tableView.cellForRowAtIndexPath(indexPath)))
+        performSegueWithIdentifier("savedLocationToRootVC", sender: tableView.cellForRowAtIndexPath(indexPath))
         self.tableView.cellForRowAtIndexPath(indexPath)?.highlighted = true
         
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
- 
+        
         if segue.identifier == "savedLocationToWeather" {
             let destinationVC = segue.destinationViewController as! ForecastViewController
             
@@ -312,13 +319,7 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         }
     }
     
-    func handleRefresh(refreshControl: UIRefreshControl) {
-        let newSavedLocation = SavedLocation()
-        savedLocations.append(newSavedLocation)
-        
-        self.tableView.reloadData()
-        refreshControl.endRefreshing()
-    }
+    
     
     /*
      // Override to support conditional editing of the table view.

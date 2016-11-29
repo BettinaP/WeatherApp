@@ -14,8 +14,6 @@ import Alamofire
 class DarkSkyAPIClient {
     
     class func getForecast(latitude: Double, longitude: Double, completion:(LocationWeather) -> ()) {
-
-
     
         Alamofire.request(.GET, "https://api.darksky.net/forecast/\(Secrets.key)/\(latitude),\(longitude)").validate().responseJSON { (response) in
         

@@ -9,7 +9,7 @@
 import UIKit
 
 extension NSDate {
-
+    
     func getWeekOfDayString() -> String {
         let dateFormatter  = NSDateFormatter()
         
@@ -27,6 +27,19 @@ extension NSDate {
         return dateFormatter.stringFromDate(self)
     }
     
+    //    func getTimeByTimeZone() {
+    //        let dateFormatter = NSDateFormatter()
+    //        let iOSTimeZones = NSTimeZone.knownTimeZoneNames()
+    //
+    //        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+    //        dateFormatter.dateFormat = "h a"
+    //        dateFormatter.timeZone = NSTimeZone()
+    //
+    //        return dateFormatter.stringFromDate(self)
+    //    }
+    
+    
+    
     func getDayStamp() -> String {
         let dateFormatter  = NSDateFormatter()
         
@@ -35,5 +48,6 @@ extension NSDate {
         return dateFormatter.stringFromDate(self)
         
     }
+    
     
 }

@@ -17,13 +17,6 @@
             <objects>
                 <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="8Ex-xD-u0M" customClass="PageViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="lZ8-JB-BO1">
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="qEB-ZS-ago">
-                            <connections>
-                                <segue destination="TLP-PR-Po1" kind="show" id="MFR-qF-5bM"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f9W-ZN-P5P" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -397,7 +390,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sax-zJ-w7n">
-                                            <rect key="frame" x="198" y="8" width="57" height="66"/>
+                                            <rect key="frame" x="183" y="8" width="57" height="66"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <accessibility key="accessibilityConfiguration" identifier="savedWeatherIcon" label="savedWeatherIcon"/>
                                         </imageView>
@@ -422,8 +415,22 @@
             </objects>
             <point key="canvasLocation" x="2337" y="-615"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="q6x-v8-kI1">
+            <objects>
+                <viewController id="6cM-Jt-68O" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lmz-UM-hxc"/>
+                        <viewControllerLayoutGuide type="bottom" id="hOY-wR-fVk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ztY-1V-oDR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qex-oA-48D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="Zny-qr-gSX"/>
-    </inferredMetricsTieBreakers>
 </document>
