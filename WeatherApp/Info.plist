@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleGetInfoString</key>
 	<string></string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Weatherly would like to use your current location for the most accurate forecasts.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Weatherly would like to use your current location for the most accurate forecasts.</string>
 	<key>NSLocationUsageDescription</key>

@@ -50,7 +50,7 @@
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <action selector="setUmbrellaReminderButtonTapped:" destination="QaW-Pl-pU3" id="Fcz-ve-qmM"/>
-                                            <segue destination="prV-CL-3mV" kind="popoverPresentation" identifier="rootToSetUmbrellaReminder" popoverAnchorBarButtonItem="St6-Sh-7FK" id="f9m-JH-ACw">
+                                            <segue destination="uFK-tL-hmk" kind="popoverPresentation" identifier="rootToSetUmbrellaReminder" popoverAnchorBarButtonItem="St6-Sh-7FK" id="f9m-JH-ACw">
                                                 <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                             </segue>
                                         </connections>
@@ -361,19 +361,19 @@
             </objects>
             <point key="canvasLocation" x="1961" y="240"/>
         </scene>
-        <!--Set Umbrella Reminder-->
+        <!--Umbrella Reminder-->
         <scene sceneID="eoL-LB-wzv">
             <objects>
                 <tableViewController id="prV-CL-3mV" customClass="UmbrellaReminderTableViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="SRa-C4-DNd">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="SRa-C4-DNd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection headerTitle="Section-1" id="Jeq-q3-E22">
+                            <tableViewSection id="Jeq-q3-E22">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="umbrellaSwitchCell" rowHeight="56" id="Mah-oJ-ual">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="56"/>
+                                        <rect key="frame" x="0.0" y="35" width="375" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mah-oJ-ual" id="oAx-XS-Azf">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
@@ -391,16 +391,19 @@
                                                     <rect key="frame" x="294" y="17" width="51" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <accessibility key="accessibilityConfiguration" identifier="grabUmbrellaSwitch" label="grabUmbrellaSwitch"/>
+                                                    <connections>
+                                                        <action selector="umbrellaSwitchToggled:" destination="prV-CL-3mV" eventType="valueChanged" id="Nrb-q1-AHP"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Section-2" id="fhi-zh-CFE">
+                            <tableViewSection id="fhi-zh-CFE">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="editTimePickerCell" rowHeight="256" id="4Oe-yO-rgf" userLabel="editTimePickerCell">
-                                        <rect key="frame" x="0.0" y="112" width="375" height="256"/>
+                                        <rect key="frame" x="0.0" y="127" width="375" height="256"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Oe-yO-rgf" id="dEh-WD-bPS">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="255"/>
@@ -428,39 +431,52 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Section-3" id="OnY-qT-TkR">
+                            <tableViewSection id="OnY-qT-TkR">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="repeatCell" id="LTM-vJ-JdV">
-                                        <rect key="frame" x="0.0" y="396" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="419" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LTM-vJ-JdV" id="MUi-DE-NiZ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Repeat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNM-ox-ILF">
-                                                    <rect key="frame" x="22" y="6" width="61" height="31"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Repeat daily" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNM-ox-ILF">
+                                                    <rect key="frame" x="22" y="6" width="99" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dDX-xk-der">
+                                                    <rect key="frame" x="300" y="6" width="51" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </switch>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="alertCell" id="H5o-eO-3hx">
-                                        <rect key="frame" x="0.0" y="440" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="alertCell" id="H5o-eO-3hx">
+                                        <rect key="frame" x="0.0" y="463" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H5o-eO-3hx" id="lHM-WQ-A5E">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Alert" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOT-0n-97K">
-                                                    <rect key="frame" x="22" y="4" width="61" height="31"/>
+                                                    <rect key="frame" x="22" y="5" width="61" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wyz-bJ-4ge">
+                                                    <rect key="frame" x="301" y="5" width="46" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="setAlertButton" label="setAlertButton"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <state key="normal" title="None">
+                                                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -472,22 +488,30 @@
                             <outlet property="delegate" destination="prV-CL-3mV" id="U1V-tT-JZV"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Set Umbrella Reminder" id="9w3-KT-Cc5">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="h5a-ts-Mdw">
+                    <navigationItem key="navigationItem" title="Umbrella Reminder" id="2sy-jU-wOL">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="SAB-HH-vtI">
                             <connections>
-                                <action selector="cancelReminderButtonTapped:" destination="prV-CL-3mV" id="hAJ-z4-iKu"/>
+                                <action selector="cancelReminderButtonTapped:" destination="prV-CL-3mV" id="xPh-Iw-QnA"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="C5W-h3-ahP">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="h88-hk-tZR">
                             <connections>
-                                <action selector="reminderSaveButtonTapped:" destination="prV-CL-3mV" id="b4h-Xr-GgX"/>
+                                <action selector="reminderSaveButtonTapped:" destination="prV-CL-3mV" id="anu-m7-Iw5"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="cancelReminderButton" destination="SAB-HH-vtI" id="ItI-wx-RQx"/>
+                        <outlet property="editTimeButton" destination="AsV-he-Y0B" id="UeE-JZ-DPJ"/>
+                        <outlet property="reminderTimePicker" destination="HRA-w6-tIm" id="eqI-hh-jFI"/>
+                        <outlet property="repeatDailySwitch" destination="dDX-xk-der" id="tH5-4D-JWl"/>
+                        <outlet property="saveReminderButton" destination="h88-hk-tZR" id="GGO-3P-JlY"/>
+                        <outlet property="umbrellaReminderSwitch" destination="vAj-yE-XMi" id="wBx-qV-sza"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8yn-VO-h54" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2592.8000000000002" y="-1320.0899550224888"/>
+            <point key="canvasLocation" x="3532" y="-1320.0899550224888"/>
         </scene>
         <!--Saved Locations Table View Controller-->
         <scene sceneID="giH-AZ-acU">
@@ -556,28 +580,25 @@
             <point key="canvasLocation" x="2337" y="-615"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="bg1-st-gs0">
+        <scene sceneID="m8X-Pw-L1M">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ruq-a9-RmM" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uFK-tL-hmk" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fkn-7h-o7z">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5vq-bT-5BU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="prV-CL-3mV" kind="relationship" relationship="rootViewController" id="pCG-jw-IO7"/>
+                        <segue destination="prV-CL-3mV" kind="relationship" relationship="rootViewController" id="iD3-gi-CbE"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0YF-KH-soe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nDJ-5i-fyN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1666" y="-1320"/>
+            <point key="canvasLocation" x="2592.8000000000002" y="-1320.0899550224888"/>
         </scene>
     </scenes>
     <resources>
         <image name="protection2" width="31" height="31"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="pCG-jw-IO7"/>
-    </inferredMetricsTieBreakers>
 </document>
