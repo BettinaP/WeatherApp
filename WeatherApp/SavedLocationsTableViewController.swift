@@ -29,7 +29,7 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureSearchBar()
+        //configureSearchBar()
         store.fetchData()
         savedLocations = store.savedLocations
         locationManager.delegate = self
@@ -45,10 +45,10 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        
-        let refreshControl = UIRefreshControl()
-        self.tableView.addSubview(refreshControl)
-        refreshControl.addTarget(self, action: #selector(handleRefresh), forControlEvents:.ValueChanged)
+//        
+//        let refreshControl = UIRefreshControl()
+//        self.tableView.addSubview(refreshControl)
+//        refreshControl.addTarget(self, action: #selector(handleRefresh), forControlEvents:.ValueChanged)
         self.tableView.reloadData()
         
         
@@ -59,10 +59,10 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         super.viewWillAppear(animated)
         savedLocations = store.savedLocations
         store.fetchData()
-        
-        newBounds = self.tableView.bounds
-        newBounds.origin.y = newBounds.origin.y + self.searchBar.bounds.size.height
-        self.tableView.bounds = newBounds
+//        
+//        newBounds = self.tableView.bounds
+//        newBounds.origin.y = newBounds.origin.y + self.searchBar.bounds.size.height
+//        self.tableView.bounds = newBounds
         
         let refreshControl = UIRefreshControl()
         self.tableView.addSubview(refreshControl)
@@ -77,11 +77,15 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         searchBar.placeholder = "Search Location ..."
         searchBar.searchBarStyle = UISearchBarStyle.Minimal
         searchBar.setShowsCancelButton(true, animated: false)
+        
         self.tableView.tableHeaderView = searchBar
         
     }
     
+    func popToRootVC(){
+        self.dismissViewControllerAnimated(true, completion: nil)
     
+    }
     //self.nav.initvc.pushController, ifselected, initialize pageVC
     
     
@@ -139,14 +143,26 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        self.viewWillAppear(true)
+        
+        
+        newBounds = self.tableView.bounds
+        newBounds.origin.y = newBounds.origin.y - self.searchBar.bounds.size.height
+        self.tableView.bounds = newBounds
+        searchBar.hidden = true
         self.tableView.reloadData()
+        //self.viewWillAppear(true)
+        
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
+        configureSearchBar()
+        newBounds = self.tableView.bounds
+        newBounds.origin.y = newBounds.origin.y + self.searchBar.bounds.size.height
+        self.tableView.bounds = newBounds
+
         self.tableView.reloadData()
         refreshControl.endRefreshing()
-        viewWillAppear(true)
+        //viewWillAppear(true)
         
     }
     

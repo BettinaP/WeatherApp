@@ -46,13 +46,10 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem width="289" style="plain" systemItem="fixedSpace" id="HZo-xq-6kE"/>
-                                    <barButtonItem image="protection2" id="St6-Sh-7FK" userLabel="Umbrella Bar Button Item">
+                                    <barButtonItem title="Item" image="protection2" id="St6-Sh-7FK" userLabel="Umbrella Bar Button Item">
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <action selector="setUmbrellaReminderButtonTapped:" destination="QaW-Pl-pU3" id="Fcz-ve-qmM"/>
-                                            <segue destination="uFK-tL-hmk" kind="popoverPresentation" identifier="rootToSetUmbrellaReminder" popoverAnchorBarButtonItem="St6-Sh-7FK" id="f9m-JH-ACw">
-                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                            </segue>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -376,7 +373,7 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mah-oJ-ual" id="oAx-XS-Azf">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Grab umbrella" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eb8-xt-fgi">
@@ -400,17 +397,44 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="fhi-zh-CFE">
+                            <tableViewSection headerTitle="Departure Time:" id="fhi-zh-CFE">
                                 <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="showAndEditTimeCell" id="Idw-Vc-0Nm" userLabel="showAndEditTimeCell">
+                                        <rect key="frame" x="0.0" y="147" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Idw-Vc-0Nm" id="Bfn-M5-Xlh">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Tz-HC-cJZ">
+                                                    <rect key="frame" x="19" y="0.0" width="118" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qp2-TR-rku">
+                                                    <rect key="frame" x="296" y="6" width="46" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="editTimeButton" label="editTimeButton"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <state key="normal" title="Edit"/>
+                                                    <connections>
+                                                        <action selector="editTimeButtonTapped:" destination="prV-CL-3mV" eventType="touchUpInside" id="0M4-Dp-hG4"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="editTimePickerCell" rowHeight="256" id="4Oe-yO-rgf" userLabel="editTimePickerCell">
-                                        <rect key="frame" x="0.0" y="127" width="375" height="256"/>
+                                        <rect key="frame" x="0.0" y="191" width="375" height="256"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Oe-yO-rgf" id="dEh-WD-bPS">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="255"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="256"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="HRA-w6-tIm">
-                                                    <rect key="frame" x="21" y="1" width="330" height="196"/>
+                                                    <rect key="frame" x="20" y="1" width="330" height="196"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <date key="date" timeIntervalSinceReferenceDate="502145462.47164601">
                                                         <!--2016-11-29 20:51:02 +0000-->
@@ -428,16 +452,17 @@
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration" identifier="editTimePickerCell" label="editTimePickerCell"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="OnY-qT-TkR">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="repeatCell" id="LTM-vJ-JdV">
-                                        <rect key="frame" x="0.0" y="419" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="483" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LTM-vJ-JdV" id="MUi-DE-NiZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Repeat daily" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNM-ox-ILF">
@@ -455,10 +480,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="alertCell" id="H5o-eO-3hx">
-                                        <rect key="frame" x="0.0" y="463" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="527" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H5o-eO-3hx" id="lHM-WQ-A5E">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Alert" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOT-0n-97K">
@@ -503,9 +528,11 @@
                     <connections>
                         <outlet property="cancelReminderButton" destination="SAB-HH-vtI" id="ItI-wx-RQx"/>
                         <outlet property="editTimeButton" destination="AsV-he-Y0B" id="UeE-JZ-DPJ"/>
+                        <outlet property="editTimePickerCell" destination="4Oe-yO-rgf" id="cub-Oh-9al"/>
                         <outlet property="reminderTimePicker" destination="HRA-w6-tIm" id="eqI-hh-jFI"/>
                         <outlet property="repeatDailySwitch" destination="dDX-xk-der" id="tH5-4D-JWl"/>
                         <outlet property="saveReminderButton" destination="h88-hk-tZR" id="GGO-3P-JlY"/>
+                        <outlet property="showAndEditTimeCell" destination="Idw-Vc-0Nm" id="JYA-n0-4SI"/>
                         <outlet property="umbrellaReminderSwitch" destination="vAj-yE-XMi" id="wBx-qV-sza"/>
                     </connections>
                 </tableViewController>

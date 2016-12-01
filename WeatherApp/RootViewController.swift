@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
@@ -18,6 +19,17 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     var pageController =  UIPageViewController()
     var store = ForecastDataStore.sharedInstance
     var locationPages = [UIViewController]()
+    
+    
+    
+    let locationManager = CLLocationManager()
+    var latitude = Double()
+    var longitude = Double()
+    var locationName = String()
+    var userLocation = CLLocation()
+    
+    var notification = UILocalNotification()
+    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -87,11 +99,32 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     
     
     @IBAction func setUmbrellaReminderButtonTapped(sender: AnyObject) {
-        performSegueWithIdentifier("rootToSetUmbrellaReminder", sender: self)
+        //performSegueWithIdentifier("rootToSetUmbrellaReminder", sender: self)
          
+        store.getForecastResultsWithCompletion(self.latitude, searchedLongitude: self.longitude) { (success) in
+            
+            print("location: \(self.latitude), \(self.longitude)")
+            
+            NSOperationQueue.mainQueue().addOperationWithBlock({
+                for hour in self.store.hourlyResults {
+                    if hour.hourlyIcon == "drizzle" || hour.hourlyIcon == "rain" || hour.hourlyIcon == "sleet" {
+                        self.presentReminderSetMessage("Anticipate some rain today!")
+                        //                            print("notification printing inside API call inside of switchOn bool: \(self.notification)")
+                        print("hourlyIcon phrase:\(hour.hourlyTime),\(hour.hourlyIcon)")
+                    }
+                }
+            })
+        }
         
     }
     
+    func presentReminderSetMessage(message: String) {
+        let alertController = UIAlertController.init(title: "Grab Umbrella Reminder", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        self.presentViewController(alertController, animated: true, completion: nil)
+        
+    }
     
     func viewControllerAtIndex(index: Int) -> ForecastViewController {
         //

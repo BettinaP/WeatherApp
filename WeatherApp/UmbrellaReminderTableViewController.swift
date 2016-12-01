@@ -11,6 +11,7 @@ import CoreLocation
 
 class UmbrellaReminderTableViewController: UITableViewController, CLLocationManagerDelegate {
     
+    @IBOutlet weak var editTimePickerCell: UITableViewCell!
     @IBOutlet weak var umbrellaReminderSwitch: UISwitch!
     @IBOutlet weak var editTimeButton: UIButton!
     @IBOutlet weak var reminderTimePicker: UIDatePicker!
@@ -22,6 +23,8 @@ class UmbrellaReminderTableViewController: UITableViewController, CLLocationMana
     
     @IBOutlet weak var repeatDailySwitch: UISwitch!
     
+    
+    @IBOutlet weak var showAndEditTimeCell: UITableViewCell!
     
     let locationManager = CLLocationManager()
     var latitude = Double()
@@ -35,6 +38,9 @@ class UmbrellaReminderTableViewController: UITableViewController, CLLocationMana
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        editTimePickerCell.hidden = true
+        
         locationManager.delegate = self
         if CLLocationManager.authorizationStatus() == .NotDetermined {
             locationManager.requestAlwaysAuthorization()
@@ -63,6 +69,19 @@ class UmbrellaReminderTableViewController: UITableViewController, CLLocationMana
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        editTimeCellSelected(showAndEditTimeCell)
+    }
+    
+    func editTimeCellSelected(cell: UITableViewCell) {
+        if showAndEditTimeCell.selected == true {
+            
+         editTimePickerCell.hidden = false
+        }
+    
     }
     
     override func didReceiveMemoryWarning() {
