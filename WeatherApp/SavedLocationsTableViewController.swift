@@ -49,12 +49,20 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
 //        let refreshControl = UIRefreshControl()
 //        self.tableView.addSubview(refreshControl)
 //        refreshControl.addTarget(self, action: #selector(handleRefresh), forControlEvents:.ValueChanged)
+        
         self.tableView.reloadData()
         
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipeToDismiss))
+        swipeGesture.direction = [.Left, .Right]
+        self.view.addGestureRecognizer(swipeGesture)
         
     }
     
+    func handleSwipeToDismiss(sender: UIGestureRecognizer){
+        print("in swipe dismiss")
+        self.dismissViewControllerAnimated(true, completion: nil)
     
+    }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         savedLocations = store.savedLocations
@@ -144,9 +152,7 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         
-        
-        newBounds = self.tableView.bounds
-        newBounds.origin.y = newBounds.origin.y - self.searchBar.bounds.size.height
+        newBounds.origin.y = tableView.bounds.origin.y + (self.searchBar.bounds.size.height / 2)
         self.tableView.bounds = newBounds
         searchBar.hidden = true
         self.tableView.reloadData()

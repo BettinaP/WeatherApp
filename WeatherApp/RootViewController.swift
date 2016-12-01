@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var rootToolbar: UIToolbar!
     @IBOutlet weak var rootAddBarButton: UIBarButtonItem!
@@ -28,12 +28,12 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     var locationName = String()
     var userLocation = CLLocation()
     
-    var notification = UILocalNotification()
-    
+    var umbrellaButton = UIButton()
+    var isAnimating = false
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        setupViews()
+        setupViews()    
     }
     
     override func viewDidLoad() {
@@ -52,6 +52,19 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         pageController = self.storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as! UIPageViewController
         pageController.dataSource = self
         pageController.delegate = self
+        
+        
+        locationManager.delegate = self
+        if CLLocationManager.authorizationStatus() == .NotDetermined {
+            locationManager.requestAlwaysAuthorization()
+            //requestWhenInUseAuthorization()
+        }
+        
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
         
         //find a way to get whatever city is selected to front of savelocations array
         
@@ -95,23 +108,35 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         self.view.addSubview(pageController.view)
         self.pageController.didMoveToParentViewController(self)
         self.view.bringSubviewToFront(rootToolbar)
+        
+        umbrellaReminderButton.action = #selector(umbrellaReminderButtonTapped)
     }
     
     
-    @IBAction func setUmbrellaReminderButtonTapped(sender: AnyObject) {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        self.userLocation = locations[0]
+        self.longitude = userLocation.coordinate.longitude
+        self.latitude = userLocation.coordinate.latitude
+        
+    }
+    
+    func umbrellaReminderButtonTapped() {
         //performSegueWithIdentifier("rootToSetUmbrellaReminder", sender: self)
-         
         store.getForecastResultsWithCompletion(self.latitude, searchedLongitude: self.longitude) { (success) in
-            
-            print("location: \(self.latitude), \(self.longitude)")
-            
             NSOperationQueue.mainQueue().addOperationWithBlock({
                 for hour in self.store.hourlyResults {
                     if hour.hourlyIcon == "drizzle" || hour.hourlyIcon == "rain" || hour.hourlyIcon == "sleet" {
                         self.presentReminderSetMessage("Anticipate some rain today!")
                         //                            print("notification printing inside API call inside of switchOn bool: \(self.notification)")
+                        self.umbrellaReminderButton.tintColor = UIColor.blueColor()
+                       
                         print("hourlyIcon phrase:\(hour.hourlyTime),\(hour.hourlyIcon)")
                     }
+//                    else {
+//                        self.presentReminderSetMessage("All clear!")
+//                        self.umbrellaReminderButton.tintColor = UIColor.blackColor()
+//                    }
                 }
             })
         }
@@ -125,6 +150,37 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         self.presentViewController(alertController, animated: true, completion: nil)
         
     }
+    
+    
+       //isAnimating = true
+        
+//   
+//        let leftShake: CGAffineTransform = CGAffineTransformMakeTranslation(-5, 0);
+//        let rightShake: CGAffineTransform = CGAffineTransformMakeTranslation(5, 0);
+//    
+//        view.transform = leftShake;  // starting point
+////        UIView.beginAnimations("protection", context:UnsafeMutablePointer.)
+//        
+//        UIView.setAnimationRepeatAutoreverses(true)
+//        UIView.setAnimationRepeatCount(5)
+//    UIView.setAnimationDuration(0.06)
+//    UIView.setAnimationDelegate(self)
+//        UIView.setAnimationDidStopSelector(shakeEnded:finished:context:)
+//            //.action(#selector(shakeEnded:finished:context:))
+//    
+//    view.transform = rightShake // end here & auto-reverse
+//    
+//    UIView.commitAnimations()
+//}
+// 
+//    func endSh
+////    func shakeEnded:(animationID: String, finished:(NSNumber *)finished context:(void *)context
+//{
+//    if ([finished boolValue]) {
+//        UIView* item = (UIView *)context;
+//        item.transform = CGAffineTransformIdentity;
+//    }
+//}
     
     func viewControllerAtIndex(index: Int) -> ForecastViewController {
         //
@@ -196,5 +252,17 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
      // Pass the selected object to the new view controller.
      }
      */
+    
+}
+
+extension UIView {
+
+    func shakeView() {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.duration = 0.6
+        animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0]
+        layer.addAnimation(animation, forKey: "shake")
+    }
     
 }
