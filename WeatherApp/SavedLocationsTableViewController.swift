@@ -45,10 +45,10 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-//        
-//        let refreshControl = UIRefreshControl()
-//        self.tableView.addSubview(refreshControl)
-//        refreshControl.addTarget(self, action: #selector(handleRefresh), forControlEvents:.ValueChanged)
+        //
+        //        let refreshControl = UIRefreshControl()
+        //        self.tableView.addSubview(refreshControl)
+        //        refreshControl.addTarget(self, action: #selector(handleRefresh), forControlEvents:.ValueChanged)
         
         self.tableView.reloadData()
         
@@ -61,16 +61,21 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     func handleSwipeToDismiss(sender: UIGestureRecognizer){
         print("in swipe dismiss")
         self.dismissViewControllerAnimated(true, completion: nil)
-    
+        
     }
+    
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         savedLocations = store.savedLocations
         store.fetchData()
-//        
-//        newBounds = self.tableView.bounds
-//        newBounds.origin.y = newBounds.origin.y + self.searchBar.bounds.size.height
-//        self.tableView.bounds = newBounds
+        initGradientAppearance()
+        
+        print("called initgradient in willAppear")
+        //
+        //        newBounds = self.tableView.bounds
+        //        newBounds.origin.y = newBounds.origin.y + self.searchBar.bounds.size.height
+        //        self.tableView.bounds = newBounds
         
         let refreshControl = UIRefreshControl()
         self.tableView.addSubview(refreshControl)
@@ -90,10 +95,85 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         
     }
     
-    func popToRootVC(){
-        self.dismissViewControllerAnimated(true, completion: nil)
     
+    func initGradientAppearance() {
+        
+        // let background = CAGradientLayer().generateColor(.Warm)
+        var background = CAGradientLayer().generateColor(.Sky)
+        
+        let currentTempBackground = self.store.currentTemperature
+        
+        switch currentTempBackground {
+            
+        case 95...200:
+            background = CAGradientLayer().generateColor(.BlazingHot)
+        case 80...94:
+            background = CAGradientLayer().generateColor(.Hot)
+        case 70...79:
+            background = CAGradientLayer().generateColor(.Warm)
+        case 61...69:
+            background = CAGradientLayer().generateColor(.Warmish)
+        case 55...60:
+            background = CAGradientLayer().generateColor(.Coolish)
+        case 45...54:
+            background = CAGradientLayer().generateColor(.Cool)
+        case 25...44:
+            background = CAGradientLayer().generateColor(.Cold)
+        case 1...24:
+            background = CAGradientLayer().generateColor(.Freezing)
+        case -100...0:
+            background = CAGradientLayer().generateColor(.Frigid)
+        default:
+            background = CAGradientLayer().generateColor(.Sky)
+        }
+//        switch (currentTempBackground) {
+//        case 95...200:
+//            background.generateColor(.BlazingHot)
+//        case 80...94:
+//            background.generateColor(.Hot)
+//        case 70...79:
+//            background.generateColor(.Warm)
+//        case 61...69:
+//            background.generateColor(.Warmish)
+//        case 55...60:
+//            background.generateColor(.Coolish)
+//        case 45...54:
+//            background.generateColor(.Cool)
+//        case 25...44:
+//            background.generateColor(.Cold)
+//        case 1...24:
+//            background.generateColor(.Freezing)
+//        case -100...0:
+//            background.generateColor(.Frigid)
+//        default:
+//            background.generateColor(.Sky)
+//        }
+        //
+        //        if currentTempBackground <= 95 {
+        //            background.generateColor(.BlazingHot)
+        //        } else if currentTempBackground >= 80 && currentTempBackground <= 94 {
+        //            background.generateColor(.Hot)
+        //        } else if currentTempBackground >= 70 && currentTempBackground <= 79 {
+        //            background.generateColor(.Warm)
+        //        } else if currentTempBackground >= 60 && currentTempBackground <= 69 {
+        //            background.generateColor(.Warmish)
+        //        } else if currentTempBackground >= 55 && currentTempBackground <= 60 {
+        //            background.generateColor(.Coolish)
+        //        } else if currentTempBackground >= 45 && currentTempBackground <= 54 {
+        //            background.generateColor(.Cool)
+        //        } else if currentTempBackground >= 25 && currentTempBackground <= 44 {
+        //            background.generateColor(.Cold)
+        //        } else if currentTempBackground >= 1 && currentTempBackground <= 24 {
+        //            background.generateColor(.Freezing)
+        //        } else if currentTempBackground >= -100 && currentTempBackground <= 0 {
+        //            background.generateColor(.Frigid)
+        //        }
+        
+        background.frame = self.view.bounds
+        self.view.layer.insertSublayer(background, atIndex: 0)
+        print("value after switch case in initgradient method")
     }
+    
     //self.nav.initvc.pushController, ifselected, initialize pageVC
     
     
@@ -126,7 +206,7 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
                                 self.store.saveContext()
                                 
                                 self.tableView.reloadData()
-                                self.viewWillAppear(true) 
+                                self.viewWillAppear(true)
                             })
                         }
                     }
@@ -165,7 +245,7 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         newBounds = self.tableView.bounds
         newBounds.origin.y = newBounds.origin.y + self.searchBar.bounds.size.height
         self.tableView.bounds = newBounds
-
+        
         self.tableView.reloadData()
         refreshControl.endRefreshing()
         //viewWillAppear(true)
@@ -283,7 +363,7 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         
         cell.savedCityLabel.text = savedCity.locationName
         cell.configureSavedCityCell(savedCity)
-        
+        initGradientAppearance()
         return cell
     }
     

@@ -33,13 +33,17 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        setupViews()    
+        setupViews()
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
+    
+    
+    
     
     func setupViews(){
         
@@ -122,6 +126,9 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     }
     
     func umbrellaReminderButtonTapped() {
+        //        let today = NSDate()
+        //        let hour = getHour(date)
+        //
         //performSegueWithIdentifier("rootToSetUmbrellaReminder", sender: self)
         store.getForecastResultsWithCompletion(self.latitude, searchedLongitude: self.longitude) { (success) in
             NSOperationQueue.mainQueue().addOperationWithBlock({
@@ -130,13 +137,13 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
                         self.presentReminderSetMessage("Anticipate some rain today!")
                         //                            print("notification printing inside API call inside of switchOn bool: \(self.notification)")
                         self.umbrellaReminderButton.tintColor = UIColor.blueColor()
-                       
+                        
                         print("hourlyIcon phrase:\(hour.hourlyTime),\(hour.hourlyIcon)")
                     }
-//                    else {
-//                        self.presentReminderSetMessage("All clear!")
-//                        self.umbrellaReminderButton.tintColor = UIColor.blackColor()
-//                    }
+                    //                    else {
+                    //                        self.presentReminderSetMessage("All clear!")
+                    //                        self.umbrellaReminderButton.tintColor = UIColor.blackColor()
+                    //                    }
                 }
             })
         }
@@ -151,36 +158,6 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         
     }
     
-    
-       //isAnimating = true
-        
-//   
-//        let leftShake: CGAffineTransform = CGAffineTransformMakeTranslation(-5, 0);
-//        let rightShake: CGAffineTransform = CGAffineTransformMakeTranslation(5, 0);
-//    
-//        view.transform = leftShake;  // starting point
-////        UIView.beginAnimations("protection", context:UnsafeMutablePointer.)
-//        
-//        UIView.setAnimationRepeatAutoreverses(true)
-//        UIView.setAnimationRepeatCount(5)
-//    UIView.setAnimationDuration(0.06)
-//    UIView.setAnimationDelegate(self)
-//        UIView.setAnimationDidStopSelector(shakeEnded:finished:context:)
-//            //.action(#selector(shakeEnded:finished:context:))
-//    
-//    view.transform = rightShake // end here & auto-reverse
-//    
-//    UIView.commitAnimations()
-//}
-// 
-//    func endSh
-////    func shakeEnded:(animationID: String, finished:(NSNumber *)finished context:(void *)context
-//{
-//    if ([finished boolValue]) {
-//        UIView* item = (UIView *)context;
-//        item.transform = CGAffineTransformIdentity;
-//    }
-//}
     
     func viewControllerAtIndex(index: Int) -> ForecastViewController {
         //
@@ -256,13 +233,151 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
 }
 
 extension UIView {
-
-    func shakeView() {
-        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-        animation.duration = 0.6
-        animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0]
-        layer.addAnimation(animation, forKey: "shake")
+    
+    func addBorderUtility(x x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, color: UIColor) {
+        let border = CALayer()
+        border.backgroundColor = color.CGColor
+        border.frame = CGRect(x: x, y: y, width: width, height: height)
+        layer.addSublayer(border)
     }
     
+    func addBorderTop(size size: CGFloat, color: UIColor) {
+        addBorderUtility(x: 0, y: 0, width: frame.width, height: size, color: color)
+    }
+    func addBorderBottom(size size: CGFloat, color: UIColor) {
+        addBorderUtility(x: 0, y: frame.height - size, width: frame.width, height: size, color: color)
+    }
+//    
+//    var gradient = CAGradientLayer()
+//    
+//    
+//    func addGradientWithColor(color: UIColor) {
+//        gradient.frame = self.view.bounds
+//        //    gradient.colors = [UIColor.clearColor().CGColor, color.CGColor]
+//        //    self.view.layer.insertSublayer(gradient, atIndex: 0)
+//        //myImageView.addGradientWIthColor(UIColor.blue)
+//        
+//        
+//    }
+    
+    
+    
+    
+    
+    
+    //    func shakeView() {
+    //        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+    //        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+    //        animation.duration = 0.6
+    //        animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0]
+    //        layer.addAnimation(animation, forKey: "shake")
+    //    }
+    
+    
+    
+}
+
+enum Color {
+    //  Sky, Submerged, Emergency, Lilac, Brittany, Sunrise, MidSunriseAndWarm, EarlySunrise,
+    case  Sky, BlazingHot, Hot,  Warm, Warmish, Coolish, Cool, Cold, Freezing, Frigid
+
+}
+
+extension CAGradientLayer {
+    
+    
+    func generateColor(color: Color) -> CAGradientLayer {
+        
+        var topColor = UIColor()
+        var bottomColor = UIColor()
+        
+        
+        switch color {
+            
+        case .BlazingHot: //95+
+            topColor = UIColor(red: (255/255.0), green: (0/255.0), blue: (0/255.0), alpha: 1)
+            bottomColor = UIColor(red: (255/255.0), green: (129/255.0), blue: (10/255.0), alpha: 1)
+            
+        case .Hot:  // 80-94
+            topColor = UIColor(red: (240/255.0), green: (59/255.0), blue: (38/255.0), alpha: 1)
+            bottomColor = UIColor(red: (250/255.0), green: (230/255.0), blue: (0/255.0), alpha: 1)
+        
+        case .Warm: //70-79
+            topColor = UIColor(red: (255/255.0), green: (139/255.0), blue: (10/255.0), alpha: 1)
+            bottomColor = UIColor(red: (250/255.0), green: (230/255.0), blue: (0/255.0), alpha: 1)
+            
+        case .Warmish: //61-69
+            topColor = UIColor(red: (240/255.0), green: (139/255.0), blue: (50/255.0), alpha: 1)
+            bottomColor = UIColor(red: (229/255.0), green: (253/255.0), blue: (255/255.0), alpha: 1)
+            
+        case .Coolish: //55-60
+            topColor = UIColor(red: (255/255.0), green: (220/255.0), blue: (10/255.0), alpha: 1)
+            bottomColor = UIColor(red: (51/255.0), green: (155/255.0), blue: (240/255.0), alpha: 1)
+            
+        case .Cool: //45 - 54
+            topColor = UIColor(red: (50/255.0), green: (100/255.0), blue: (239/255.0), alpha: 1)
+            bottomColor = UIColor(red: (129/255.0), green: (243/255.0), blue: (253/255.0), alpha: 1)
+            
+        case .Cold: //25 - 44
+            topColor = UIColor(red: (70/255.0), green: (180/255.0), blue: (230/255.0), alpha: 1)
+            bottomColor = UIColor(red: (255/255.0), green: (250/255.0), blue: (255/255.0), alpha: 1)
+            
+        case .Freezing: //0-24 degrees
+            topColor = UIColor(red: (200/255.0), green: (230/255.0), blue: (255/255.0), alpha: 0.8)
+            bottomColor = UIColor(red: (250/255.0), green: (250/255.0), blue: (255/255.0), alpha: 1)
+            
+            
+        case .Frigid: //below 0 degrees
+            topColor = UIColor(red: (230/255.0), green: (240/255.0), blue: (255/255.0), alpha: 0.8)
+            bottomColor = UIColor(red: (254/255.0), green: (254/255.0), blue: (254/255.0), alpha: 1)
+            
+        case .Sky: //default
+            topColor = UIColor(red: (29/255.0), green: (119/255.0), blue: (239/255.0), alpha: 1)
+            bottomColor = UIColor(red: (129/255.0), green: (243/255.0), blue: (253/255.0), alpha: 1)
+            
+
+        }
+        
+        
+        let gradientColors: [AnyObject] = [topColor.CGColor, bottomColor.CGColor]
+        let gradientLocations: [NSNumber] = [0.0, 1.0]
+        
+        let gradientLayer: CAGradientLayer = CAGradientLayer()
+        gradientLayer.colors = gradientColors
+        gradientLayer.locations = gradientLocations
+        
+        let animation = CABasicAnimation(keyPath: "colors")
+        animation.toValue = [topColor, bottomColor]
+        animation.duration = 1.0
+        animation.autoreverses = true
+        animation.repeatCount = .infinity
+        
+        gradientLayer.addAnimation(animation, forKey: "colors")
+        
+//        let view = UIView()
+//        
+//        view.layer.addSublayer(gradientLayer)
+        
+        return gradientLayer
+  
+    }
+    
+//    func addGradientAnimation() {
+//        var topColor = UIColor()
+//        var bottomColor = UIColor()
+//    
+//     var gradient: CAGradientLayer = CAGradientLayer.layer
+//    gradient.frame = self.view.frame;
+//    gradient.colors = @[(id)color1.CGColor, (id)color2.CGColor, (id)color2.CGColor];
+//    
+//    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"colors"];
+//    animation.toValue = @[(id)color3.CGColor, (id)color1.CGColor, (id)color1.CGColor];
+//    animation.duration = 3.0;
+//    animation.autoreverses = YES;
+//    animation.repeatCount = HUGE_VALF;
+//    
+//    [gradient addAnimation:animation forKey:@"colors"];
+//    
+//    [self.view.layer addSublayer:gradient];
+//    }
 }

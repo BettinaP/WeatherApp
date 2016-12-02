@@ -31,7 +31,7 @@ class DailyTableViewCell: UITableViewCell {
     
     func configureDailyCell(dailyForecast:DailyWeather) {
        
-       
+        self.backgroundColor = UIColor.clearColor()
         self.dailyIconImageView.image = UIImage(named: dailyForecast.dailyIcon)
         if dailyForecast.dailyIcon == "clear-day"{
         

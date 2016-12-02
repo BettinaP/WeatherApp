@@ -18,6 +18,7 @@ class HourlyCollectionViewCell: UICollectionViewCell {
     
     func configureHourlyCell(hourlyForecast:HourlyWeather) {
         
+      //  self.addBorderTop(size: 1.0, color: UIColor.lightGrayColor())
         
         self.hourlyIconImageView.image = UIImage(named: hourlyForecast.hourlyIcon)
         

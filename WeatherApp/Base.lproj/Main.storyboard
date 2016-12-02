@@ -84,7 +84,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="miV-Xd-XUU">
                                 <rect key="frame" x="7" y="209" width="361" height="82"/>
-                                <color key="backgroundColor" red="0.99588030510000003" green="1" blue="0.33181153990000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="82" id="pou-ej-dxa"/>
                                 </constraints>
@@ -122,7 +122,6 @@
                                                 </label>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" red="0.1018858136" green="0.78459778800000002" blue="0.82141688479999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="LUA-gb-WxV" firstAttribute="top" secondItem="kqX-Vj-wIg" secondAttribute="bottom" constant="36" id="3Wk-fV-bWM"/>
                                             <constraint firstItem="BaC-zD-EXc" firstAttribute="top" secondItem="Pr8-Ch-us3" secondAttribute="topMargin" constant="9" id="6W6-Gi-WXn"/>
@@ -190,10 +189,11 @@
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="67" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ioX-Ed-Sup">
                                 <rect key="frame" x="7" y="293" width="361" height="366"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="366" id="M3q-rC-0XO"/>
                                 </constraints>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="weekday" id="qBb-ZX-bTS" customClass="DailyTableViewCell" customModule="WeatherApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="361" height="67"/>
@@ -204,6 +204,7 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="max " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OFg-jx-vO7">
                                                     <rect key="frame" x="254" y="15" width="32" height="36"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <accessibility key="accessibilityConfiguration" identifier="maxTempLabel" label="maxTempLabel"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="bjd-W8-01f"/>
@@ -214,6 +215,7 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="min" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FLP-vW-xB1">
                                                     <rect key="frame" x="300" y="15" width="32" height="36"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <accessibility key="accessibilityConfiguration" identifier="minTempLabel" label="minTempLabel"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="Z7Z-W5-xGY"/>
@@ -224,6 +226,7 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="day of week" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nkk-GW-fca">
                                                     <rect key="frame" x="8" y="22" width="94" height="21"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <accessibility key="accessibilityConfiguration" identifier="weekDayLabel"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -234,6 +237,7 @@
                                                     <accessibility key="accessibilityConfiguration" identifier="dailyIconImageView"/>
                                                 </imageView>
                                             </subviews>
+                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="FLP-vW-xB1" firstAttribute="leading" secondItem="OFg-jx-vO7" secondAttribute="trailing" constant="14" id="3kE-fg-2qY"/>
                                                 <constraint firstItem="OFg-jx-vO7" firstAttribute="leading" secondItem="VKJ-ZI-Vec" secondAttribute="trailing" constant="51" id="9Fq-YZ-2HF"/>
@@ -250,6 +254,7 @@
                                                 <constraint firstItem="OFg-jx-vO7" firstAttribute="top" secondItem="0Hx-Gg-HVT" secondAttribute="topMargin" constant="7" id="u1e-d5-wGg"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="dailyIconImageView" destination="VKJ-ZI-Vec" id="thb-Xh-G2D"/>
                                             <outlet property="maxTempLabel" destination="OFg-jx-vO7" id="KsK-FG-Wnj"/>
