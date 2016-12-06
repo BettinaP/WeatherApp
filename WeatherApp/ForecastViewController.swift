@@ -13,10 +13,10 @@
  //import Hue
  
  
- class ForecastViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate {
-    //add searchBar for location
+ class ForecastViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, CLLocationManagerDelegate {
+   
     
-    
+    @IBOutlet weak var backgroundToCurrentView: UIView!
     @IBOutlet weak var cityName: UILabel!
     @IBOutlet weak var currentlyImageView: UIImageView!
     @IBOutlet weak var dailyTableView: UITableView!
@@ -32,14 +32,16 @@
     var store = ForecastDataStore.sharedInstance
     var locationPassed = LocationWeather()
     
-    
+   // let locationManager = CLLocationManager()
     //add search bar for location, then calculate timezone to show appropriate weather by time
     //have background be a cool image? look for an image api
     //fix current temp and icon and city constraints
     
     override func viewDidLoad() {
+        print("entering FVC viewDidLoad")
         super.viewDidLoad()
         
+        print("FVC viewDidLoad")
         dailyTableView.delegate = self
         dailyTableView.dataSource = self
         dailyTableView.allowsSelection = false
@@ -78,6 +80,8 @@
                 self.dayLabel.text = today
                 self.currentlyImageView.image = UIImage(named: self.store.currentIcon)
                 
+                self.initGradientAppearance()
+                
                 if self.store.currentIcon == "clear-day"{
                     
                     self.currentlyImageView.tintColor = UIColor.yellowColor()
@@ -88,49 +92,62 @@
                 
                 self.hourlyCollectionView.reloadData()
                 self.dailyTableView.reloadData()
+                
+                print("current temp in FVC viewDidLoad store.API call: cityName\(self.cityName.text), locationNamePassed: \(self.locationPassed.locationName), currentTemp: \(self.currentTempLabel.text)")
             })
         }
+        print("end of FVC viewDidLoad")
     }
     
     
     override func viewWillAppear(animated: Bool) {
-        
-        dailyTableView.addBorderTop(size: 1.0, color: UIColor.lightGrayColor())
-        initGradientAppearance()
-        print("called initgradient in willAppear")
-        super.viewWillAppear(true)
+      super.viewWillAppear(true)
+      dailyTableView.addBorderTop(size: 1.0, color: UIColor.lightGrayColor())
+     backgroundToCurrentView.addBorderBottom(size: 1.0, color: UIColor.lightGrayColor())
+      
     }
     
     
     func initGradientAppearance() {
         
-        // let background = CAGradientLayer().generateColor(.Warm)
-        var background = CAGradientLayer().generateColor(.Sky)
+        var background = CAGradientLayer()
+//        var background = CAGradientLayer().generateColor(.Sky)
         
-//        let currentTempBackground = self.store.currentTemperature
-//        
-//                switch (currentTempBackground) {
-//                case 95...200:
-//                    background.generateColor(.BlazingHot)
-//                case 80...94:
-//                    background.generateColor(.Hot)
-//                case 70...79:
-//                    background.generateColor(.Warm)
-//                case 61...69:
-//                    background.generateColor(.Warmish)
-//                case 55...60:
-//                    background.generateColor(.Coolish)
-//                case 45...54:
-//                    background.generateColor(.Cool)
-//                case 25...44:
-//                    background.generateColor(.Cold)
-//                case 1...24:
-//                    background.generateColor(.Freezing)
-//                case -100...0:
-//                    background.generateColor(.Frigid)
-//                default:
-//                    background.generateColor(.Sky)
-//                }
+        let currentTempBackground = self.store.currentTemperature
+        
+        switch currentTempBackground {
+            
+        case 95...200:
+            background = CAGradientLayer().generateColor(.BlazingHot)
+            print("blazing hot 95-200")
+        case 80...94:
+            background = CAGradientLayer().generateColor(.Hot)
+            print("hot 80-94")
+        case 70...79:
+            background = CAGradientLayer().generateColor(.Warm)
+            print("warm 70-79")
+        case 61...69:
+            background = CAGradientLayer().generateColor(.Warmish)
+            print("warmish 61-69")
+        case 55...60:
+            background = CAGradientLayer().generateColor(.Coolish)
+            print("coolish 55-60")
+        case 45...54:
+            background = CAGradientLayer().generateColor(.Cool)
+            print("cool 45-54")
+        case 25...44:
+            background = CAGradientLayer().generateColor(.Cold)
+            print("cold 25-44")
+        case 1...24:
+            background = CAGradientLayer().generateColor(.Freezing)
+            print("freezing 1-24")
+        case -100...0:
+            background = CAGradientLayer().generateColor(.Frigid)
+            print("frigid 0 and under")
+        default:
+            background = CAGradientLayer().generateColor(.Sky)
+            print("Default color")
+        }
 //
 //        if currentTempBackground <= 95 {
 //            background.generateColor(.BlazingHot)
@@ -152,9 +169,9 @@
 //            background.generateColor(.Frigid)
 //        }
         
+        print("\(self.cityName.text) background temp after switch case in initgradient Forecast VC method: \(currentTempBackground)")
         background.frame = self.view.bounds
         self.view.layer.insertSublayer(background, atIndex: 0)
-      print("value after switch case in initgradient method")
     }
     
     
@@ -170,7 +187,6 @@
         
         let day = self.store.dailyResults[indexPath.row]
         cell.configureDailyCell(day)
-        
         return cell
     }
     
@@ -186,7 +202,6 @@
         
         let hour = self.store.hourlyResults[indexPath.item]
         hourlyCell.configureHourlyCell(hour)
-        
         return hourlyCell
         
     }
@@ -307,3 +322,5 @@
  //    
  //}
  //
+  
+  

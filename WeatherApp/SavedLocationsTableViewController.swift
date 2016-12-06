@@ -41,8 +41,10 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         
         if CLLocationManager.authorizationStatus() == .NotDetermined {
             locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
         }
         
+        //locationManager.startUpdatingLocation()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         //
@@ -69,9 +71,9 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         super.viewWillAppear(animated)
         savedLocations = store.savedLocations
         store.fetchData()
-        initGradientAppearance()
+     //   initGradientAppearance()
         
-        print("called initgradient in willAppear")
+       // print("called initgradient in willAppear")
         //
         //        newBounds = self.tableView.bounds
         //        newBounds.origin.y = newBounds.origin.y + self.searchBar.bounds.size.height
@@ -94,85 +96,85 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         self.tableView.tableHeaderView = searchBar
         
     }
-    
-    
-    func initGradientAppearance() {
-        
-        // let background = CAGradientLayer().generateColor(.Warm)
-        var background = CAGradientLayer().generateColor(.Sky)
-        
-        let currentTempBackground = self.store.currentTemperature
-        
-        switch currentTempBackground {
-            
-        case 95...200:
-            background = CAGradientLayer().generateColor(.BlazingHot)
-        case 80...94:
-            background = CAGradientLayer().generateColor(.Hot)
-        case 70...79:
-            background = CAGradientLayer().generateColor(.Warm)
-        case 61...69:
-            background = CAGradientLayer().generateColor(.Warmish)
-        case 55...60:
-            background = CAGradientLayer().generateColor(.Coolish)
-        case 45...54:
-            background = CAGradientLayer().generateColor(.Cool)
-        case 25...44:
-            background = CAGradientLayer().generateColor(.Cold)
-        case 1...24:
-            background = CAGradientLayer().generateColor(.Freezing)
-        case -100...0:
-            background = CAGradientLayer().generateColor(.Frigid)
-        default:
-            background = CAGradientLayer().generateColor(.Sky)
-        }
-//        switch (currentTempBackground) {
-//        case 95...200:
-//            background.generateColor(.BlazingHot)
-//        case 80...94:
-//            background.generateColor(.Hot)
-//        case 70...79:
-//            background.generateColor(.Warm)
-//        case 61...69:
-//            background.generateColor(.Warmish)
-//        case 55...60:
-//            background.generateColor(.Coolish)
-//        case 45...54:
-//            background.generateColor(.Cool)
-//        case 25...44:
-//            background.generateColor(.Cold)
-//        case 1...24:
-//            background.generateColor(.Freezing)
-//        case -100...0:
-//            background.generateColor(.Frigid)
-//        default:
-//            background.generateColor(.Sky)
-//        }
-        //
-        //        if currentTempBackground <= 95 {
-        //            background.generateColor(.BlazingHot)
-        //        } else if currentTempBackground >= 80 && currentTempBackground <= 94 {
-        //            background.generateColor(.Hot)
-        //        } else if currentTempBackground >= 70 && currentTempBackground <= 79 {
-        //            background.generateColor(.Warm)
-        //        } else if currentTempBackground >= 60 && currentTempBackground <= 69 {
-        //            background.generateColor(.Warmish)
-        //        } else if currentTempBackground >= 55 && currentTempBackground <= 60 {
-        //            background.generateColor(.Coolish)
-        //        } else if currentTempBackground >= 45 && currentTempBackground <= 54 {
-        //            background.generateColor(.Cool)
-        //        } else if currentTempBackground >= 25 && currentTempBackground <= 44 {
-        //            background.generateColor(.Cold)
-        //        } else if currentTempBackground >= 1 && currentTempBackground <= 24 {
-        //            background.generateColor(.Freezing)
-        //        } else if currentTempBackground >= -100 && currentTempBackground <= 0 {
-        //            background.generateColor(.Frigid)
-        //        }
-        
-        background.frame = self.view.bounds
-        self.view.layer.insertSublayer(background, atIndex: 0)
-        print("value after switch case in initgradient method")
-    }
+//    
+//    
+//        func initGradientAppearance() {
+//    
+//            // let background = CAGradientLayer().generateColor(.Warm)
+//            var background = CAGradientLayer().generateColor(.Sky)
+//    
+//            let currentTempBackground = self.store.currentTemperature
+//    
+//            switch currentTempBackground {
+//    
+//            case 95...200:
+//                background = CAGradientLayer().generateColor(.BlazingHot)
+//            case 80...94:
+//                background = CAGradientLayer().generateColor(.Hot)
+//            case 70...79:
+//                background = CAGradientLayer().generateColor(.Warm)
+//            case 61...69:
+//                background = CAGradientLayer().generateColor(.Warmish)
+//            case 55...60:
+//                background = CAGradientLayer().generateColor(.Coolish)
+//            case 45...54:
+//                background = CAGradientLayer().generateColor(.Cool)
+//            case 25...44:
+//                background = CAGradientLayer().generateColor(.Cold)
+//            case 1...24:
+//                background = CAGradientLayer().generateColor(.Freezing)
+//            case -100...0:
+//                background = CAGradientLayer().generateColor(.Frigid)
+//            default:
+//                background = CAGradientLayer().generateColor(.Sky)
+//            }
+//    //        switch (currentTempBackground) {
+//    //        case 95...200:
+//    //            background.generateColor(.BlazingHot)
+//    //        case 80...94:
+//    //            background.generateColor(.Hot)
+//    //        case 70...79:
+//    //            background.generateColor(.Warm)
+//    //        case 61...69:
+//    //            background.generateColor(.Warmish)
+//    //        case 55...60:
+//    //            background.generateColor(.Coolish)
+//    //        case 45...54:
+//    //            background.generateColor(.Cool)
+//    //        case 25...44:
+//    //            background.generateColor(.Cold)
+//    //        case 1...24:
+//    //            background.generateColor(.Freezing)
+//    //        case -100...0:
+//    //            background.generateColor(.Frigid)
+//    //        default:
+//    //            background.generateColor(.Sky)
+//    //        }
+//            //
+//            //        if currentTempBackground <= 95 {
+//            //            background.generateColor(.BlazingHot)
+//            //        } else if currentTempBackground >= 80 && currentTempBackground <= 94 {
+//            //            background.generateColor(.Hot)
+//            //        } else if currentTempBackground >= 70 && currentTempBackground <= 79 {
+//            //            background.generateColor(.Warm)
+//            //        } else if currentTempBackground >= 60 && currentTempBackground <= 69 {
+//            //            background.generateColor(.Warmish)
+//            //        } else if currentTempBackground >= 55 && currentTempBackground <= 60 {
+//            //            background.generateColor(.Coolish)
+//            //        } else if currentTempBackground >= 45 && currentTempBackground <= 54 {
+//            //            background.generateColor(.Cool)
+//            //        } else if currentTempBackground >= 25 && currentTempBackground <= 44 {
+//            //            background.generateColor(.Cold)
+//            //        } else if currentTempBackground >= 1 && currentTempBackground <= 24 {
+//            //            background.generateColor(.Freezing)
+//            //        } else if currentTempBackground >= -100 && currentTempBackground <= 0 {
+//            //            background.generateColor(.Frigid)
+//            //        }
+//    
+//            background.frame = self.view.bounds
+//            self.view.layer.insertSublayer(background, atIndex: 0)
+//            print("value after switch case in initgradient SavedTVC method")
+       // }
     
     //self.nav.initvc.pushController, ifselected, initialize pageVC
     
@@ -236,7 +238,6 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         self.tableView.bounds = newBounds
         searchBar.hidden = true
         self.tableView.reloadData()
-        //self.viewWillAppear(true)
         
     }
     
@@ -279,12 +280,11 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     
     func locationManager(manager: CLLocationManager, didUpdateLocation locations:[AnyObject]){
         
-        let userLocation: CLLocation = locations[0] as! CLLocation
+        let userLocation: CLLocation = locations[locations.count - 1] as! CLLocation
         
-        locationManager.stopUpdatingLocation()
         
         //        let long = userLocation.coordinate.longitude
-        //        let lat = userLocation.coordinate.latitude
+        //        let lat = userLocation.coordinate.latitude  // instead of userLocation manager.location!
         
         geocoder.reverseGeocodeLocation(userLocation) { (placemarks, error) in
             
@@ -292,21 +292,19 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
                 guard let placemark = placemarks?.first else {return}
                 self.locationName = "\(placemark.locality)"
                 print("locationName:\(self.locationName)")
-                print("userLocation in updateLocation function:\(userLocation)")
+                print("userLocation in updateLocation function:\(manager.location)")
             } else {
                 print("reverseGeocode failed with error:\(error)")
                 
             }
         }
         
+        locationManager.stopUpdatingLocation()
     }
-    
-    //func shouldShowSearchResults() { }
     
     
     //The geocoder object parses the information you give it and if it finds a match, returns some number of placemark objects.  The completion handler block you pass to the geocoder should be prepared to handle multiple placemarks, as shown below.
     
-    //find a way to insert selected data result into savedLocations array to be displayed
     
     func getLocationNameFromCoordinates(location: CLLocation) {
         
@@ -331,14 +329,11 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if savedLocations.count != 0 {
-            self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-            return 1
-            
-        } else {
+        if savedLocations.count == 0 {
             
             let pullToSearchMessageLabel: UILabel = UILabel.init(frame: CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height))
-            pullToSearchMessageLabel.textColor = UIColor.blackColor()
+            pullToSearchMessageLabel.text = "Please pull down to search and save locations."
+            pullToSearchMessageLabel.textColor = UIColor.darkGrayColor()
             pullToSearchMessageLabel.numberOfLines = 0
             pullToSearchMessageLabel.textAlignment = .Center
             pullToSearchMessageLabel.font = UIFont.init(name: "Helvetica-Neue", size: 24.0)
@@ -346,9 +341,20 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
             
             self.tableView.backgroundView = pullToSearchMessageLabel
             self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+            
+                //pullToSearchMessageLabel.delete(self)
+            
+            if searchBar.hidden == false {
+                pullToSearchMessageLabel.hidden = true
+            }
+        
+        } else {
+            
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+            return 1
         }
         
-        return 0
+        return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -363,7 +369,10 @@ class SavedLocationsTableViewController: UITableViewController,UISearchBarDelega
         
         cell.savedCityLabel.text = savedCity.locationName
         cell.configureSavedCityCell(savedCity)
-        initGradientAppearance()
+        //cell.didMoveToSuperview()
+      //  initGradientAppearance()
+        
+      //  cell.backgroundColor = UIColor.clearColor()
         return cell
     }
     

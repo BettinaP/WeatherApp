@@ -184,6 +184,7 @@
 				TargetAttributes = {
 					DE559EC71DAB28F500E17299 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = PC6SC7E96K;
 						LastSwiftMigration = 0810;
 					};
 				};
@@ -404,7 +405,7 @@
 			baseConfigurationReference = ACE594503FC7A85BC42A65C3 /* Pods-WeatherApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = PC6SC7E96K;
 				INFOPLIST_FILE = WeatherApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = FIS.WeatherApp;
@@ -418,7 +419,7 @@
 			baseConfigurationReference = 5A41BE75A780BD8966A95630 /* Pods-WeatherApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = PC6SC7E96K;
 				INFOPLIST_FILE = WeatherApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = FIS.WeatherApp;

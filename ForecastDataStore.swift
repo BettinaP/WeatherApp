@@ -8,6 +8,8 @@
 
 import Foundation
 import CoreData
+//import CoreLocation
+import UIKit
 
 class ForecastDataStore {
     
@@ -30,14 +32,15 @@ class ForecastDataStore {
     var currentApparentTemp = Int()
     var currentPrecipProbability = String()
     
-    
+    //let locationManager = CLLocationManager()
+   // let forecastVC = ForecastViewController()
+    //let rootVC = RootViewController()
     // why did you initialize them???
     
     func getForecastResultsWithCompletion(searchedLatitude: Double, searchedLongitude: Double, completion:(Bool) ->()) {
         
         
         print("locationsResults count before call:\(self.locationResults.count)")
-        print("locations before call:\(self.locationResults)")
         
         print("savedLocations count before call:\(self.savedLocations.count)")
         
@@ -57,13 +60,29 @@ class ForecastDataStore {
             self.todaysMinTemp = forecast.todaysMinTemp
             self.todaysMaxTemp = forecast.todaysMaxTemp
             
-//            self.savedLocations.append(forecast)
-           self.locationResults.append(forecast)
+//            if self.locationResults.contains(forecast) {
+//                
+//            }
+////            if contains(self.locationResults, forecast) {
+//              self.locationResults.append(forecast)
+////            } else {
+//            //predicate: (LocationWeather) throws -> Bool)
+//            //            self.savedLocations.append(forecast)
+//               
+//            }
+        
             print("savedLocations count after call:\(self.savedLocations.count)")
             
             print("locationsResults count after call:\(self.locationResults.count)")
-            print("locations after call:\(self.locationResults)")
             
+            for location in self.locationResults {
+             print("locationResult name: \(location.timezone)")
+            }
+            
+            for savedLocation in self.savedLocations {
+                print("savedLocation name: \(savedLocation.locationName)")
+            }
+            //why is locationresults count almost twice that of savedlocations...anyway for it to know if location has already been added to/exists in array? first launch locationResult =0 savedLoc = 8
             completion(true)
             
         }
@@ -102,9 +121,44 @@ class ForecastDataStore {
             savedLocations = []
         }
         
-//        if savedLocations.count == 0 {
-//            generateTestData()
-//        }
+        //if savedLocations.count == 0 {
+//            
+//            rootVC.locationManager.startUpdatingLocation()
+//            if let defaultLocation = rootVC.locationManager.location {
+//              //  let defaultName = defaultLocation.
+//                let defaultLatitude = defaultLocation.coordinate.latitude
+//                let defaultLongitude = defaultLocation.coordinate.longitude
+              //  print("default lat & long: in store fetchData") // \(defaultLatitude), \(defaultLongitude)
+                
+//                self.getForecastResultsWithCompletion(defaultLatitude, searchedLongitude: defaultLongitude, completion: { (success) in
+//                    
+////                    NSOperationQueue.mainQueue().addOperationWithBlock({
+////                        let rootVC = RootViewController()
+////                        rootVC.setupViews()
+////                        print("setting up rootVC from store api call")
+////                    })
+//                    self.forecastVC.cityName.text = self.forecastVC.locationPassed.locationName
+//                    
+//                    //                if self.store.currentTimezone.containsString("America/"){
+//                    self.forecastVC.currentTempLabel.text = "\(self.currentTemperature)°"
+//                    let today = self.todaysDate.getWeekOfDayString()
+//                    self.forecastVC.dayLabel.text = today
+//                    self.forecastVC.currentlyImageView.image = UIImage(named: self.currentIcon)
+//                    
+//                    if self.currentIcon == "clear-day"{
+//                        
+//                        self.forecastVC.currentlyImageView.tintColor = UIColor.yellowColor()
+//                    }
+//                    
+//                    self.forecastVC.todayMaxLabel.text = "\(self.todaysMaxTemp)°"
+//                    self.forecastVC.todayMinLabel.text = "\(self.todaysMinTemp)°"
+//                    
+//                    self.forecastVC.hourlyCollectionView.reloadData()
+//                    self.forecastVC.dailyTableView.reloadData()
+
+               // })
+            //}
+       // }
         
     }
     
@@ -158,7 +212,7 @@ class ForecastDataStore {
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
             try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration:nil, URL: url, options: nil)
-           // try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
+            // try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
         } catch {
             // Report any error we got.
             var dict = [String: AnyObject]()

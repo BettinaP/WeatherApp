@@ -10,7 +10,8 @@ import UIKit
 import CoreLocation
 
 class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, CLLocationManagerDelegate {
-    
+
+//    
     @IBOutlet weak var rootToolbar: UIToolbar!
     @IBOutlet weak var rootAddBarButton: UIBarButtonItem!
     
@@ -19,8 +20,6 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     var pageController =  UIPageViewController()
     var store = ForecastDataStore.sharedInstance
     var locationPages = [UIViewController]()
-    
-    
     
     let locationManager = CLLocationManager()
     var latitude = Double()
@@ -33,17 +32,38 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        setupViews()
+ 
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupViews()
+
     }
     
     
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        print("hey")
+//        
+//        //        if let defaultLocation = locationManager.location {
+//        //            let defaultLatitude = defaultLocation.coordinate.latitude
+//        //            let defaultLongitude = defaultLocation.coordinate.longitude
+//        //            print("default lat & long: \(defaultLatitude), \(defaultLongitude)")
+//        //
+//        //        store.getForecastResultsWithCompletion(defaultLatitude, searchedLongitude: defaultLongitude, completion: { (success) in
+//        //
+//        //            NSOperationQueue.mainQueue().addOperationWithBlock({
+//        //                   let userLocationPage = (storyboard?.instantiateViewControllerWithIdentifier("WeatherContentViewController"))! as! ForecastViewController
+//        //                self.setupViews()
+//        //            })
+//        //        })
+//        //        }
+//    }
     
+    
+    
+    //********  CHECK location is getting saved as savedLocation and how forecast vc are instantiated by rootVC pageController. getting instantiated each time (so more than once) you swipe (either direction, back and forth)? Beijing had same forecast as nYC? do last and second to last forecastVC mirror 2nd to last's forecast?
     
     func setupViews(){
         
@@ -51,29 +71,27 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
             store.fetchData()
         }
         
-        rootToolbar.backgroundColor = UIColor.clearColor()
-        
-        pageController = self.storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as! UIPageViewController
-        pageController.dataSource = self
-        pageController.delegate = self
-        
+       pageController = self.storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as! UIPageViewController
+       pageController.dataSource = self
+       pageController.delegate = self
         
         locationManager.delegate = self
         if CLLocationManager.authorizationStatus() == .NotDetermined {
-            locationManager.requestAlwaysAuthorization()
-            //requestWhenInUseAuthorization()
+            //locationManager.requestAlwaysAuthorization()
+            locationManager.requestWhenInUseAuthorization()
+            print("locationManager autho status")
         }
         
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
+           
         }
         
         //find a way to get whatever city is selected to front of savelocations array
         
         for savedLocation in store.savedLocations {
-            print(savedLocation.locationName)
             let locationPage = (storyboard?.instantiateViewControllerWithIdentifier("WeatherContentViewController"))! as! ForecastViewController
             
             let locationToPass = LocationWeather()
@@ -88,17 +106,9 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
             guard let unwrappedSavedLongitude = savedLocation.longitude as? Double else {return}
             locationToPass.longitude = unwrappedSavedLongitude
             
-            print("longitude passed in segue: \(locationToPass.longitude)")
-            
             locationPage.locationPassed = locationToPass
             
-            //            if self.locationPages.contains(locationPage){
-            //                continue
-            //                print("locationPages count inside RootVC view did load, if page already instantiated: \(locationPages.count)")
-            //            } else {
             self.locationPages.append(locationPage)
-            print("locationPages count inside RootVC view did load, if page not already instantiated: \(locationPages.count)")
-            //            }
             
         }
         
@@ -112,8 +122,8 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         self.view.addSubview(pageController.view)
         self.pageController.didMoveToParentViewController(self)
         self.view.bringSubviewToFront(rootToolbar)
-        
         umbrellaReminderButton.action = #selector(umbrellaReminderButtonTapped)
+        
     }
     
     
@@ -126,24 +136,29 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
     }
     
     func umbrellaReminderButtonTapped() {
+        
+        //** ALERT instantiated for every ForecastVC in pageViewController-- want it to only check currentLocation forecast.
+        
         //        let today = NSDate()
         //        let hour = getHour(date)
         //
         //performSegueWithIdentifier("rootToSetUmbrellaReminder", sender: self)
         store.getForecastResultsWithCompletion(self.latitude, searchedLongitude: self.longitude) { (success) in
             NSOperationQueue.mainQueue().addOperationWithBlock({
-                for hour in self.store.hourlyResults {
+                for (index, hour) in self.store.hourlyResults.enumerate() {
+                    if 0 <= index && index <= 24 {
                     if hour.hourlyIcon == "drizzle" || hour.hourlyIcon == "rain" || hour.hourlyIcon == "sleet" {
                         self.presentReminderSetMessage("Anticipate some rain today!")
                         //                            print("notification printing inside API call inside of switchOn bool: \(self.notification)")
                         self.umbrellaReminderButton.tintColor = UIColor.blueColor()
+                        print("locationName in umbrella reminder: \(self.latitude), \(self.longitude)")
                         
-                        print("hourlyIcon phrase:\(hour.hourlyTime),\(hour.hourlyIcon)")
                     }
                     //                    else {
                     //                        self.presentReminderSetMessage("All clear!")
                     //                        self.umbrellaReminderButton.tintColor = UIColor.blackColor()
                     //                    }
+                }
                 }
             })
         }
@@ -247,50 +262,34 @@ extension UIView {
     func addBorderBottom(size size: CGFloat, color: UIColor) {
         addBorderUtility(x: 0, y: frame.height - size, width: frame.width, height: size, color: color)
     }
-//    
-//    var gradient = CAGradientLayer()
-//    
-//    
-//    func addGradientWithColor(color: UIColor) {
-//        gradient.frame = self.view.bounds
-//        //    gradient.colors = [UIColor.clearColor().CGColor, color.CGColor]
-//        //    self.view.layer.insertSublayer(gradient, atIndex: 0)
-//        //myImageView.addGradientWIthColor(UIColor.blue)
-//        
-//        
-//    }
-    
-    
-    
-    
-    
-    
-    //    func shakeView() {
-    //        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
-    //        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-    //        animation.duration = 0.6
-    //        animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0]
-    //        layer.addAnimation(animation, forKey: "shake")
+    //
+    //    var gradient = CAGradientLayer()
+    //
+    //    func addGradientWithColor(color: UIColor) {
+    //        gradient.frame = self.view.bounds
+    //        //    gradient.colors = [UIColor.clearColor().CGColor, color.CGColor]
+    //        //    self.view.layer.insertSublayer(gradient, atIndex: 0)
+    //        //myImageView.addGradientWIthColor(UIColor.blue)
+    //
+    //
     //    }
+    
+    
     
     
     
 }
 
 enum Color {
-    //  Sky, Submerged, Emergency, Lilac, Brittany, Sunrise, MidSunriseAndWarm, EarlySunrise,
     case  Sky, BlazingHot, Hot,  Warm, Warmish, Coolish, Cool, Cold, Freezing, Frigid
-
 }
 
 extension CAGradientLayer {
-    
     
     func generateColor(color: Color) -> CAGradientLayer {
         
         var topColor = UIColor()
         var bottomColor = UIColor()
-        
         
         switch color {
             
@@ -301,7 +300,7 @@ extension CAGradientLayer {
         case .Hot:  // 80-94
             topColor = UIColor(red: (240/255.0), green: (59/255.0), blue: (38/255.0), alpha: 1)
             bottomColor = UIColor(red: (250/255.0), green: (230/255.0), blue: (0/255.0), alpha: 1)
-        
+            
         case .Warm: //70-79
             topColor = UIColor(red: (255/255.0), green: (139/255.0), blue: (10/255.0), alpha: 1)
             bottomColor = UIColor(red: (250/255.0), green: (230/255.0), blue: (0/255.0), alpha: 1)
@@ -335,9 +334,7 @@ extension CAGradientLayer {
             topColor = UIColor(red: (29/255.0), green: (119/255.0), blue: (239/255.0), alpha: 1)
             bottomColor = UIColor(red: (129/255.0), green: (243/255.0), blue: (253/255.0), alpha: 1)
             
-
         }
-        
         
         let gradientColors: [AnyObject] = [topColor.CGColor, bottomColor.CGColor]
         let gradientLocations: [NSNumber] = [0.0, 1.0]
@@ -346,38 +343,48 @@ extension CAGradientLayer {
         gradientLayer.colors = gradientColors
         gradientLayer.locations = gradientLocations
         
-        let animation = CABasicAnimation(keyPath: "colors")
-        animation.toValue = [topColor, bottomColor]
-        animation.duration = 1.0
-        animation.autoreverses = true
-        animation.repeatCount = .infinity
-        
-        gradientLayer.addAnimation(animation, forKey: "colors")
-        
-//        let view = UIView()
-//        
-//        view.layer.addSublayer(gradientLayer)
+        //        let animation = CABasicAnimation(keyPath: "colors")
+        //        animation.toValue = [topColor, bottomColor]
+        //        animation.duration = 1.0
+        //        animation.autoreverses = true
+        //        animation.repeatCount = .infinity
+        //
+        //        gradientLayer.addAnimation(animation, forKey: "colors")
+        //
+        //        let view = UIView()
+        //
+        //        view.layer.addSublayer(gradientLayer)
         
         return gradientLayer
-  
+        
     }
     
-//    func addGradientAnimation() {
-//        var topColor = UIColor()
-//        var bottomColor = UIColor()
+//    func shiftAnimationLocations(){
+//       let gradientLocations: [NSNumber] = []
+//        
+//        if animateStep
 //    
-//     var gradient: CAGradientLayer = CAGradientLayer.layer
-//    gradient.frame = self.view.frame;
-//    gradient.colors = @[(id)color1.CGColor, (id)color2.CGColor, (id)color2.CGColor];
-//    
-//    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"colors"];
-//    animation.toValue = @[(id)color3.CGColor, (id)color1.CGColor, (id)color1.CGColor];
-//    animation.duration = 3.0;
-//    animation.autoreverses = YES;
-//    animation.repeatCount = HUGE_VALF;
-//    
-//    [gradient addAnimation:animation forKey:@"colors"];
-//    
-//    [self.view.layer addSublayer:gradient];
 //    }
+    
+    //    func addGradientAnimation() {
+    //        var topColor = UIColor()
+    //        var bottomColor = UIColor()
+    //
+    //     var gradient: CAGradientLayer = CAGradientLayer.layer
+    //    gradient.frame = self.view.frame;
+    //    gradient.colors = @[(id)color1.CGColor, (id)color2.CGColor, (id)color2.CGColor];
+    //
+    //    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"colors"];
+    //    animation.toValue = @[(id)color3.CGColor, (id)color1.CGColor, (id)color1.CGColor];
+    //    animation.duration = 3.0;
+    //    animation.autoreverses = YES;
+    //    animation.repeatCount = HUGE_VALF;
+    //    
+    //    [gradient addAnimation:animation forKey:@"colors"];
+    //    
+    //    [self.view.layer addSublayer:gradient];
+    //    }
+ 
+ 
+ 
 }
