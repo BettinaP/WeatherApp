@@ -22,6 +22,7 @@
 		DE98B7241DC153AB000F3D04 /* SavedLocation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE98B7221DC153AB000F3D04 /* SavedLocation+CoreDataProperties.swift */; };
 		DE98B7251DC153AB000F3D04 /* SavedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE98B7231DC153AB000F3D04 /* SavedLocation.swift */; };
 		DEA4B42A1DAF0D5C00B4DE2E /* DailyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA4B4291DAF0D5B00B4DE2E /* DailyTableViewCell.swift */; };
+		DEC1BB661DF89E06002474EF /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC1BB651DF89E06002474EF /* Reachability.swift */; };
 		DEC1C9801DB9471100B6F5E2 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC1C97F1DB9471100B6F5E2 /* PageViewController.swift */; };
 		DEC1C9861DBACD9300B6F5E2 /* SavedLocationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC1C9851DBACD9300B6F5E2 /* SavedLocationsTableViewController.swift */; };
 		DEC1C9891DBC03E900B6F5E2 /* SavedLocationsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DEC1C9871DBC03E800B6F5E2 /* SavedLocationsModel.xcdatamodeld */; };
@@ -51,6 +52,7 @@
 		DE98B7221DC153AB000F3D04 /* SavedLocation+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SavedLocation+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DE98B7231DC153AB000F3D04 /* SavedLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedLocation.swift; sourceTree = "<group>"; };
 		DEA4B4291DAF0D5B00B4DE2E /* DailyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyTableViewCell.swift; sourceTree = "<group>"; };
+		DEC1BB651DF89E06002474EF /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		DEC1C97F1DB9471100B6F5E2 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		DEC1C9851DBACD9300B6F5E2 /* SavedLocationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedLocationsTableViewController.swift; sourceTree = "<group>"; };
 		DEC1C9881DBC03E900B6F5E2 /* SavedLocationsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SavedLocationsModel.xcdatamodel; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				DE559EE91DAC508D00E17299 /* ForecastDataStore.swift */,
+				DEC1BB651DF89E06002474EF /* Reachability.swift */,
 				DE559EDF1DAB2BBD00E17299 /* DarkSkyAPIClient.swift */,
 				DE559EE71DAC137F00E17299 /* LocationWeather.swift */,
 				DE16644D1DD687D400B48A94 /* DateExtension.swift */,
@@ -287,6 +290,7 @@
 				DE64994A1DB445ED00AC9903 /* HourlyCollectionViewCell.swift in Sources */,
 				DE559EEA1DAC508D00E17299 /* ForecastDataStore.swift in Sources */,
 				DE559ECC1DAB28F500E17299 /* AppDelegate.swift in Sources */,
+				DEC1BB661DF89E06002474EF /* Reachability.swift in Sources */,
 				DEC1C9801DB9471100B6F5E2 /* PageViewController.swift in Sources */,
 				DE559EE01DAB2BBE00E17299 /* DarkSkyAPIClient.swift in Sources */,
 				DE559EE81DAC137F00E17299 /* LocationWeather.swift in Sources */,

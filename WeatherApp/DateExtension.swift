@@ -8,6 +8,8 @@
 
 import UIKit
 
+let store = ForecastDataStore.sharedInstance
+
 extension NSDate {
     
     func getWeekOfDayString() -> String {
@@ -27,16 +29,18 @@ extension NSDate {
         return dateFormatter.stringFromDate(self)
     }
     
-    //    func getTimeByTimeZone() {
-    //        let dateFormatter = NSDateFormatter()
-    //        let iOSTimeZones = NSTimeZone.knownTimeZoneNames()
-    //
-    //        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-    //        dateFormatter.dateFormat = "h a"
-    //        dateFormatter.timeZone = NSTimeZone()
-    //
-    //        return dateFormatter.stringFromDate(self)
-    //    }
+        func getTimeByTimeZone() {
+            let dateFormatter = NSDateFormatter()
+            let iOSTimeZones = NSTimeZone.knownTimeZoneNames()
+            let IANATimeZone = store.currentTimezone
+            let time = store.currentTime
+            
+//            dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+//            dateFormatter.dateFormat = "h a"
+//            dateFormatter.timeZone = NSTimeZone()
+//    
+//            return dateFormatter.stringFromDate(self)
+        }
     
     
     
