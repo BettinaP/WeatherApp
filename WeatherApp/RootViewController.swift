@@ -70,6 +70,8 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         if store.savedLocations.count == 0 {
             store.fetchData()
         }
+    
+       presentInternetConnectivityAlert()
         
        pageController = self.storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as! UIPageViewController
        pageController.dataSource = self
@@ -122,6 +124,7 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         self.view.addSubview(pageController.view)
         self.pageController.didMoveToParentViewController(self)
         self.view.bringSubviewToFront(rootToolbar)
+        
         umbrellaReminderButton.action = #selector(umbrellaReminderButtonTapped)
         
     }
@@ -146,18 +149,20 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         store.getForecastResultsWithCompletion(self.latitude, searchedLongitude: self.longitude) { (success) in
             NSOperationQueue.mainQueue().addOperationWithBlock({
                 for (index, hour) in self.store.hourlyResults.enumerate() {
-                    if 0 <= index && index <= 24 {
+                    if index <= 12
+                   // if 0 <= index && index <= 24
+                    {
                     if hour.hourlyIcon == "drizzle" || hour.hourlyIcon == "rain" || hour.hourlyIcon == "sleet" {
-                        self.presentReminderSetMessage("Anticipate some rain today!")
+                        self.presentReminderSetMessage("It will rain at \(hour) today in \(self.store.currentTimezone)")
+                        //self.presentReminderSetMessage("Anticipate some rain today!")
                         //                            print("notification printing inside API call inside of switchOn bool: \(self.notification)")
                         self.umbrellaReminderButton.tintColor = UIColor.blueColor()
                         print("locationName in umbrella reminder: \(self.latitude), \(self.longitude)")
                         
+                    } else {
+                        self.presentReminderSetMessage("All clear!")
+                        self.umbrellaReminderButton.tintColor = UIColor.blackColor()
                     }
-                    //                    else {
-                    //                        self.presentReminderSetMessage("All clear!")
-                    //                        self.umbrellaReminderButton.tintColor = UIColor.blackColor()
-                    //                    }
                 }
                 }
             })
@@ -173,6 +178,24 @@ class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPa
         
     }
     
+    func presentInternetConnectivityAlert() {
+        
+        if Reachability.isConnectedToNetwork() == true {
+            print("Internet connection OK")
+        } else {
+            print("Internet connection FAILED")
+        }
+
+        if Reachability.isConnectedToNetwork() == true {
+            print("Internet connection OK")
+        } else {
+            let internetAlert = UIAlertController.init(title: "Internet Connection Failed", message: "Please check that you are connected to the internet.", preferredStyle: UIAlertControllerStyle.Alert)
+            internetAlert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            self.presentViewController(internetAlert, animated: true, completion: nil)
+            
+        }
+    
+    }
     
     func viewControllerAtIndex(index: Int) -> ForecastViewController {
         //

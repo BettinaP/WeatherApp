@@ -35,8 +35,10 @@ extension NSDate {
             let IANATimeZone = store.currentTimezone
             let time = store.currentTime
             
-//            dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-//            dateFormatter.dateFormat = "h a"
+            
+             dateFormatter.timeZone = NSTimeZone(name: IANATimeZone)
+             dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+            dateFormatter.dateFormat = "h a"
 //            dateFormatter.timeZone = NSTimeZone()
 //    
 //            return dateFormatter.stringFromDate(self)
