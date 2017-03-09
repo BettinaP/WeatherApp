@@ -54,8 +54,8 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="nOl-ZZ-QdH" firstAttribute="top" secondItem="a5S-oO-4cJ" secondAttribute="bottom" id="KDl-We-paP"/>
-                            <constraint firstItem="a5S-oO-4cJ" firstAttribute="leading" secondItem="5mO-ju-U8S" secondAttribute="leadingMargin" constant="-16" id="c3R-RS-fvf"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="a5S-oO-4cJ" secondAttribute="trailing" constant="-16" id="zxR-vg-jXf"/>
+                            <constraint firstItem="a5S-oO-4cJ" firstAttribute="leading" secondItem="5mO-ju-U8S" secondAttribute="leading" id="OH2-vC-7Jb"/>
+                            <constraint firstItem="a5S-oO-4cJ" firstAttribute="width" secondItem="5mO-ju-U8S" secondAttribute="width" id="bZk-lw-Aee"/>
                         </constraints>
                     </view>
                     <connections>
@@ -66,7 +66,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Juo-WP-j3n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1086" y="-574"/>
+            <point key="canvasLocation" x="1085.5999999999999" y="-574.36281859070471"/>
         </scene>
         <!--Forecast View Controller-->
         <scene sceneID="tne-QT-ifu">

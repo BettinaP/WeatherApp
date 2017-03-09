@@ -4,14 +4,13 @@
 //
 //  Created by Bettina on 10/25/16.
 //  Copyright © 2016 Bettina Prophete. All rights reserved.
-//
+
 
 import UIKit
 import CoreLocation
 
 class RootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, CLLocationManagerDelegate {
-
-//    
+ 
     @IBOutlet weak var rootToolbar: UIToolbar!
     @IBOutlet weak var rootAddBarButton: UIBarButtonItem!
     
