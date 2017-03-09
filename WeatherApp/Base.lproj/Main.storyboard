@@ -44,7 +44,7 @@
                                             <segue destination="TLP-PR-Po1" kind="show" identifier="forecastToSavedLocations" id="Zny-qr-gSX"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="289" style="plain" systemItem="fixedSpace" id="HZo-xq-6kE"/>
+                                    <barButtonItem width="309" style="plain" systemItem="fixedSpace" id="HZo-xq-6kE"/>
                                     <barButtonItem title="Item" image="protection2" id="St6-Sh-7FK" userLabel="Umbrella Bar Button Item">
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </barButtonItem>
@@ -81,7 +81,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1kj-en-Rmr" userLabel="backgroundCurrentView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="206"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="194"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gj2-j9-Vbp">
                                         <rect key="frame" x="98" y="24" width="172" height="28"/>
@@ -98,7 +98,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="248" verticalCompressionResistancePriority="751" text="current temp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="At0-Bk-b8A">
-                                        <rect key="frame" x="132" y="111" width="106" height="79"/>
+                                        <rect key="frame" x="132" y="111" width="106" height="67"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="106" id="cTQ-4L-Zui"/>
                                         </constraints>
@@ -199,7 +199,7 @@
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hR-5F-gUd">
                                 <rect key="frame" x="14" y="185" width="91" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -316,6 +316,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="xgr-37-pap" secondAttribute="trailing" constant="19" id="36w-3u-F8L"/>
                             <constraint firstItem="xgr-37-pap" firstAttribute="leading" secondItem="uDh-l6-Kmk" secondAttribute="trailing" constant="15" id="3NN-Ig-Off"/>
                             <constraint firstItem="ioX-Ed-Sup" firstAttribute="top" secondItem="miV-Xd-XUU" secondAttribute="bottom" constant="2" id="3cv-ZF-BmC"/>
+                            <constraint firstItem="miV-Xd-XUU" firstAttribute="top" secondItem="1kj-en-Rmr" secondAttribute="bottom" constant="15" id="3eq-bq-wH9"/>
                             <constraint firstItem="1kj-en-Rmr" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="At2-qv-tZx" userLabel="backgroundCurrentView.width = width"/>
                             <constraint firstItem="ioX-Ed-Sup" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-9" id="B54-L0-cZC"/>
                             <constraint firstItem="xgr-37-pap" firstAttribute="baseline" secondItem="gNI-Eu-hkM" secondAttribute="baseline" id="Cj8-8k-Cr0"/>
@@ -323,7 +324,7 @@
                             <constraint firstItem="gNI-Eu-hkM" firstAttribute="leading" secondItem="9hR-5F-gUd" secondAttribute="trailing" constant="8" id="Gt4-9A-lm1"/>
                             <constraint firstItem="miV-Xd-XUU" firstAttribute="leading" secondItem="ioX-Ed-Sup" secondAttribute="leading" id="Jou-HW-9kL"/>
                             <constraint firstItem="gNI-Eu-hkM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="113" id="KKN-Tg-mEZ"/>
-                            <constraint firstItem="9hR-5F-gUd" firstAttribute="top" secondItem="1kj-en-Rmr" secondAttribute="bottom" constant="-21" id="V5d-ST-92h"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ioX-Ed-Sup" secondAttribute="trailing" constant="-9" id="MqD-Tm-jlp"/>
                             <constraint firstItem="ioX-Ed-Sup" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XxS-5w-17G"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ioX-Ed-Sup" secondAttribute="bottom" constant="8" id="a1K-TR-f5U"/>
                             <constraint firstItem="9hR-5F-gUd" firstAttribute="leading" secondItem="ioX-Ed-Sup" secondAttribute="leading" constant="7" id="cXS-FE-bcr"/>
@@ -332,7 +333,6 @@
                             <constraint firstItem="1kj-en-Rmr" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="uAc-et-FJn"/>
                             <constraint firstItem="xgr-37-pap" firstAttribute="baseline" secondItem="uDh-l6-Kmk" secondAttribute="baseline" id="uUu-zy-dnz"/>
                             <constraint firstItem="HcV-ZF-19w" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vLU-E8-TJA"/>
-                            <constraint firstItem="1kj-en-Rmr" firstAttribute="bottom" secondItem="xgr-37-pap" secondAttribute="bottom" id="yYW-yQ-2ms"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">

@@ -14,7 +14,7 @@
  
  
  class ForecastViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, CLLocationManagerDelegate {
-   
+    
     
     @IBOutlet weak var backgroundToCurrentView: UIView!
     @IBOutlet weak var cityName: UILabel!
@@ -32,7 +32,7 @@
     var store = ForecastDataStore.sharedInstance
     var locationPassed = LocationWeather()
     
-   // let locationManager = CLLocationManager()
+    // let locationManager = CLLocationManager()
     //add search bar for location, then calculate timezone to show appropriate weather by time
     //have background be a cool image? look for an image api
     //fix current temp and icon and city constraints
@@ -60,7 +60,7 @@
                 
                 //                if self.store.currentTimezone.containsString("America/"){
                 self.currentTempLabel.text = "\(self.store.currentTemperature)°"
-               // self.initGradientAppearance()
+                // self.initGradientAppearance()
                 
                 //                var currentTempBackground = self.store.currentTemperature
                 //
@@ -101,17 +101,16 @@
     
     
     override func viewWillAppear(animated: Bool) {
-      super.viewWillAppear(true)
-      dailyTableView.addBorderTop(size: 1.0, color: UIColor.lightGrayColor())
-     backgroundToCurrentView.addBorderBottom(size: 1.0, color: UIColor.lightGrayColor())
-      
+        super.viewWillAppear(true)
+        //dailyTableView.addBorderTop(size: 1.0, color: UIColor.lightGrayColor())
+        //backgroundToCurrentView.addBorderBottom(size: 1.0, color: UIColor.lightGrayColor())
+        
     }
     
     
     func initGradientAppearance() {
         
         var background = CAGradientLayer()
-//        var background = CAGradientLayer().generateColor(.Sky)
         
         let currentTempBackground = self.store.currentTemperature
         
@@ -156,7 +155,7 @@
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return store.dailyResults.count 
+        return store.dailyResults.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -290,15 +289,15 @@
  ////            navigationBar.barTintColor = UIColor(cgColor: firstColor)
  //        } else if let color = gradient.colors as? [CGColor],
  //            let firstColor = color.first {
- //            
+ //
  //            view.backgroundColor = UIColor.clearColor()
- //            
+ //
  ////            view.backgroundColor = UIColor(cgColor: firstColor)
  //        }
  //    }
- //    
- //    
+ //
+ //
  //}
  //
-  
-  
+ 
+ 
