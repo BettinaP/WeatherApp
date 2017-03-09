@@ -70,7 +70,7 @@ class ForecastDataStore {
 //            //            self.savedLocations.append(forecast)
 //               
 //            }
-        
+         
             print("savedLocations count after call:\(self.savedLocations.count)")
             
             print("locationsResults count after call:\(self.locationResults.count)")

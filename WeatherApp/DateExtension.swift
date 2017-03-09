@@ -37,6 +37,7 @@ extension NSDate {
             
             
              dateFormatter.timeZone = NSTimeZone(name: IANATimeZone)
+           // dateFormatter.locale = NSLocale(localeIdentifier: <#T##String#>)
              dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
             dateFormatter.dateFormat = "h a"
 //            dateFormatter.timeZone = NSTimeZone()

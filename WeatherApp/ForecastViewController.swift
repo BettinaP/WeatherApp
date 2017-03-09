@@ -148,26 +148,6 @@
             background = CAGradientLayer().generateColor(.Sky)
             print("Default color")
         }
-//
-//        if currentTempBackground <= 95 {
-//            background.generateColor(.BlazingHot)
-//        } else if currentTempBackground >= 80 && currentTempBackground <= 94 {
-//            background.generateColor(.Hot)
-//        } else if currentTempBackground >= 70 && currentTempBackground <= 79 {
-//            background.generateColor(.Warm)
-//        } else if currentTempBackground >= 60 && currentTempBackground <= 69 {
-//            background.generateColor(.Warmish)
-//        } else if currentTempBackground >= 55 && currentTempBackground <= 60 {
-//            background.generateColor(.Coolish)
-//        } else if currentTempBackground >= 45 && currentTempBackground <= 54 {
-//            background.generateColor(.Cool)
-//        } else if currentTempBackground >= 25 && currentTempBackground <= 44 {
-//            background.generateColor(.Cold)
-//        } else if currentTempBackground >= 1 && currentTempBackground <= 24 {
-//            background.generateColor(.Freezing)
-//        } else if currentTempBackground >= -100 && currentTempBackground <= 0 {
-//            background.generateColor(.Frigid)
-//        }
         
         print("\(self.cityName.text) background temp after switch case in initgradient Forecast VC method: \(currentTempBackground)")
         background.frame = self.view.bounds
@@ -176,9 +156,7 @@
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return store.dailyResults.count
-        
+        return store.dailyResults.count 
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

@@ -98,7 +98,6 @@ class LocationWeather {
             let dailyWeather = DailyWeather(dailyIcon: dailyIcon, sunriseTime: sunriseTime, sunsetTime: sunsetTime, dailyTime: dailyTime,  dailyTempMin: dailyTempMin, dailyTempMax: dailyTempMax)
             
             
-            //trying to figure out how to exclude today's date from the weekday array since updates of current day will be displayed hourly
             
             let todaysDateString = today.getDayStamp()
             let dayOfWeekDateString = NSDate(timeIntervalSince1970:dailyTime).getDayStamp()
