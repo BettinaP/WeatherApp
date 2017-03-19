@@ -102,10 +102,8 @@
 		DE559ECA1DAB28F500E17299 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
-				DE559EE91DAC508D00E17299 /* ForecastDataStore.swift */,
+				DECCE8CB1E7F187600BE402C /* Model */,
 				DEC1BB651DF89E06002474EF /* Reachability.swift */,
-				DE559EDF1DAB2BBD00E17299 /* DarkSkyAPIClient.swift */,
-				DE559EE71DAC137F00E17299 /* LocationWeather.swift */,
 				DE16644D1DD687D400B48A94 /* DateExtension.swift */,
 				DE559ECB1DAB28F500E17299 /* AppDelegate.swift */,
 				DE559ECF1DAB28F500E17299 /* Main.storyboard */,
@@ -121,10 +119,9 @@
 		DEC1C98C1DBEA7FE00B6F5E2 /* SavedLocation */ = {
 			isa = PBXGroup;
 			children = (
-				DE98B7221DC153AB000F3D04 /* SavedLocation+CoreDataProperties.swift */,
-				DE98B7231DC153AB000F3D04 /* SavedLocation.swift */,
-				DEC1C9851DBACD9300B6F5E2 /* SavedLocationsTableViewController.swift */,
-				DEC1C98A1DBEA7F500B6F5E2 /* SavedLocationTableViewCell.swift */,
+				DECCE8CD1E7F18B100BE402C /* Model */,
+				DECCE8CE1E7F18F300BE402C /* View */,
+				DECCE8CF1E7F18FB00BE402C /* Controller */,
 				DEC1C9871DBC03E800B6F5E2 /* SavedLocationsModel.xcdatamodeld */,
 			);
 			name = SavedLocation;
@@ -133,14 +130,73 @@
 		DEC1C98D1DBEA81000B6F5E2 /* CurrentLocation */ = {
 			isa = PBXGroup;
 			children = (
+				DECCE8CA1E7F183B00BE402C /* View */,
+				DECCE8C81E7F182800BE402C /* Controller */,
+			);
+			name = CurrentLocation;
+			sourceTree = "<group>";
+		};
+		DECCE8C81E7F182800BE402C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
 				DE6ED6D41DBFF07D00AD1180 /* RootViewController.swift */,
 				DEE1B4E91DEE2013001DD22F /* UmbrellaReminderTableViewController.swift */,
 				DEC1C97F1DB9471100B6F5E2 /* PageViewController.swift */,
 				DE559ECD1DAB28F500E17299 /* ForecastViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		DECCE8CA1E7F183B00BE402C /* View */ = {
+			isa = PBXGroup;
+			children = (
 				DEA4B4291DAF0D5B00B4DE2E /* DailyTableViewCell.swift */,
 				DE6499491DB445ED00AC9903 /* HourlyCollectionViewCell.swift */,
 			);
-			name = CurrentLocation;
+			name = View;
+			sourceTree = "<group>";
+		};
+		DECCE8CB1E7F187600BE402C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DE559EE91DAC508D00E17299 /* ForecastDataStore.swift */,
+				DE559EDF1DAB2BBD00E17299 /* DarkSkyAPIClient.swift */,
+				DE559EE71DAC137F00E17299 /* LocationWeather.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		DECCE8CC1E7F189D00BE402C /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				DE98B7221DC153AB000F3D04 /* SavedLocation+CoreDataProperties.swift */,
+			);
+			name = Generated;
+			sourceTree = "<group>";
+		};
+		DECCE8CD1E7F18B100BE402C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DECCE8CC1E7F189D00BE402C /* Generated */,
+				DE98B7231DC153AB000F3D04 /* SavedLocation.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		DECCE8CE1E7F18F300BE402C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DEC1C98A1DBEA7F500B6F5E2 /* SavedLocationTableViewCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		DECCE8CF1E7F18FB00BE402C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DEC1C9851DBACD9300B6F5E2 /* SavedLocationsTableViewController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		F47C93B6F55BA5D6BBD43A6D /* Pods */ = {
