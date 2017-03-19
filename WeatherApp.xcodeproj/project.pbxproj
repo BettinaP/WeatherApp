@@ -102,16 +102,15 @@
 		DE559ECA1DAB28F500E17299 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				DECCE8D21E7F293F00BE402C /* Extensions */,
+				DECCE8D11E7F290100BE402C /* Launch */,
+				DECCE8D01E7F28F800BE402C /* Network */,
 				DECCE8CB1E7F187600BE402C /* Model */,
-				DEC1BB651DF89E06002474EF /* Reachability.swift */,
-				DE16644D1DD687D400B48A94 /* DateExtension.swift */,
-				DE559ECB1DAB28F500E17299 /* AppDelegate.swift */,
-				DE559ECF1DAB28F500E17299 /* Main.storyboard */,
-				DE559ED21DAB28F500E17299 /* Assets.xcassets */,
-				DE559ED41DAB28F500E17299 /* LaunchScreen.storyboard */,
-				DE559ED71DAB28F500E17299 /* Info.plist */,
 				DEC1C98D1DBEA81000B6F5E2 /* CurrentLocation */,
 				DEC1C98C1DBEA7FE00B6F5E2 /* SavedLocation */,
+				DE559ECF1DAB28F500E17299 /* Main.storyboard */,
+				DE559ED21DAB28F500E17299 /* Assets.xcassets */,
+				DE559ED71DAB28F500E17299 /* Info.plist */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -160,7 +159,6 @@
 			isa = PBXGroup;
 			children = (
 				DE559EE91DAC508D00E17299 /* ForecastDataStore.swift */,
-				DE559EDF1DAB2BBD00E17299 /* DarkSkyAPIClient.swift */,
 				DE559EE71DAC137F00E17299 /* LocationWeather.swift */,
 			);
 			name = Model;
@@ -177,8 +175,8 @@
 		DECCE8CD1E7F18B100BE402C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DECCE8CC1E7F189D00BE402C /* Generated */,
 				DE98B7231DC153AB000F3D04 /* SavedLocation.swift */,
+				DECCE8CC1E7F189D00BE402C /* Generated */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -197,6 +195,32 @@
 				DEC1C9851DBACD9300B6F5E2 /* SavedLocationsTableViewController.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		DECCE8D01E7F28F800BE402C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				DE559EDF1DAB2BBD00E17299 /* DarkSkyAPIClient.swift */,
+				DEC1BB651DF89E06002474EF /* Reachability.swift */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
+		DECCE8D11E7F290100BE402C /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				DE559ECB1DAB28F500E17299 /* AppDelegate.swift */,
+				DE559ED41DAB28F500E17299 /* LaunchScreen.storyboard */,
+			);
+			name = Launch;
+			sourceTree = "<group>";
+		};
+		DECCE8D21E7F293F00BE402C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DE16644D1DD687D400B48A94 /* DateExtension.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		F47C93B6F55BA5D6BBD43A6D /* Pods */ = {
